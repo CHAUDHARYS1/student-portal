@@ -1,34 +1,40 @@
 import React, { useState } from 'react';
+import authService from '../../authService';
 
-function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+const Login = () => {
 
-const handleLogin = () => {
-    // TODO: Implement login logic
-    console.log('Logging in with:', { username, password });
-};
-    
-    return (
-        <div>
-          <h2>Login</h2>
-          <form>
-            <label>
-              Username:
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <br />
-            <label>
-              Password:
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <br />
-            <button type="button" onClick={handleLogin}>
-              Login
-            </button>
-          </form>
-        </div>
-      );
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+
+    try {
+      const token = await authService.login(username, password);
+      console.log('Login successful. Token: ' + token);
+    } catch (error) {
+      console.log('Login failed. Error:' + error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button onClick={handleLogin}>Login</button>
+    </div>
+  )
+
 }
 
 export default Login;
