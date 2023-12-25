@@ -15,6 +15,17 @@ const authService = {
         }       
     },
 
+    registration: async (username, password) => {
+        try {
+            const response = await axios.post(`${API_URL}/register`, { username, password });
+            const { token } = response.data;
+            authService.setToken(token);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     setToken: (token) => {
         localStorage.setItem('token', token);
     },

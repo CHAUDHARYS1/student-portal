@@ -1,30 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Navigate, Routes } from 'react-router-dom';
-import Login from './components/Login/Login';
-import ProtectedRoute from './ProtectedRoute';
+import { AuthProvider } from './authContext';
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+import Login from './components/Login/Login';
+import Registration from './components/Registration/Registration';
+import ProtectedRoute from './ProtectedRoute';
 
 const Dashboard = () => {
   return <h2>Dashboard</h2>;
@@ -32,16 +13,16 @@ const Dashboard = () => {
 
 const App = () => {
   return (
-    <Router>
-      {/* <Switch> */}
-      <Routes>
-        <Route path="/login" component={Login} />
-        <ProtectedRoute path="/dashboard" component={Dashboard} />
-        {/* Add other routes here */}
-        <Navigate from="/" to="/login" />
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
+          {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/*" element={<Navigate to="/login" />} />
         </Routes>
-      {/* </Switch> */}
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

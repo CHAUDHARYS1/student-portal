@@ -139,3 +139,28 @@ exports.loginUser = async (req, res) => {
     }
   })(req, res);
 };
+
+// Register a new user
+exports.registerUser = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    // Add validation if needed
+    // Hash the password before saving it to the database
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user
+    const newUser = new User({ username, password: hashedPassword, role: 'student' });
+    await newUser.save();
+
+    // Generate a JWT token for the newly created user
+    const token = jwt.sign({ sub: newUser._id, username: newUser.username, role: newUser.role }, 'tisthesecret', { expiresIn: '1h' });
+
+    res.status(201).json({ user: newUser, token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error registering user', error: error.message });
+  }
+};
+
+// ... (other code)
