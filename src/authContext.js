@@ -6,13 +6,13 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
 
-  const login = (userData) => {
-    setUser(userData);
-  };
+//   const login = (userData) => {
+//     setUser(userData);
+//   };
 
-  const logout = () => {
-    setUser(null);
-  };
+//   const logout = () => {
+//     setUser(null);
+//   };
 
   const value = {
     currentUser,
