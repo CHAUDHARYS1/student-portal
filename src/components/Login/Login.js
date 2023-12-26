@@ -3,7 +3,7 @@ import { Form, Input, Button } from 'antd';
 import { Typography } from 'antd';
 
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useAuth } from '../../authContext';
+// import { useAuth } from '../../authContext';
 import authService from '../../authService';
 const { Title, Paragraph } = Typography;
 
@@ -11,14 +11,14 @@ const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  // const { login } = useAuth();
 
   const handleLogin = async () => {
 
     try {
       const response = await authService.login(username, password);
       console.log('Login successful', response.data);
-      login(response.data.user)
+      // login(response.data.user)
     } catch (error) {
       console.log('Login failed', error.message);
     }

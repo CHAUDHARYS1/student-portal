@@ -14,26 +14,27 @@ import HomePage from './pages/HomePage'
 
 
 const App = () => {
+  
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 
-    <AuthProvider>
-      <AppHeader />
-
+      {/* <AuthProvider> */}
       <Router>
+      <AppHeader />
         <Routes>
-          <Route path='/' Component={HomePage} element={<HomePage />}/>
+          <Route path='/' element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/*" element={<Navigate to="/login" />} />
+           {/* route to home page if endpoint is not found */}
+          <Route path="/*" element={<Navigate to="/" />} />
 
 
         </Routes>
       </Router>
       <AppFooter />
-    </AuthProvider>
+      {/* </AuthProvider> */}
     </div>
   );
 }
