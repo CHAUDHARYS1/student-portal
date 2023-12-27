@@ -1,29 +1,29 @@
 // authContext.js
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [user, setUser] = useState(null);
 
-//   const login = (userData) => {
-//     setUser(userData);
-//   };
-
-//   const logout = () => {
-//     setUser(null);
-//   };
-
-  const value = {
-    currentUser,
-    // Add other values/functions you want to provide
+  const login = (userData) => {
+    setUser(userData);
   };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  const logout = () => {
+    setUser(null);
+  };
+
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 const useAuth = () => {
     return useContext(AuthContext);
 };
 
-export { AuthProvider, useAuth, AuthContext };
+export { AuthProvider, useAuth};

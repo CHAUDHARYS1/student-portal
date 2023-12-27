@@ -9,20 +9,20 @@ const { Title } = Typography;
 const Dashboard = () => {
   // Dummy data for demonstration purposes
   const studentData = [
-    { key: '1', subject: 'Math', grade: 'A', attendance: 'Present' },
-    { key: '2', subject: 'English', grade: 'B', attendance: 'Absent' },
+    { key: 'Math', subject: 'Math', grade: 'A', attendance: 'Present' },
+    { key: 'English', subject: 'English', grade: 'B', attendance: 'Absent' },
     // Add more student data as needed
   ];
 
   const teacherData = [
-    { key: '1', studentName: 'John Doe', grade: '', attendance: '' },
-    { key: '2', studentName: 'Jane Doe', grade: '', attendance: '' },
+    { key: 'Student A', studentName: 'John Doe', grade: '', attendance: '' },
+    { key: 'Student B', studentName: 'Jane Doe', grade: '', attendance: '' },
     // Add more teacher data as needed
   ];
 
   const adminData = [
-    { key: '1', teacherName: 'Teacher A', students: ['Student A', 'Student B'] },
-    { key: '2', teacherName: 'Teacher B', students: ['Student C', 'Student D'] },
+    { key: 'Teacher A', teacherName: 'Teacher A', students: ['Student A', 'Student B'] },
+    { key: 'Teacher B', teacherName: 'Teacher B', students: ['Student C', 'Student D'] },
     // Add more admin data as needed
   ];
 
