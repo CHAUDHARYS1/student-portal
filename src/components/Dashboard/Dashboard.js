@@ -1,88 +1,39 @@
 // Dashboard.js
 import React from 'react';
-import { Tabs, Table, Input, Button, Space, Form, Typography } from 'antd';
-// import 'antd/dist/antd.css';
+import { Tabs, Typography } from 'antd';
+const { Title, Paragraph } = Typography;
 
-const { TabPane } = Tabs;
-const { Title } = Typography;
+
+const onChange = (key) => {
+  console.log(key);
+};
+
+const items = [
+  {
+    key: 'Students',
+    label: 'Tab 1',
+    children: 'Content of Tab 1',
+  },
+  {
+    key: 'Teachers',
+    label: 'Tab 2',
+    children: 'Content of Tab 2',
+  },
+  {
+    key: 'Admins',
+    label: 'Tab 3',
+    children: 'Content of Tab 3',
+  }
+];
 
 const Dashboard = () => {
-  // Dummy data for demonstration purposes
-  const studentData = [
-    { key: 'Math', subject: 'Math', grade: 'A', attendance: 'Present' },
-    { key: 'English', subject: 'English', grade: 'B', attendance: 'Absent' },
-    // Add more student data as needed
-  ];
-
-  const teacherData = [
-    { key: 'Student A', studentName: 'John Doe', grade: '', attendance: '' },
-    { key: 'Student B', studentName: 'Jane Doe', grade: '', attendance: '' },
-    // Add more teacher data as needed
-  ];
-
-  const adminData = [
-    { key: 'Teacher A', teacherName: 'Teacher A', students: ['Student A', 'Student B'] },
-    { key: 'Teacher B', teacherName: 'Teacher B', students: ['Student C', 'Student D'] },
-    // Add more admin data as needed
-  ];
-
-  const columnsStudent = [
-    { title: 'Subject', dataIndex: 'subject', key: 'subject' },
-    { title: 'Grade', dataIndex: 'grade', key: 'grade' },
-    { title: 'Attendance', dataIndex: 'attendance', key: 'attendance' },
-  ];
-
-  const columnsTeacher = [
-    { title: 'Student Name', dataIndex: 'studentName', key: 'studentName' },
-    { title: 'Grade', dataIndex: 'grade', key: 'grade', render: (_, record) => (
-      <Form.Item
-        name={`grade-${record.key}`}
-        rules={[{ required: true, message: 'Please enter a grade!' }]}
-      >
-        <Input />
-      </Form.Item>
-    )},
-    { title: 'Attendance', dataIndex: 'attendance', key: 'attendance', render: (_, record) => (
-      <Form.Item
-        name={`attendance-${record.key}`}
-        rules={[{ required: true, message: 'Please enter attendance!' }]}
-      >
-        <Input />
-      </Form.Item>
-    )},
-  ];
-
-  const columnsAdmin = [
-    { title: 'Teacher Name', dataIndex: 'teacherName', key: 'teacherName' },
-    { title: 'Assigned Students', dataIndex: 'students', key: 'students', render: students => (
-      <ul>
-        {students.map(student => (
-          <li key={student}>{student}</li>
-        ))}
-      </ul>
-    )},
-  ];
-
   return (
-    <div style={{ textAlign: 'center', margin: 'auto', maxWidth: '800px', padding: '20px', marginTop: '100px' }}>
+    <div style={{ maxWidth: '300px', margin: 'auto', marginTop: '100px' }}>
       <Title level={2}>Dashboard</Title>
-      <Tabs defaultActiveKey="1" centered>
-        <TabPane tab="Student Dashboard" key="1">
-          <Table dataSource={studentData} columns={columnsStudent} pagination={false} />
-        </TabPane>
-        <TabPane tab="Teacher Dashboard" key="2">
-          <Table dataSource={teacherData} columns={columnsTeacher} pagination={false} />
-          <Space>
-            <Button type="primary">Save Grades</Button>
-            <Button type="primary">Save Attendance</Button>
-          </Space>
-        </TabPane>
-        <TabPane tab="Admin Dashboard" key="3">
-          <Table dataSource={adminData} columns={columnsAdmin} pagination={false} />
-        </TabPane>
-      </Tabs>
+      <Paragraph>This is the dashboard. Here you can see your progress. </Paragraph>
+      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>
   );
-};
+}
 
 export default Dashboard;
