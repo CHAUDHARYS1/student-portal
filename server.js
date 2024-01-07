@@ -7,7 +7,7 @@ const passport = require('passport');
 require('./config/passport');
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 5000; 
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -28,6 +28,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
+app.get('/api/user', (req, res) => {
+  res.json(userData);
+})
 
 //middleware
 app.use(bodyParser.json());
