@@ -4,9 +4,11 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const cors = require('cors');
 require('./config/passport');
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 5000; 
 
 // Initialize Passport
@@ -16,17 +18,16 @@ app.use(passport.initialize());
 //Connect to MongoDB
 
 mongoose.connect('mongodb://localhost:27017/grading-engine', {
-    // deprecation warnings below
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    
+   
 });
 
 // Serve the React app
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+// });
 
 app.get('/api/user', (req, res) => {
   res.json(userData);
