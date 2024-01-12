@@ -105,7 +105,7 @@ exports.createStudentUser = async (req, res) => {
       userId: newUser._id,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      grade: req.body.grade,
+      gradeLevel: req.body.gradeLevel,
 
     });
     await newStudent.save();

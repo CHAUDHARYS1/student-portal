@@ -10,7 +10,23 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  grade: {
+  age: {
+    type: Number,
+    required: true
+  },
+  gender:{
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  phone:{
+    type: Number,
+    required: false
+  },
+  gradeLevel: {
     type: String,
     required: true
   },

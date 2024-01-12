@@ -8,7 +8,7 @@ import Registration from './components/Registration/Registration';
 // import ProtectedRoute from './ProtectedRoute';
 import AppHeader from './components/Header/Header';
 import Dashboard from './components/Dashboard/Dashboard';
-import AppFooter from './components/Footer/Footer';
+// import AppFooter from './components/Footer/Footer';
 import HomePage from './pages/HomePage'
 
 
@@ -33,7 +33,7 @@ const App = () => {
 
         </Routes>
       </Router>
-      <AppFooter />
+      {/* <AppFooter /> */}
       {/* </AuthProvider> */}
     </div>
   );
