@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 
+const { DateTime } = require("luxon");
+
 const teacherTable = () => {
 
     const [teachers, setTeachers] = useState([]);
@@ -81,7 +83,10 @@ const teacherTable = () => {
         }
     ];
 
-  
+
+    const dateModifier = () => {
+        DateTime.now().toLocaleString({ month: 'long', day: 'numeric' });
+    }
     const tableData = teachers.map(teacher => ({
         key: teacher._id,
         name: `${teacher.firstName} ${teacher.lastName}`,
@@ -94,8 +99,8 @@ const teacherTable = () => {
         salary: teacher.salary,
         employmentType: teacher.employmentType,
         subject: teacher.subjects.join(', '),
-        createdAt: teacher.created_at
-    }));
+        createdAt: DateTime.fromISO(teacher.created_at).toLocaleString({ month: 'short', day: 'numeric', year: 'numeric' }),
+      }));
 
     return (
         <Table columns={teacherDataTable} dataSource={tableData} />
