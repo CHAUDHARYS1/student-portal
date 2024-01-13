@@ -9,14 +9,15 @@ const teacherController = require('../controllers/teacherController');
 router.get('/', teacherController.getAllTeachers);
 
 // Get teacher by ID
+router.get('/:id', teacherController.getTeacherById);
 
 // Delete teacher by ID
-router.get('/:id', teacherController.deleteTeacherById);
+router.delete('/:id', teacherController.deleteTeacherById);
 
 // POST route for creating a new teacher
+router.post('/', teacherController.createTeacher);
 
 // GET teacher by email
-router.get('/teachers/:email', teacherController.findTeacherByEmail);
 
 
 module.exports = router;
