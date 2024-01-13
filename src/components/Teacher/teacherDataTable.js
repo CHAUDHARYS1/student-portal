@@ -83,21 +83,21 @@ const teacherTable = () => {
         }
     ];
 
-
-    const dateModifier = () => {
-        DateTime.now().toLocaleString({ month: 'long', day: 'numeric' });
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
+   
     const tableData = teachers.map(teacher => ({
         key: teacher._id,
         name: `${teacher.firstName} ${teacher.lastName}`,
         email: teacher.email,
         phone: teacher.phone,
         age: teacher.age,
-        gender: teacher.gender,
-        degree: teacher.degree,
-        experience: teacher.experience,
-        salary: teacher.salary,
-        employmentType: teacher.employmentType,
+        gender: capitalizeFirstLetter(teacher.gender),
+        degree: capitalizeFirstLetter(teacher.degree),
+        experience: teacher.experience + ' years',
+        salary: '$'+ teacher.salary,
+        employmentType: capitalizeFirstLetter(teacher.employmentType),
         subject: teacher.subjects.join(', '),
         createdAt: DateTime.fromISO(teacher.created_at).toLocaleString({ month: 'short', day: 'numeric', year: 'numeric' }),
       }));
