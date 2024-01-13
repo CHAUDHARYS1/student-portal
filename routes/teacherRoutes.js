@@ -10,6 +10,8 @@ router.get('/', teacherController.getAllTeachers);
 
 // Get teacher by ID
 
+// Delete teacher by ID
+router.get('/:id', teacherController.deleteTeacherById);
 
 // POST route for creating a new teacher
 
