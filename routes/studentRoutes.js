@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const studentController = require('../controllers/studentController');
 
-// Get all students
+// Get all students -- done
 router.get('/', studentController.getAllStudents);
 
 // Get student by ID
@@ -17,7 +17,7 @@ router.post('/', studentController.createStudent);
 // Delete student by ID
 router.delete('/:id', studentController.deleteStudentById);
 
-// Update student by ID
+// Update student by ID - done
 router.put('/:id', studentController.updateStudentById);
 // Add other routes as needed
 
