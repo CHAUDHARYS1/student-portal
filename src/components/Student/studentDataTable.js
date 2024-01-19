@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Table, Modal, Form, Input, Button, FloatButton, Tooltip } from "antd";
-import { EditOutlined, DeleteOutlined, CustomerServiceOutlined, LogoutOutlined, ExclamationCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { Table, Modal, Form, Input, Button,Select, InputNumber } from "antd";
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+const { Option } = Select;
 
 const { Item } = Form;
 const { confirm } = Modal;
@@ -141,10 +142,7 @@ const StudentTable = () => {
       title: 'Last Name',
       dataIndex: 'lastName'
     },
-    {
-      title: 'Grade',
-      dataIndex: 'grade'
-    },
+
     {
       title: 'Age',
       dataIndex: 'age'
@@ -180,14 +178,13 @@ const StudentTable = () => {
     key: student._id,
     firstName: student.firstName,
     lastName: student.lastName,
-    grade: student.gradeLevel,
     age: student.age,
     gender: student.gender,
     email: student.email,
     phone: student.phone
   }));
 
-  
+
 
   const handleAddNewStudent = () => {
     setIsAddNewStudentModalVisible(true);
@@ -195,6 +192,7 @@ const StudentTable = () => {
 
   const handleSaveNewStudent = async () => {
     try {
+
       // Validate form values and make sure it's not empty
       if (!formRef.current?.getFieldsValue()) {
         console.error('Form values are empty');
@@ -237,15 +235,11 @@ const StudentTable = () => {
       // Handle error
     }
   };
-  
+
 
   return (
     <>
-      <FloatButton.Group trigger="click" type="primary" style={{ right: 24 }} icon={<CustomerServiceOutlined />}>
-        <Tooltip title="Logout">
-          <FloatButton icon={<LogoutOutlined />} />
-        </Tooltip>
-      </FloatButton.Group>
+
 
       <Table columns={[...studentDataTable]} dataSource={tableData} rowKey={(student) => student.key} />
 
@@ -324,15 +318,19 @@ const StudentTable = () => {
         Add new Student
       </Button>
 
-      <Modal
-        title="Add New Student"
-        open={isAddNewStudentModalVisible}
-        onCancel={() => setIsAddNewStudentModalVisible(false)}
-        onOk={handleSaveNewStudent}
-        footer={null}
-      >
+      <Modal title="Add New Student" open={isAddNewStudentModalVisible} onCancel={() => setIsAddNewStudentModalVisible(false)} onOk={handleSaveNewStudent} footer={null}>
+
+        <p>Add a new student to the database.</p>
+
+        {/* TODO: \
+          - First and last name should be on the same row
+          - Add validation to all fields
+          - Make sure phone and age field only accepts numbers
+          - create a drop down choice for gender. Male or Female
+          -  
+        */}
         {/* Your form for adding a new student */}
-        <Form layout="vertical" ref={formRef}>
+        <Form ref={formRef} onFinish={handleSaveNewStudent}>
           {/* ... form fields for new student ... */}
           <Form.Item hasFeedback label="First Name" name="firstName" validateDebounce={1000}
             rules={[
@@ -348,47 +346,33 @@ const StudentTable = () => {
             ]}>
             <Input />
           </Form.Item>
+          <Item hasFeedback label="Email" name="email" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the email address' }, { type: 'email', message: 'Please enter a valid email address' },]}>
+            <Input />
+          </Item>
+          <Form.Item hasFeedback label="Age" name="age" validateDebounce={1000} rules={[{ required: true, message: 'Please enter age' }]}>
+            <InputNumber />
+          </Form.Item>
 
-          <Form.Item hasFeedback label="Age" name="age" validateDebounce={1000}>
-            <Input />
-          </Form.Item>
-          <Form.Item hasFeedback label="Grade" name="grade" validateDebounce={1000}>
-            <Input />
-          </Form.Item>
-          <Form.Item hasFeedback label="Gender" name="gender" validateDebounce={1000}>
-            <Input />
-          </Form.Item>
-          <Item hasFeedback
-            label="Email"
-            name="email"
-            validateDebounce={1000}
-            rules={[
-              { required: true, message: 'Please enter the email address' },
-              { type: 'email', message: 'Please enter a valid email address' },
-            ]}
-          >
+          <Item hasFeedback label="Phone" name="phone" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the phone number' }, { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },]}>
             <Input />
           </Item>
-          <Form.Item hasFeedback label="Grade Level" name="gradeLevel" validateDebounce={1000}>
-            <Input />
+
+          <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Please select gender' },]}>
+            <Select placeholder="Select from option below" >
+              <Option value="Male">Male</Option>
+              <Option value="Female">Female</Option>
+              <Option value="Other">Other</Option>
+            </Select>
           </Form.Item>
-          <Item hasFeedback
-            label="Phone"
-            name="phone"
-            validateDebounce={1000}
-            rules={[
-              { required: true, message: 'Please enter the phone number' },
-              { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },
-            ]}
-          >
-            <Input />
-          </Item>
-          <Button key="cancel" onClick={() => setIsAddNewStudentModalVisible(false)}>
-            Cancel
-          </Button>
-          <Button key="save" type="primary" onClick={handleSaveNewStudent}>
-            Save
-          </Button>
+
+          <Form.Item hasFeedback label="Grade Level" name="gradeLevel" validateDebounce={1000} rules={[{ required: true, message: "Please enter student's grade" }]}>
+            <InputNumber />
+          </Form.Item>
+
+
+          <Button key="cancel" onClick={() => setIsAddNewStudentModalVisible(false)}>Cancel</Button>
+          <Button key="save" type="primary" htmlType="submit">Save</Button>
+          
         </Form>
       </Modal>
     </>

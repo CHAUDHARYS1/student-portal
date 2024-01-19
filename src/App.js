@@ -1,7 +1,7 @@
 // import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Navigate, Routes } from 'react-router-dom';
-import { AuthProvider } from './authContext';
+// import { AuthProvider } from './authContext';
 
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
@@ -11,13 +11,13 @@ import Dashboard from './components/Dashboard/Dashboard';
 // import AppFooter from './components/Footer/Footer';
 import HomePage from './pages/HomePage'
 
-
+import { FloatButton, Tooltip} from "antd";
+import {LogoutOutlined, EllipsisOutlined  } from "@ant-design/icons";
 
 const App = () => {
   
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-
+    <div >
       {/* <AuthProvider> */}
       <Router>
       <AppHeader />
@@ -35,7 +35,14 @@ const App = () => {
       </Router>
       {/* <AppFooter /> */}
       {/* </AuthProvider> */}
+    
+      <FloatButton.Group trigger="click" type="primary" style={{ right: 24 }} icon={<EllipsisOutlined />}>
+        <Tooltip title="Logout">
+          <FloatButton icon={<LogoutOutlined />} />
+        </Tooltip>
+      </FloatButton.Group>
     </div>
+    
   );
 }
 
