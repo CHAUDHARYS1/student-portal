@@ -136,16 +136,23 @@ const StudentTable = () => {
   const studentDataTable = [
     {
       title: 'First Name',
-      dataIndex: 'firstName'
+      dataIndex: 'firstName',
+      filters: students.map(student => ({ text: student.firstName, value: student.firstName })),
+      filterSearch: true,
+      onFilter: (value, record) => record.firstName.includes(value),
     },
     {
       title: 'Last Name',
-      dataIndex: 'lastName'
+      dataIndex: 'lastName',
+      filters: students.map(student => ({ text: student.lastName, value: student.lastName })),
+      filterSearch: true,
+      onFilter: (value, record) => record.lastName.includes(value),
     },
 
     {
       title: 'Age',
-      dataIndex: 'age'
+      dataIndex: 'age',
+      sorter: (a, b) => a.age - b.age,
     },
     {
       title: 'Gender',
@@ -154,6 +161,9 @@ const StudentTable = () => {
     {
       title: 'Email',
       dataIndex: 'email',
+      filters: students.map(student => ({ text: student.email, value: student.email })),
+      filterSearch: true,
+      onFilter: (value, record) => record.email.includes(value),
     },
     {
       title: 'Phone',
@@ -164,6 +174,7 @@ const StudentTable = () => {
       render: (text, record) => (
         <Button onClick={() => handleEdit(record)}><EditOutlined /></Button>
       ),
+      width: '10px'
     },
     {
       title: 'Delete',

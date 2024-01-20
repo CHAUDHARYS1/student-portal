@@ -41,8 +41,6 @@ const Dashboard = () => {
       </Row>
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>
-
-
   );
 }
 
