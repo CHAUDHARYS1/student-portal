@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Table, Modal, Form, Input, Button,Select, InputNumber } from "antd";
+import { Table, Modal, Form, Input, Button, Select, InputNumber } from "antd";
 import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
-const { Option } = Select;
 
+
+const { Option } = Select;
 const { Item } = Form;
 const { confirm } = Modal;
 
@@ -109,9 +110,6 @@ const StudentTable = () => {
 
   const handleDeleteConfirmed = async (student) => {
     try {
-
-
-
       if (!student || !student.key) {
         return;
       }
@@ -168,6 +166,11 @@ const StudentTable = () => {
     {
       title: 'Phone',
       dataIndex: 'phone',
+      render: (text, record) => {
+        const phoneNumber = record.phone.toString();
+        const formattedPhone = `(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}`;
+        return <span>{formattedPhone}</span>;
+      },
     },
     {
       title: 'Edit',
@@ -383,7 +386,7 @@ const StudentTable = () => {
 
           <Button key="cancel" onClick={() => setIsAddNewStudentModalVisible(false)}>Cancel</Button>
           <Button key="save" type="primary" htmlType="submit">Save</Button>
-          
+
         </Form>
       </Modal>
     </>
