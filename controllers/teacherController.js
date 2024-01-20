@@ -42,25 +42,6 @@ const deleteTeacherById = async (req, res) => {
 
 
 
-exports.createStudent = async (req, res) => {
-  try {
-    const newStudent = new Student(req.body);
-
-    // add validation so the same student with the same name cannot be added
-    const existingStudent = await Student.findOne({ firstName: newStudent.firstName, lastName: newStudent.lastName });
-    if (existingStudent) {
-      return res.status(400).json({ message: 'A student with the same name already exists' });
-    }
-  
-    const savedStudent = await newStudent.save();
-    res.status(201).json(savedStudent);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-}
-
-
 // Create a new teacher
 const createTeacher = async (req, res) => {
   try {
@@ -79,14 +60,27 @@ const createTeacher = async (req, res) => {
   }
 }
 
-module.exports = {
-  createTeacher
+// Update a teacher by ID
+const updateTeacherById = async (req, res) => {
+  try {
+    const updatedTeacher = await Teacher.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedTeacher) {
+      return res.status(404).json({ message: 'Teacher not found' });
+    }
+    res.json(updatedTeacher);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
+
+
 
 
 module.exports = {
   getAllTeachers,
   deleteTeacherById,
   getTeacherById,
-  createTeacher
+  createTeacher,
+  updateTeacherById
 }

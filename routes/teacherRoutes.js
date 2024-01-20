@@ -17,7 +17,8 @@ router.delete('/:id', teacherController.deleteTeacherById);
 // POST route for creating a new teacher
 router.post('/', teacherController.createTeacher);
 
-// GET teacher by email
+// PUT route for updating a teacher by ID
+router.put('/:id', teacherController.updateTeacherById);
 
 
 module.exports = router;
