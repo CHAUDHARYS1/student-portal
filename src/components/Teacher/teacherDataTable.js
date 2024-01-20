@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Table, Modal, Form, Input, Button, Select, InputNumber } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { DateTime } = require("luxon");
 const { Option } = Select;
-
+const { confirm } = Modal;
 
 const TeacherTable = () => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editedTeacher, setEditingTeacher] = useState(null);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [selectedTeacherToDelete] = useState(null);
+
   const [teachers, setTeachers] = useState([]);
 
 
@@ -92,6 +95,42 @@ const TeacherTable = () => {
     }
   };
 
+  const handleDelete = (teacher) => {
+    confirm({
+      title: 'Confirm Deletion',
+      icon: <ExclamationCircleOutlined />,
+      content: `Are you sure you want to delete ${teacher.firstName}?`,
+      onOk() {
+        // Send a request to delete the teacher data
+        handleDeleteConfirmed(teacher);
+      },
+      onCancel() { },
+    })
+  }
+
+  const handleDeleteConfirmed = async (teacher) => {
+    try{
+      if (!teacher || !teacher.key) {
+        return;
+      }
+
+      const response = await fetch(`http://localhost:5000/api/teachers/${teacher.key}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        console.error('Failed to delete teacher');
+        // Handle error
+      } else {
+        const updatedData = await fetch('http://localhost:5000/api/teachers').then((res) => res.json());
+        setTeachers(updatedData);
+      }
+      } catch (error) {
+        console.error('Error deleting teacher:', error);
+      }
+    }
+  
+
   const teacherDataTable = [
     {
       title: 'First Name',
@@ -166,6 +205,12 @@ const TeacherTable = () => {
       ),
       width: '10px'
     },
+    {
+      title: 'Delete',
+      render: (text, record) => (
+        <Button onClick={() => handleDelete(record)}><DeleteOutlined /></Button>
+      ),
+    }
   ];
 
   const capitalizeFirstLetter = (string) => {
@@ -195,12 +240,6 @@ const TeacherTable = () => {
       <Modal title="Edit Teacher" open={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={null}>
 
         <p>Here is {editedTeacher?.firstName}'s {editedTeacher?.lastName} information. Update any part of the information using the form below.</p>
-{/* 
-       
-          salary: formValues.salary,
-          employmentType: formValues.employmentType,
-          subjects: formValues.subjects, */}
-
 
         <Form layout="vertical" onFinish={handleSave} ref={formRef}>
           <Form.Item hasFeedback label="First Name" name="firstName" validateDebounce={1000} initialValue={editedTeacher?.firstName}  rules={[
@@ -251,6 +290,10 @@ const TeacherTable = () => {
           </Button>
         </Form>
       </Modal>
+      <Modal title="Confirm Deletion" open={isDeleteModalVisible} onCancel={() => setIsDeleteModalVisible(false)} onOk={handleDeleteConfirmed(selectedTeacherToDelete)}>
+        <p>Are you sure you want to delete {selectedTeacherToDelete?.firstName} record from the database? This action cannot be undone. </p>
+      </Modal>
+
     </>
   )
 };
