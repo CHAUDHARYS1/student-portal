@@ -166,8 +166,6 @@ const TeacherTable = () => {
     {
       title: 'Age',
       dataIndex: 'age',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.age - b.age,
     },
     {
       title: 'Gender',
@@ -180,14 +178,10 @@ const TeacherTable = () => {
     {
       title: 'Experience',
       dataIndex: 'experience',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.experience - b.experience,
     },
     {
       title: 'Salary (USD) $',
       dataIndex: 'salary',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => a.salary - b.salary,
     },
     {
       title: 'Employment Type',
@@ -293,74 +287,89 @@ const TeacherTable = () => {
       options: [
         { label: 'Algebra', value: 'Algebra' },
         { label: 'Calculus', value: 'Calculus' },
+        { label: 'Geometry', value: 'Geometry' },
+        { label: 'Trigonometry', value: 'Trigonometry' },
+        { label: 'Statistics', value: 'Statistics' },
+        { label: 'Probability', value: 'Probability' },
+        { label: 'Differential Equations', value: 'Differential Equations' },
+        { label: 'Linear Algebra', value: 'Linear Algebra' },
+        { label: 'Applied Mathematics', value: 'Applied Mathematics' },
+        { label: 'Applied Physics', value: 'Applied Physics' },
+        { label: 'Applied Chemistry', value: 'Applied Chemistry' },
+        { label: 'Applied Earth Science', value: 'Applied Earth Science' },
+        { label: 'Applied Biology', value: 'Applied Biology' },
       ],
     },
     {
-      value: 'English Language Arts',
+      label: 'English',
+      value: 'English',
+      options: [
+        { label: 'English I', value: 'English I' },
+        { label: 'English II', value: 'English II' },
+        { label: 'English III', value: 'English III' },
+        { label: 'English Literature', value: 'English Literature' },
+        { label: 'English Language Arts', value: 'English Language Arts' },
+        { label: 'English Composition', value: 'English Composition' },
+        { label: 'English Grammar', value: 'English Grammar' },
+        { label: 'Creative Writing', value: 'Creative Writing' },
+        { label: 'Literature', value: 'Literature' },
+        { label: 'Writing', value: 'Writing' },
+        { label: 'Grammar', value: 'Grammar' },
+        { label: 'Oral Communication', value: 'Oral Communication' },
+        { label: 'Written Communication', value: 'Written Communication' },
+        { label: 'Public Speaking', value: 'Public Speaking' },
+        { label: 'Speech Communication', value: 'Speech Communication' },
+
+      ],
     },
     {
+      label: 'Science',
       value: 'Science',
+      options: [
+        { label: 'Science I', value: 'Science I' },
+        { label: 'Science II', value: 'Science II' },
+        { label: 'Science III', value: 'Science III' },
+        { label: 'Computer Science', value: 'Computer Science' },
+        { label: 'Physical Science', value: 'Physical Science' },
+        { label: 'Chemistry', value: 'Chemistry' },
+        { label: 'Biology', value: 'Biology' },
+        { label: 'Environmental Science', value: 'Environmental Science' },
+        { label: 'Physics', value: 'Physics' },
+        { label: 'Earth Science', value: 'Earth Science' },
+
+      ],
     },
     {
-      value: 'Social Studies',
-    },
-    {
-      value: 'Computer Science',
-    },
-    {
+      label: 'History',
       value: 'History',
-    },
-    {
-      value: 'Physical Education',
-    },
-    {
-      value: 'Music',
-    },
-    {
-      value: 'Art',
-    },
-    {
-      value: 'Dance',
-    },
-    {
-      value: 'Health',
-    },
-    {
-      value: 'Physical Science',
-    },
-    {
-      value: 'Chemistry',
-    },
-    {
-      value: 'Biology',
-    },
-    {
-      value: 'Geography',
-    },
-    {
-      value: 'Environmental Science',
-    },
-    {
-      value: 'Business',
-    },
-    {
-      value: 'English Literature',
+      options: [
+        { label: 'History I', value: 'History I' },
+        { label: 'History II', value: 'History II' },
+        { label: 'History III', value: 'History III' },
+        { label: 'Geography', value: 'Geography' },
+        { label: 'Political Science', value: 'Political Science' },
+        { label: 'Sociology', value: 'Sociology' },
+        { label: 'Anthropology', value: 'Anthropology' },
+        { label: 'Social Studies', value: 'Social Studies' },
+      ],
     },
 
+    {
+      label: 'Others',
+      value: 'Others',
+      options: [
+        { label: 'Arts', value: 'Arts' },
+        { label: 'Music', value: 'Music' },
+        { label: 'Physical Education', value: 'Physical Education' },
+        { label: 'Dance', value: 'Dance' },
+        { label: 'Health', value: 'Health' },
+        { label: 'Business', value: 'Business' },
+        { label: 'Economics', value: 'Economics' },
+        { label: 'Finance', value: 'Finance' },
 
-    {
-      value: 'Economics',
-    },
-    {
-      value: 'Finance',
-    },
-    {
-      value: 'Trigonometry',
-    },
-    {
-      value: 'Other',
+      ]
     }
-
+   
   ];
 
 
@@ -519,12 +528,6 @@ const TeacherTable = () => {
               options={subjectOptions}
             />
           </Form.Item>
-
-          <Form.Item hasFeedback label="Grade Level" name="gradeLevel" validateDebounce={1000} rules={[{ required: true, message: "Please enter Teacher's grade" }]}>
-            <InputNumber />
-          </Form.Item>
-
-
           <Button key="cancel" onClick={() => setIsAddNewTeacherModalVisible(false)}>Cancel</Button>
           <Button key="save" type="primary" htmlType="submit">Save</Button>
 
