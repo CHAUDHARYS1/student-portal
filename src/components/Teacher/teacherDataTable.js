@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Table, Modal, Form, Input, Button, Select, InputNumber } from "antd";
+import { Table, Modal, Form, Input, Button, Select, InputNumber, Tag } from "antd";
 import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 const { DateTime } = require("luxon");
@@ -190,7 +190,6 @@ const TeacherTable = () => {
     {
       title: 'Subject',
       dataIndex: 'subject',
-      defaultSortOrder: 'descend',
     },
 
     {
@@ -224,7 +223,7 @@ const TeacherTable = () => {
     experience: teacher.experience + ' years',
     salary: teacher.salary,
     employmentType: capitalizeFirstLetter(teacher.employmentType),
-    subject: teacher.subjects.join(', '),
+    subject: teacher.subjects.map(subject => <Tag color="blue">{subject}</Tag>),
     createdAt: DateTime.fromISO(teacher.created_at).toLocaleString({ month: 'short', day: 'numeric', year: 'numeric' }),
   }));
   const handleAddNewTeacher = () => {
