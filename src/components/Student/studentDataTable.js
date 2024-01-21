@@ -360,16 +360,16 @@ const StudentTable = () => {
             ]}>
             <Input />
           </Form.Item>
-          <Item hasFeedback label="Email" name="email" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the email address' }, { type: 'email', message: 'Please enter a valid email address' },]}>
+          <Form.Item hasFeedback label="Email" name="email" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the email address' }, { type: 'email', message: 'Please enter a valid email address' },]}>
             <Input />
-          </Item>
+          </Form.Item>
           <Form.Item hasFeedback label="Age" name="age" validateDebounce={1000} rules={[{ required: true, message: 'Please enter age' }]}>
             <InputNumber />
           </Form.Item>
 
-          <Item hasFeedback label="Phone" name="phone" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the phone number' }, { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },]}>
+          <Form.Item hasFeedback label="Phone" name="phone" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the phone number' }, { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },]}>
             <Input />
-          </Item>
+          </Form.Item>
 
           <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Please select gender' },]}>
             <Select placeholder="Select from option below" >

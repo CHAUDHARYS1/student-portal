@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Table, Modal, Form, Input, Button, Select, InputNumber } from "antd";
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 const { DateTime } = require("luxon");
 const { Option } = Select;
@@ -12,6 +12,7 @@ const TeacherTable = () => {
   const [editedTeacher, setEditingTeacher] = useState(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [selectedTeacherToDelete] = useState(null);
+  const [isAddNewTeacherModalVisible, setIsAddNewTeacherModalVisible] = useState(false);
 
   const [teachers, setTeachers] = useState([]);
 
@@ -109,7 +110,7 @@ const TeacherTable = () => {
   }
 
   const handleDeleteConfirmed = async (teacher) => {
-    try{
+    try {
       if (!teacher || !teacher.key) {
         return;
       }
@@ -125,11 +126,11 @@ const TeacherTable = () => {
         const updatedData = await fetch('http://localhost:5000/api/teachers').then((res) => res.json());
         setTeachers(updatedData);
       }
-      } catch (error) {
-        console.error('Error deleting teacher:', error);
-      }
+    } catch (error) {
+      console.error('Error deleting teacher:', error);
     }
-  
+  }
+
 
   const teacherDataTable = [
     {
@@ -197,7 +198,7 @@ const TeacherTable = () => {
       dataIndex: 'subject',
       defaultSortOrder: 'descend',
     },
-   
+
     {
       title: 'Edit',
       render: (text, record) => (
@@ -232,6 +233,137 @@ const TeacherTable = () => {
     subject: teacher.subjects.join(', '),
     createdAt: DateTime.fromISO(teacher.created_at).toLocaleString({ month: 'short', day: 'numeric', year: 'numeric' }),
   }));
+  const handleAddNewTeacher = () => {
+    setIsAddNewTeacherModalVisible(true);
+  };
+
+  const handleSaveNewTeacher = async () => {
+    try {
+
+      // Validate form values and make sure it's not empty
+      if (!formRef.current?.getFieldsValue()) {
+        console.error('Form values are empty');
+        return;
+      }
+
+      // Get form values
+      const formValues = formRef.current?.getFieldsValue();
+
+      // Send a request to create a new Teacher
+      const response = await fetch('http://localhost:5000/api/teachers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // Include the form values for the new Teacher
+          firstName: formValues.firstName,
+          lastName: formValues.lastName,
+          email: formValues.email,
+          phone: formValues.phone,
+          age: formValues.age,
+          gender: formValues.gender,
+          degree: formValues.degree,
+          experience: formValues.experience,
+          salary: formValues.salary,
+          employmentType: formValues.employmentType,
+          subjects: formValues.subjects,
+          // Add other attributes as needed
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Failed to create a new Teacher');
+        // Handle error
+      } else {
+        const newTeacherData = await response.json();
+        setTeachers([...teachers, newTeacherData]);
+        setIsAddNewTeacherModalVisible(false);
+        formRef.current?.resetFields(); // Clear the form fields
+      }
+    } catch (error) {
+      console.error('Error creating a new Teacher:', error);
+      // Handle error
+    }
+  };
+  const subjectOptions = [
+    {
+      label: 'Mathematics',
+      value: 'Mathematics',
+      options: [
+        { label: 'Algebra', value: 'Algebra' },
+        { label: 'Calculus', value: 'Calculus' },
+      ],
+    },
+    {
+      value: 'English Language Arts',
+    },
+    {
+      value: 'Science',
+    },
+    {
+      value: 'Social Studies',
+    },
+    {
+      value: 'Computer Science',
+    },
+    {
+      value: 'History',
+    },
+    {
+      value: 'Physical Education',
+    },
+    {
+      value: 'Music',
+    },
+    {
+      value: 'Art',
+    },
+    {
+      value: 'Dance',
+    },
+    {
+      value: 'Health',
+    },
+    {
+      value: 'Physical Science',
+    },
+    {
+      value: 'Chemistry',
+    },
+    {
+      value: 'Biology',
+    },
+    {
+      value: 'Geography',
+    },
+    {
+      value: 'Environmental Science',
+    },
+    {
+      value: 'Business',
+    },
+    {
+      value: 'English Literature',
+    },
+
+
+    {
+      value: 'Economics',
+    },
+    {
+      value: 'Finance',
+    },
+    {
+      value: 'Trigonometry',
+    },
+    {
+      value: 'Other',
+    }
+
+  ];
+
+
 
   return (
     <>
@@ -242,45 +374,45 @@ const TeacherTable = () => {
         <p>Here is {editedTeacher?.firstName}'s {editedTeacher?.lastName} information. Update any part of the information using the form below.</p>
 
         <Form layout="vertical" onFinish={handleSave} ref={formRef}>
-          <Form.Item hasFeedback label="First Name" name="firstName" validateDebounce={1000} initialValue={editedTeacher?.firstName}  rules={[
-              { required: true, message: 'Please enter first name' },
-              { type: 'string', message: 'Please enter a valid first name' }] }>
+          <Form.Item hasFeedback label="First Name" name="firstName" validateDebounce={1000} initialValue={editedTeacher?.firstName} rules={[
+            { required: true, message: 'Please enter first name' },
+            { type: 'string', message: 'Please enter a valid first name' }]}>
             <Input />
           </Form.Item>
-          <Form.Item hasFeedback label="Last Name" name="lastName" validateDebounce={1000} initialValue={editedTeacher?.lastName}  rules={[
-              { required: true, message: 'Please enter last name' },
-              { type: 'string', message: 'Please enter a valid last name' },
-            ]}>
+          <Form.Item hasFeedback label="Last Name" name="lastName" validateDebounce={1000} initialValue={editedTeacher?.lastName} rules={[
+            { required: true, message: 'Please enter last name' },
+            { type: 'string', message: 'Please enter a valid last name' },
+          ]}>
             <Input />
           </Form.Item>
-          <Form.Item hasFeedback label="Email" name="email" validateDebounce={1000} initialValue={editedTeacher?.email}  rules={[
-              { required: true, message: 'Please enter the email address' },
-              { type: 'email', message: 'Please enter a valid email address' },
-            ]}>
+          <Form.Item hasFeedback label="Email" name="email" validateDebounce={1000} initialValue={editedTeacher?.email} rules={[
+            { required: true, message: 'Please enter the email address' },
+            { type: 'email', message: 'Please enter a valid email address' },
+          ]}>
             <Input />
           </Form.Item>
           <Form.Item hasFeedback label="Phone" name="phone" validateDebounce={1000} initialValue={editedTeacher?.phone} rules={[
-              { required: true, message: 'Please enter the phone number' },
-              { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },
-            ]}>
+            { required: true, message: 'Please enter the phone number' },
+            { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },
+          ]}>
             <Input />
           </Form.Item>
           <Form.Item hasFeedback label="Salary" name="salary" validateDebounce={1000} initialValue={editedTeacher?.salary} rules={[
-              { required: true, message: 'Please enter the salary' }, ]}>
-          <InputNumber />
+            { required: true, message: 'Please enter the salary' },]}>
+            <InputNumber />
           </Form.Item>
           <Form.Item hasFeedback label="Employment Type" name="employmentType" validateDebounce={1000} initialValue={editedTeacher?.employmentType} rules={[
-              { required: true, message: 'Please select an employment type' },
-            ]}>
+            { required: true, message: 'Please select an employment type' },
+          ]}>
             <Select placeholder="Select an option">
               <Option value="Full Time">Full Time</Option>
               <Option value="Part Time">Part Time</Option>
               <Option value="Contract">Contract</Option>
               <Option value="Seasonal">Seasonal</Option>
               <Option value="Internship">Internship</Option>
-            </Select>  
+            </Select>
           </Form.Item>
-         
+
 
           <Button key="cancel" onClick={() => setIsModalVisible(false)}>
             Cancel
@@ -290,10 +422,114 @@ const TeacherTable = () => {
           </Button>
         </Form>
       </Modal>
+      {/* Delete Confirmation Modal */}
       <Modal title="Confirm Deletion" open={isDeleteModalVisible} onCancel={() => setIsDeleteModalVisible(false)} onOk={handleDeleteConfirmed(selectedTeacherToDelete)}>
         <p>Are you sure you want to delete {selectedTeacherToDelete?.firstName} record from the database? This action cannot be undone. </p>
       </Modal>
 
+
+      {/* Add new teacher button  */}
+      <Button
+        type="primary"
+        icon={<PlusCircleOutlined />}
+        onClick={handleAddNewTeacher}
+      >
+        Add new Teacher
+      </Button>
+      <Modal title="Add New Teacher" open={isAddNewTeacherModalVisible} onCancel={() => setIsAddNewTeacherModalVisible(false)} onOk={handleSaveNewTeacher} footer={null}>
+
+        <p>Add a new Teacher to the database.</p>
+
+        {/* TODO: \
+  - First and last name should be on the same row
+  - Add validation to all fields
+  - Make sure phone and age field only accepts numbers
+  - create a drop down choice for gender. Male or Female
+  -  
+*/}
+        {/* Your form for adding a new Teacher */}
+        <Form ref={formRef} onFinish={handleSaveNewTeacher}>
+          {/* ... form fields for new Teacher ... */}
+          <Form.Item hasFeedback label="First Name" name="firstName" validateDebounce={1000}
+            rules={[
+              { required: true, message: 'Please enter first name' },
+              { type: 'string', message: 'Please enter a valid first name' },
+            ]}>
+            <Input />
+          </Form.Item>
+          <Form.Item hasFeedback label="Last Name" name="lastName" validateDebounce={1000}
+            rules={[
+              { required: true, message: 'Please enter last name' },
+              { type: 'string', message: 'Please enter a valid last name' },
+            ]}>
+            <Input />
+          </Form.Item>
+          <Form.Item hasFeedback label="Email" name="email" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the email address' }, { type: 'email', message: 'Please enter a valid email address' },]}>
+            <Input />
+          </Form.Item>
+          <Form.Item hasFeedback label="Phone" name="phone" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the phone number' }, { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },]}>
+            <Input />
+          </Form.Item>
+          <Form.Item hasFeedback label="Age" name="age" validateDebounce={1000} rules={[{ required: true, message: 'Please enter age' }]}>
+            <InputNumber />
+          </Form.Item>
+          <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Please select gender' },]}>
+            <Select placeholder="Select from option below" >
+              <Option value="Male">Male</Option>
+              <Option value="Female">Female</Option>
+              <Option value="Other">Other</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Degree" name="degree" rules={[{ required: true, message: 'Please select education level' },]}>
+            <Select placeholder="Select from option below" >
+              <Option value="Masters">Masters</Option>
+              <Option value="Bachelors">Bachelors</Option>
+              <Option value="Associates">Associates</Option>
+              <Option value="High School Diploma">High School Diploma</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item hasFeedback label="Experience" name="experience" rules={[{ required: true, message: 'Please enter experience in years' }]}>
+            <InputNumber />
+          </Form.Item>
+
+          <Form.Item hasFeedback label="Salary" name="salary" rules={[{ required: true, message: 'Please enter salary' }]}>
+            <InputNumber />
+          </Form.Item>
+
+          <Form.Item hasFeedback label="Employment Type" name="employmentType" validateDebounce={1000} rules={[
+            { required: true, message: 'Please select an employment type' },
+          ]}>
+            <Select placeholder="Select an option">
+              <Option value="Full Time">Full Time</Option>
+              <Option value="Part Time">Part Time</Option>
+              <Option value="Contract">Contract</Option>
+              <Option value="Seasonal">Seasonal</Option>
+              <Option value="Internship">Internship</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item hasFeedback label="Subjects" name="subjects" rules={[{ required: true, message: 'Please select subjects' }]}>
+            <Select
+              mode="tags"
+              style={{
+                width: '100%',
+              }}
+              options={subjectOptions}
+            />
+          </Form.Item>
+
+          <Form.Item hasFeedback label="Grade Level" name="gradeLevel" validateDebounce={1000} rules={[{ required: true, message: "Please enter Teacher's grade" }]}>
+            <InputNumber />
+          </Form.Item>
+
+
+          <Button key="cancel" onClick={() => setIsAddNewTeacherModalVisible(false)}>Cancel</Button>
+          <Button key="save" type="primary" htmlType="submit">Save</Button>
+
+        </Form>
+      </Modal>
     </>
   )
 };
