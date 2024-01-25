@@ -1,71 +1,98 @@
-# Getting Started with Create React App
+# Student Portal Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Student Portal project! This is a full-stack web application built with React, Node.js, Express, and MongoDB. The project aims to provide a portal for managing student information, grades, and other related details.
 
-## Available Scripts
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Backend](#backend)
+  - [Express Server](#express-server)
+  - [API Endpoints](#api-endpoints)
+- [Frontend](#frontend)
+  - [React Application](#react-application)
+  - [Ant Design Integration](#ant-design-integration)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
-In the project directory, you can run:
+## Prerequisites
+Before you begin, ensure you have the following tools installed:
+- Node.js (v14 or later)
+- npm (Node Package Manager)
+- MongoDB (Make sure it's running)
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Installation
+Clone the repository:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+git clone https://github.com/your-username/student-portal.git
+cd student-portal
+npm install
+cd client
+npm install
+```
 
-### `npm test`
+## Running the Application
+```bash
+# Start MongoDB, either as a service or in a separate terminal
+# Run the Express server:
+npm run server
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Run the React client
+cd client
+npm start
 
-### `npm run build`
+# Using concurrently, you can use one command to run react client and express server.
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Open your browser and go to http://localhost:3000 to access the Student Portal.
 
-### `npm run eject`
+## Project Structure
+- <b>Client:</b> Contains the React frontend application.
+- <b>Server:</b> Includes the Express backend server and MongoDB database integration.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Configuraion
+Environment Variables: Configure environment variables in a .env file for sensitive information.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Backend
+## Express Server
+The backend server is built with Express, providing RESTful APIs to interact with the database.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+API Endpoints
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Students
+- GET /api/students: Get a list of all students.
+- GET /api/students/:id: Get details of a specific student.
+- POST /api/students: Add a new student.
+- PUT /api/students/:id: Update details of a specific student.
+- DELETE /api/students/:id: Delete a student.
 
-## Learn More
+#### Teachers
+- GET /api/teachers: Get a list of all teachers.
+- GET /api/teachers/:id: Get details of a specific teacher.
+- POST /api/teachers: Add a new teacher.
+- PUT /api/teachers/:id: Update details of a specific teacher.
+- DELETE /api/teachers/:id: Delete a teacher.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Frontend
+## React Application 
+The frontend is built with React, providing a user-friendly interface to manage students, teachers and much more.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Ant Design Integration
+Ant Design is used for styling and UI components. Tabs & Tables are implemented to organize data. 
 
-### Code Splitting
+## Troubleshooting
+If you encounter any issues, please refer to the Troubleshooting section in the documentation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributing
+Not yet ready.
 
