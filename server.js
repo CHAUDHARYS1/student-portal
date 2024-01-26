@@ -37,12 +37,15 @@ const studentRoutes = require('./routes/studentRoutes');
 const teacherRoutes = require('./routes/teacherRoutes');
 const gradeRoutes = require('./routes/gradeRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
+const courseRoutes = require('./routes/courseRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/teachers', teacherRoutes);
 app.use('/api/grades', gradeRoutes);
 app.use('/api/attendances', attendanceRoutes);
+app.use('/api/courses', courseRoutes)
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

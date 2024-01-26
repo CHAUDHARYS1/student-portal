@@ -1,4 +1,4 @@
-const Course = require('../models/courseModel');
+const Course = require('../models/Course');
 
 // Controller to create a new course
 const createCourse = async (req, res) => {
