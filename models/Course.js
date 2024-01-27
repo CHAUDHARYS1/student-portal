@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const courseSchema = new mongoose.Schema({
   courseName: {
@@ -31,23 +31,55 @@ const courseSchema = new mongoose.Schema({
   },
   level: {
     type: String,
-    enum: ['beginner', 'intermediate', 'advanced', 'expert'],
-    default: 'beginner',
+    enum: ["beginner", "intermediate", "advanced", "expert"],
+    default: "beginner",
   },
   assignedStudents: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student', // Reference to the Student model
-    }
+      ref: "Student", // Reference to the Student model
+    },
   ],
   assignedTeachers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Teacher', // Reference to the Teacher model
-    }
+      ref: "Teacher", // Reference to the Teacher model
+    },
   ],
+  skillsCovered: [{ type: String }],
+  schedule: {
+    start: {
+      type: Date,
+      required: true,
+    },
+    end: {
+      type: Date,
+      required: true,
+    },
+  },
+  resources: {
+    textbooks: [{ type: String }],
+    externalLinks: [{ type: String }],
+  },
+  enrollmentStatus: {
+    type: String,
+    enum: ["open", "closed"],
+    default: "open",
+  },
+  language: {
+    type: String,
+    default: "English",
+  },
+  courseStatus: {
+    type: String,
+    enum: ["ongoing", "completed"],
+    default: "ongoing",
+  },
+  platformCompatibility: [{ type: String }],
+  attendanceTracking: { type: Boolean, default: false },
+  flexibleLearningOptions: [{ type: String }],
 });
 
-const Course = mongoose.model('Course', courseSchema);
+const Course = mongoose.model("Course", courseSchema);
 
 module.exports = Course;
