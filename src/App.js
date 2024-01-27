@@ -13,6 +13,8 @@ import HomePage from './pages/HomePage'
 
 import { FloatButton, Tooltip} from "antd";
 import {LogoutOutlined, EllipsisOutlined  } from "@ant-design/icons";
+import CoursesList from './components/Course/CoursesList';
+import CourseDetails from './components/Course/CourseDetails';
 
 const App = () => {
   
@@ -26,6 +28,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
           {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
+          <Route exact path="/courses" element={<CoursesList />} />
+          <Route path="/courses/:id" element={<CourseDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
            {/* route to home page if endpoint is not found */}
           <Route path="/*" element={<Navigate to="/" />} />

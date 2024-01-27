@@ -21,6 +21,10 @@ const AppHeader = () => {
       key: 'register',
     },
     {
+      label: <Link to="/courses">Courses</Link>,
+      key: 'courses',
+    },
+    {
       label: <Link to="/dashboard">Dashboard</Link>,
       key: 'dashboard',
     }
