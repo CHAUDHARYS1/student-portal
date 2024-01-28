@@ -1,8 +1,9 @@
 // Dashboard.js
 import React from 'react';
-import { Tabs, Typography, Col, Row } from 'antd';
+import { Tabs, Typography, Col, Row, Layout } from 'antd';
 import StudentTable from '../Student/studentDataTable';
 import TeacherTable from '../Teacher/teacherDataTable';
+const {Content } = Layout;
 
 const { Title, Paragraph, Text } = Typography;
 const { students } = StudentTable;
@@ -29,7 +30,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div style={{ padding: '20px' }}>
+    <Content className="content">
       <Row style={{ marginBottom: '20px', border: '2px solid grey', padding: '40px' }}>
         <Col flex={2} style={{ textAlign: 'center' }}>
           <Title level={2}>Dashboard</Title>
@@ -40,7 +41,7 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-    </div>
+    </Content>
   );
 }
 

@@ -1,8 +1,9 @@
 // CoursesList.js
 import React, { useState, useEffect } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Layout } from 'antd';
 import CourseCard from './CourseCard';
 
+const {Content} = Layout;
 const CoursesList = () => {
     const [courses, setCourses] = useState([]);
 
@@ -22,6 +23,7 @@ const CoursesList = () => {
     }, []);
 
     return (
+        <Content className="content">
         <Row gutter={[16, 16]}>
             {courses.map((course) => (
                 <Col key={course._id} span={8}>
@@ -30,6 +32,7 @@ const CoursesList = () => {
 
             ))}
         </Row>
+        </Content>
     );
 };
 

@@ -1,3 +1,4 @@
+import './Login.css';
 import React, { useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { Typography } from 'antd';
@@ -5,7 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useAuth } from '../../authContext';
 import authService from '../../authService';
+import { Content } from 'antd/es/layout/layout';
 const { Title, Paragraph } = Typography;
+
 
 const Login = () => {
 
@@ -31,16 +34,10 @@ const Login = () => {
   };
 
   return (
-    // <div>
-    //   <h2>Login</h2>
-    //   <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-    //   <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-    //   <button onClick={handleLogin}>Login</button>
-    // </div>
-    <div style={{ maxWidth: '300px', margin: 'auto', marginTop: '100px' }}>
+<Content className='content'>
     <Title level={2}>Login</Title>
-    <Paragraph>Sign in and explore your personalized portal! Enter your username and password</Paragraph>
-    
+    <Paragraph>Sign in and explore your personalized portal! <br />Enter your username and password</Paragraph>
+    <div className='login-container'>
       <Form
         name="normal_login"
         className="login-form"
@@ -75,7 +72,8 @@ const Login = () => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+      </div>
+    </Content>
 
 
   );

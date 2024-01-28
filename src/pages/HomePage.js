@@ -1,12 +1,13 @@
 // HomePage.js
 import React from 'react';
-import { Typography, Button } from 'antd';
+import { Typography, Button, Layout } from 'antd';
 import { Link } from 'react-router-dom';
-
+const {Content} = Layout;
 const { Title, Text } = Typography;
 const HomePage = () => {
   return (
-    <div style={{ textAlign: 'center', margin: 'auto', maxWidth: '600px', padding: '20px' }}>
+    <Content className="content">
+    <div style={{ }}>
       <Title>Welcome to Our Learning Platform</Title>
       <Text type="secondary">Empowering students, teachers, and parents in the learning journey.</Text>
 
@@ -19,6 +20,7 @@ const HomePage = () => {
         </Button>
       </div>
     </div>
+    </Content>
   );
 };
 

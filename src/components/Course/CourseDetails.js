@@ -1,8 +1,10 @@
 // CouseDetails.js
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Row, Col, Descriptions, Spin, Typography } from "antd";
+import { Row, Col, Descriptions, Spin, Typography, Layout } from "antd";
 import CourseRoaster from "./CourseRoaster";
+
+const { Content} = Layout;
 
 const { Text } = Typography;
 const CourseDetails = () => {
@@ -138,20 +140,20 @@ const CourseDetails = () => {
   const studentDynamicRoaster = studentRoaster();
 
   return (
-    <>
+    <Content className="content">
       <div style={{ padding: "20px" }}>
         <h2>{course.abbreviation}</h2>
         <Text type="secondary">
           Below, you can find additional information about this course.
         </Text>
         <Descriptions
-          size="large"
+          size="small"
           bordered
           column={{
-            xs: 1,
-            sm: 2,
-            md: 3,
-            lg: 3,
+            xs: 2,
+            sm: 3,
+            md: 4,
+            lg: 4,
             xl: 4,
             xxl: 4,
           }}
@@ -162,51 +164,52 @@ const CourseDetails = () => {
       <div style={{padding:"20px"}} > 
       <h2>Roaster</h2>
         <Text type="secondary">Below you will find a list of students who are currently enrolled and teachers assigned to this course.</Text>
+        <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ padding: "20px" }}>
+
+<Col span={18} push={6}>
+  <div>
+    <Text type="primary">Course Instructor</Text>
+    <Descriptions
+      size="large"
+      layout="vertical"
+      column={{
+        xs: 2,
+        sm: 2,
+        md: 4,
+        lg: 4,
+        xl: 4,
+        xxl: 4,
+      }}
+      items={dynamicRoaster}
+      style={{
+        marginTop: "20px",
+        border: "1px solid rgba(5, 5, 5, 0.06)",
+        padding: "20px",
+      }}
+    />
+  </div>
+</Col>
+<Col span={6} pull={18}>
+  <Descriptions
+    title="Student Roaster"
+    bordered
+    column={{
+      xs: 1,
+      sm: 2,
+      md: 3,
+      lg: 3,
+      xl: 4,
+      xxl: 4,
+    }}
+    items={studentDynamicRoaster}
+  />
+</Col>
+</Row>
 
       </div>
 
-      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ padding: "20px" }}>
-
-        <Col span={18} push={6}>
-          <div>
-            <Text type="primary">Course Instructor</Text>
-            <Descriptions
-              size="large"
-              layout="vertical"
-              column={{
-                xs: 1,
-                sm: 2,
-                md: 3,
-                lg: 3,
-                xl: 4,
-                xxl: 4,
-              }}
-              items={dynamicRoaster}
-              style={{
-                marginTop: "20px",
-                border: "1px solid rgba(5, 5, 5, 0.06)",
-                padding: "20px",
-              }}
-            />
-          </div>
-        </Col>
-        <Col span={6} pull={18}>
-          <Descriptions
-            title="Student Roaster"
-            bordered
-            column={{
-              xs: 1,
-              sm: 2,
-              md: 3,
-              lg: 3,
-              xl: 4,
-              xxl: 4,
-            }}
-            items={studentDynamicRoaster}
-          />
-        </Col>
-      </Row>
-    </>
+          </Content>
+          
   );
 };
 
