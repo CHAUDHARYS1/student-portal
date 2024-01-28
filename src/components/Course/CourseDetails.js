@@ -140,7 +140,7 @@ const CourseDetails = () => {
   const studentDynamicRoaster = studentRoaster();
 
   return (
-    <Content className="content">
+    <Content className="content mt-2">
       <Breadcrumb items={[{ title: <a href="/courses">Courses</a> }, { title: course.courseName }]} />
       <div style={{ padding: "20px" }}>
         <h2>{course.abbreviation}</h2>

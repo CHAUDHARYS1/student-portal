@@ -2,14 +2,12 @@
 import Login from "../components/Login/Login";
 import Registration from "../components/Registration/Registration";
 import React from "react";
-import { Typography, Button, Layout, Col, Row } from "antd";
-import { Link } from "react-router-dom";
+import {Layout, Col, Row } from "antd";
 const { Content } = Layout;
-const { Title, Text } = Typography;
 const LoginRegisterPage = () => {
   return (
     <Content className="content">
-      <Row>
+      <Row className="mt-2">
         <Col span={6}>
           <Login />
         </Col>
