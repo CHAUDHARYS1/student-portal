@@ -30,6 +30,8 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  assignedCourses:  [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+  assignedTeachers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Teacher" }],
   // Additional student details
 });
 

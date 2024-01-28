@@ -1,10 +1,10 @@
 // CouseDetails.js
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Descriptions, Spin, Typography } from "antd";
+import { Row, Col, Descriptions, Spin, Typography } from "antd";
 import CourseRoaster from "./CourseRoaster";
 
-const {Text } = Typography;
+const { Text } = Typography;
 const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
@@ -24,7 +24,6 @@ const CourseDetails = () => {
       } catch (error) {
         console.error("Error fetching course:", error);
       }
-
     };
 
     fetchCourseDetails();
@@ -46,7 +45,7 @@ const CourseDetails = () => {
           lg: 3,
           xl: 4,
           xxl: 4,
-        }
+        },
       },
       {
         label: "Abbreviation",
@@ -100,83 +99,113 @@ const CourseDetails = () => {
   };
   const dynamicCourseItems = generateCourseItems();
 
-
   const roasterList = () => {
     return [
       {
-        key: "1",
         label: "Instructor",
-        children: course.assignedTeachers[0].firstName + " " + course.assignedTeachers[0].lastName,
+        children: "Teacher Name",
       },
       {
-        key: "2",
         label: "Email",
-        children: course.assignedTeachers[0].email,
+        children: "Email@example.com",
       },
       {
-        key: "3",
-        label: "Phone Number",
-        children: course.assignedTeachers[0].phoneNumber,
+        label: "Phone",
+        children: "2223334456",
       },
       {
-        key: "4",
-        label: "Experience",
-        children: course.assignedTeachers[0].experience,
+        label: "Degree",
+        children: "Masters",
       },
       {
-        key: "5",
         label: "Favorite Subjects",
-        children: course.assignedTeachers[0].subjects,
+        children: "Math, Science",
       },
     ];
   };
+
   const dynamicRoaster = roasterList();
+
+  const studentRoaster = () => {
+    return [
+      {
+        label: "Student Name",
+        children: "Mike Botasic",
+      },
+    ];
+  };
+
+  const studentDynamicRoaster = studentRoaster();
 
   return (
     <>
-    <div style={{ padding: "20px" }}>
-      <h2>{course.abbreviation}</h2>
-      <Text type="secondary">Below, you can find additional information about this course.</Text>
-      <Descriptions
-        size="large"
-        bordered
-        column={{
-          xs: 1,
-          sm: 2,
-          md: 3,
-          lg: 3,
-          xl: 4,
-          xxl: 4,
-        }}
-        items={dynamicCourseItems}
-        style={{ marginTop: "20px" }}
-      />
-
-    </div>
-
-  
-    <div style={{}}>
+      <div style={{ padding: "20px" }}>
+        <h2>{course.abbreviation}</h2>
+        <Text type="secondary">
+          Below, you can find additional information about this course.
+        </Text>
+        <Descriptions
+          size="large"
+          bordered
+          column={{
+            xs: 1,
+            sm: 2,
+            md: 3,
+            lg: 3,
+            xl: 4,
+            xxl: 4,
+          }}
+          items={dynamicCourseItems}
+          style={{ marginTop: "20px" }}
+        />
+      </div>
+      <div style={{padding:"20px"}} > 
       <h2>Roaster</h2>
-      <Text type="primary">Course Instructor</Text>
-      <Descriptions
-        size="large"
-        layout="vertical"
-        column={{
-          xs: 1,
-          sm: 2,
-          md: 3,
-          lg: 3,
-          xl: 4,
-          xxl: 4,
-        }}
-        items={dynamicRoaster}
-        style={{
-          marginTop: "20px",
-          border: "1px solid rgba(5, 5, 5, 0.06)",
-          padding: "20px",
-        }}
-      />
-    </div>
+        <Text type="secondary">Below you will find a list of students who are currently enrolled and teachers assigned to this course.</Text>
+
+      </div>
+
+      <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} style={{ padding: "20px" }}>
+
+        <Col span={18} push={6}>
+          <div>
+            <Text type="primary">Course Instructor</Text>
+            <Descriptions
+              size="large"
+              layout="vertical"
+              column={{
+                xs: 1,
+                sm: 2,
+                md: 3,
+                lg: 3,
+                xl: 4,
+                xxl: 4,
+              }}
+              items={dynamicRoaster}
+              style={{
+                marginTop: "20px",
+                border: "1px solid rgba(5, 5, 5, 0.06)",
+                padding: "20px",
+              }}
+            />
+          </div>
+        </Col>
+        <Col span={6} pull={18}>
+          <Descriptions
+            title="Student Roaster"
+            bordered
+            column={{
+              xs: 1,
+              sm: 2,
+              md: 3,
+              lg: 3,
+              xl: 4,
+              xxl: 4,
+            }}
+            items={studentDynamicRoaster}
+          />
+        </Col>
+      </Row>
     </>
   );
 };
