@@ -325,7 +325,7 @@ const StudentTable = () => {
         <p>Are you sure you want to delete {selectedStudentToDelete?.firstName} record from the database? This action cannot be undone. </p>
       </Modal>
       <Button
-        type="primary"
+        className="btn-primary"
         icon={<PlusCircleOutlined />}
         onClick={handleAddNewStudent}
       >
@@ -385,7 +385,7 @@ const StudentTable = () => {
 
 
           <Button key="cancel" onClick={() => setIsAddNewStudentModalVisible(false)}>Cancel</Button>
-          <Button key="save" type="primary" htmlType="submit">Save</Button>
+          <Button key="save" className="btn-primary" htmlType="submit">Save</Button>
 
         </Form>
       </Modal>

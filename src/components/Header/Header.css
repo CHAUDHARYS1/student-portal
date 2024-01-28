@@ -1,8 +1,12 @@
-.demo-logo-vertical {
-    height: 50px;
-    width: 90%;
-    background-color: rgb(39, 51, 216);
-    margin-top: 20px;
-    margin-left: 10px;
-    border-radius: 5px;
+.demo-logo{
+    background: white;
+
+}
+
+.demo-logo img{
+width: 100%;
+
+}
+.sider{
+;
 }

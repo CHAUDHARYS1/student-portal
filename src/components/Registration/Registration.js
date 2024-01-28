@@ -39,7 +39,7 @@ const Registration = () => {
         //     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         //     <button onClick={handleRegistration}>Register</button>
         // </div>
-        <div style={{ maxWidth: '300px', margin: 'auto', marginTop: '100px', bordered: true }}>
+        <div style={{ maxWidth: '300px', bordered: true }}>
         <Title level={2}>Registration</Title>
         <Paragraph>Register and explore your personalized portal!</Paragraph>
 

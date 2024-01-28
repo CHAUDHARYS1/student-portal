@@ -7,12 +7,12 @@ const { Title, Text } = Typography;
 const HomePage = () => {
   return (
     <Content className="content">
-    <div style={{ }}>
+    <div>
       <Title>Welcome to Our Learning Platform</Title>
       <Text type="secondary">Empowering students, teachers, and parents in the learning journey.</Text>
 
       <div style={{ marginTop: '20px' }}>
-        <Button type="primary" size="large" style={{ marginRight: '10px' }}>
+        <Button className='btn-primary' size="large" style={{ marginRight: '10px' }}>
           <Link to="/login" style={{ color: 'white' }}>Login</Link>
         </Button>
         <Button size="large">

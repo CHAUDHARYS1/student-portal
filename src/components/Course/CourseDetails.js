@@ -1,7 +1,7 @@
 // CouseDetails.js
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Row, Col, Descriptions, Spin, Typography, Layout } from "antd";
+import { Row, Col, Descriptions, Spin, Typography, Layout, Breadcrumb } from "antd";
 import CourseRoaster from "./CourseRoaster";
 
 const { Content} = Layout;
@@ -141,6 +141,7 @@ const CourseDetails = () => {
 
   return (
     <Content className="content">
+      <Breadcrumb items={[{ title: <a href="/courses">Courses</a> }, { title: course.courseName }]} />
       <div style={{ padding: "20px" }}>
         <h2>{course.abbreviation}</h2>
         <Text type="secondary">

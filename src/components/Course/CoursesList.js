@@ -1,6 +1,6 @@
 // CoursesList.js
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Layout } from 'antd';
+import { Row, Col, Layout, Breadcrumb } from 'antd';
 import CourseCard from './CourseCard';
 
 const {Content} = Layout;
@@ -24,9 +24,10 @@ const CoursesList = () => {
 
     return (
         <Content className="content">
-        <Row gutter={[16, 16]}>
+            <Breadcrumb  items={[{ title: 'Courses' },]} />
+        <Row>
             {courses.map((course) => (
-                <Col key={course._id} span={8}>
+                <Col key={course._id}>
                     <CourseCard course={course} />
                 </Col>
 

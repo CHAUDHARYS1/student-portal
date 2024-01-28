@@ -438,7 +438,7 @@ const TeacherTable = () => {
 
       {/* Add new teacher button  */}
       <Button
-        type="primary"
+        className="btn-primary"
         icon={<PlusCircleOutlined />}
         onClick={handleAddNewTeacher}
       >
@@ -528,7 +528,7 @@ const TeacherTable = () => {
             />
           </Form.Item>
           <Button key="cancel" onClick={() => setIsAddNewTeacherModalVisible(false)}>Cancel</Button>
-          <Button key="save" type="primary" htmlType="submit">Save</Button>
+          <Button key="save" className="btn-primary" htmlType="submit">Save</Button>
 
         </Form>
       </Modal>

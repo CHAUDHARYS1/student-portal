@@ -2,7 +2,7 @@
 import "./Header.css";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu } from "antd";
 
 const { Header, Sider, Content } = Layout;
 
@@ -12,14 +12,12 @@ const AppHeader = () => {
       label: <Link to="/">Home</Link>,
       key: "home",
     },
+  
     {
-      label: <Link to="/login">Login</Link>,
-      key: "login",
+      label: <Link to="/intro">Login/Register</Link>,
+      key: "intro",
     },
-    {
-      label: <Link to="/register">Register</Link>,
-      key: "register",
-    },
+    
     {
       label: <Link to="/courses">Courses</Link>,
       key: "courses",
@@ -36,21 +34,21 @@ const AppHeader = () => {
     setCurrent(e.key);
   };
 
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+ 
 
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}>
-      <div className="demo-logo-vertical" />
-
+    <Sider style={{ minHeight: "100vh", backgroundColor: "white" }}>
+      <div className="demo-logo">
+        <img src="logo.png" alt="Logo" />
+      </div>
       <Menu
-        theme="dark"
         onClick={onClick}
-        selectedKeys={["current"]}
+        selectedKeys={[0]}
         mode="inline"
         items={items}
+        style={{
+          marginTop: "30px",
+        }}
       />
     </Sider>
   );

@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -8,19 +8,19 @@ import {
 } from "react-router-dom";
 // import { AuthProvider } from './authContext';
 
-import Login from "./components/Login/Login";
-import Registration from "./components/Registration/Registration";
+
 // import ProtectedRoute from './ProtectedRoute';
 import AppHeader from "./components/Header/Header";
 import Dashboard from "./components/Dashboard/Dashboard";
 // import AppFooter from './components/Footer/Footer';
 import HomePage from "./pages/HomePage";
-
+import Intro from "./pages/LoginRegisterPage";
 import { FloatButton, Tooltip, Layout } from "antd";
 import { LogoutOutlined, EllipsisOutlined } from "@ant-design/icons";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+
 const { Header } = Layout;
 
 const App = () => {
@@ -28,12 +28,12 @@ const App = () => {
     <div>
       {/* <AuthProvider> */}
       <Layout style={{ minHeight: "100vh" }}>
-                <Router>
+        <Router>
           <AppHeader />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Registration />} />
+            
+            <Route path="/intro" element={<Intro />} />
             {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
             <Route exact path="/courses" element={<CoursesList />} />
             <Route path="/courses/:id" element={<CourseDetails />} />
@@ -48,7 +48,6 @@ const App = () => {
 
           <FloatButton.Group
             trigger="click"
-            type="primary"
             style={{ right: 24 }}
             icon={<EllipsisOutlined />}
           >

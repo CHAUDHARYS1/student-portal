@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   return (
     <Content className="content">
-      <Row style={{ marginBottom: '20px', border: '2px solid grey', padding: '40px' }}>
+      <Row style={{ marginBottom: '20px', border: "1px solid rgba(5, 5, 5, 0.06)", padding: '0px' }}>
         <Col flex={2} style={{ textAlign: 'center' }}>
           <Title level={2}>Dashboard</Title>
         </Col>

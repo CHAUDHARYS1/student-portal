@@ -1,7 +1,12 @@
 .content{
     margin: '15px';
-    padding: 24px;
-    background: rgb(131, 85, 85);
+    background: #f0f2f5;
     border-radius: 0px;
     min-width: 90%;
+    margin-left: 20px;
+    margin-top:20px;
+}
+.btn-primary{
+    background: #163172;
+    color: white;
 }
