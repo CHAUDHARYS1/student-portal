@@ -14,7 +14,10 @@ const getAllTeachers = async (req, res) => {
 // get teacher by id
 const getTeacherById = async (req, res) => {
   try {
-    const teacher = await Teacher.findById(req.params.id);
+    const teacher = await Teacher.findById(req.params.id)
+      .populate('students')
+      .populate('assignedCourses')
+      .populate('assignedStudents');
     if (!teacher) {
       return res.status(404).json({ message: 'Teacher not found' });
     }
