@@ -9,6 +9,10 @@
     background: #163172;
     color: white;
 }
+.bg-white{
+    background: white;
+}
+
 .mt-2{
     margin-top: 20px;
 }
