@@ -1,6 +1,6 @@
 // CourseCard.js
 import React, { useState } from "react";
-import { Card, Tag, Popconfirm, notification, Skeleton } from "antd";
+import { Card, Tag, Popconfirm, notification, Skeleton, Modal, Form, Input, Select, Switch } from "antd";
 import { Link } from "react-router-dom";
 import {
   ExpandAltOutlined,
@@ -9,10 +9,12 @@ import {
 } from "@ant-design/icons";
 
 const { Meta } = Card;
+const { Option } = Select;
 
 const CourseCard = ({ course }) => {
   const [loading, setLoading] = useState(false);
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [form] = Form.useForm();
   // Define a mapping of difficulty levels to tag colors
   const difficultyColors = {
     beginner: "cyan",
@@ -65,58 +67,97 @@ const CourseCard = ({ course }) => {
     }
   };
 
+  const showModal = () => {
+    setIsModalVisible(true);
+    form.setFieldsValue(course);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <Card
-      title={loading ? <Skeleton.Input style={{ width: 100 }} active /> : course.abbreviation}
-      style={{ width: 300, margin: 16 }}
-      extra={[
-        <Tag key="online" color="green" bordered={false}>
-          {loading ? <Skeleton.Input style={{ width: 60 }} active /> : `${course.online ? "Online" : "Onsite"}`}
-        </Tag>,
-        <Tag key="length" color="gold" bordered={false}>
-          {loading ? <Skeleton.Input style={{ width: 80 }} active /> : `${course.length + " Weeks"}`}
-        </Tag>
-      ]}
-      actions={[
-        <Popconfirm
-          key="delete"
-          title={`Are you sure you want to delete ${course.courseName}?`}
-          onConfirm={handleDelete}
-          okText="Yes"
-          cancelText="No"
-        >
-          <DeleteOutlined />
-        </Popconfirm>,
-        <EditOutlined key="edit" />,
-        <Link to={`/courses/${course._id}`}>
-          <ExpandAltOutlined />
-        </Link>,
-      ]}
-    >
-      <Meta
-        title={loading ? <Skeleton.Input style={{ width: 200 }} active /> : course.courseName}
-        description={
-          <p>
-            {loading ? (
-              <>
-                <Skeleton.Input style={{ width: 300 }} active />
-                <br />
-                <br />
-                <Skeleton.Input style={{ width: 200 }} active />
-              </>
-            ) : (
-              <>
-                {`${course.description}`} <br />
-                <br /> Course Difficulty:{" "}
-                <Tag bordered={false} color={tagColor}>
-                  {`${course.level.charAt(0).toUpperCase()}${course.level.slice(1)}`}
-                </Tag>
-              </>
-            )}
-          </p>
-        }
-      />
-    </Card>
+    <>
+      <Card
+        title={loading ? <Skeleton.Input style={{ width: 100 }} active /> : course.abbreviation}
+        style={{ width: 300, margin: 16 }}
+        extra={[
+          <Tag key="online" color="green" bordered={false}>
+            {loading ? <Skeleton.Input style={{ width: 60 }} active /> : `${course.online ? "Online" : "Onsite"}`}
+          </Tag>,
+          <Tag key="length" color="gold" bordered={false}>
+            {loading ? <Skeleton.Input style={{ width: 80 }} active /> : `${course.length + " Weeks"}`}
+          </Tag>
+        ]}
+        actions={[
+          <Popconfirm
+            key="delete"
+            title={`Are you sure you want to delete ${course.courseName}?`}
+            onConfirm={handleDelete}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined />
+          </Popconfirm>,
+          <EditOutlined key="edit" onClick={showModal} />,
+          <Link to={`/courses/${course._id}`}>
+            <ExpandAltOutlined />
+          </Link>,
+        ]}
+      >
+        <Meta
+          title={loading ? <Skeleton.Input style={{ width: 200 }} active /> : course.courseName}
+          description={
+            <p>
+              {loading ? (
+                <>
+                  <Skeleton.Input style={{ width: 300 }} active />
+                  <br />
+                  <br />
+                  <Skeleton.Input style={{ width: 200 }} active />
+                </>
+              ) : (
+                <>
+                  {`${course.description}`} <br />
+                  <br /> Course Difficulty:{" "}
+                  <Tag bordered={false} color={tagColor}>
+                    {`${course.level.charAt(0).toUpperCase()}${course.level.slice(1)}`}
+                  </Tag>
+                </>
+              )}
+            </p>
+          }
+        />
+      </Card>
+      <Modal title="Edit Course" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Form form={form} layout="vertical">
+          <Form.Item name="courseName" label="Course Name">
+            <Input />
+          </Form.Item>
+          <Form.Item name="description" label="Course Description">
+            <Input.TextArea />
+          </Form.Item>
+          <Form.Item name="level" label="Difficulty Level">
+            <Select>
+              <Option value="beginner">Beginner</Option>
+              <Option value="intermediate">Intermediate</Option>
+              <Option value="advanced">Advanced</Option>
+              <Option value="expert">Expert</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="length" label="Course Length">
+            <Input type="number" />
+          </Form.Item>
+          <Form.Item name="online" label="Online" valuePropName="checked">
+            <Switch />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
   );
 };
 
