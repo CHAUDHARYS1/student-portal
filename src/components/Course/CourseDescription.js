@@ -1,6 +1,9 @@
 import React from 'react';
 import { Descriptions, Typography } from 'antd';
+import { MobileOutlined, LaptopOutlined, DesktopOutlined } from '@ant-design/icons';
+
 const { Text } = Typography;
+
 
 const CourseDescription = ({ course }) => {
     const generateCourseItems = () => {
@@ -59,7 +62,18 @@ const CourseDescription = ({ course }) => {
             },
             {
                 label: "Platform Compatibility",
-                children: course.platformCompatibility.join(", "),
+                children: course.platformCompatibility.map(platform => {
+                    switch (platform) {
+                        case "Mobile" || "Android" || "iOS" || "iPhone" || "iPad" || "Tablet" || "Phone":
+                            return <MobileOutlined />;
+                        case "MacOS":
+                            return <LaptopOutlined />;
+                        case "Desktop" || "Linux" || "Windows":
+                            return <DesktopOutlined />;
+                        default:
+                            return null;
+                    }
+                }),
             },
             {
                 label: "Flexible Learning Options",
