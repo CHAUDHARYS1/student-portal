@@ -72,8 +72,53 @@ const CourseCard = ({ course }) => {
     form.setFieldsValue(course);
   };
 
-  const handleOk = () => {
+  const handleUpdate = async () => {
     setIsModalVisible(false);
+    try {
+      setLoading(true);
+
+      // Validate form fields
+      const values = await form.validateFields();
+
+      // Simulate an asynchronous API call to update the course details in the database
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      // Make the actual API call to update the course details
+      const response = await fetch(
+        `http://localhost:5000/api/courses/${course._id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        // Show success message
+        notification.success({
+          message: "Course Updated",
+          description: `${course.courseName} has been updated. This page will now reload.`,
+        });
+        // Reload the page to refresh the course list after 2 seconds has passed
+        setTimeout(() => window.location.reload(), 500);
+      } else {
+        // Show error message
+        notification.error({
+          message: "Update Failed",
+          description: `Failed to update the course: ${course.courseName}`,
+        });
+      }
+    } catch (error) {
+      // Show error message
+      notification.error({
+        message: "Update Failed",
+        description: "Failed to update the course.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
@@ -133,15 +178,15 @@ const CourseCard = ({ course }) => {
           }
         />
       </Card>
-      <Modal title="Edit Course" open={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Edit Course" open={isModalVisible} onOk={handleUpdate} onCancel={handleCancel}>
         <Form form={form} layout="vertical">
-          <Form.Item name="courseName" label="Course Name">
+          <Form.Item name="courseName" label="Course Name" rules={[{ required: true, message: 'Please enter the course name' }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="description" label="Course Description">
+          <Form.Item name="description" label="Course Description" rules={[{ required: true, message: 'Please enter the course description' }]}>
             <Input.TextArea />
           </Form.Item>
-          <Form.Item name="level" label="Difficulty Level">
+          <Form.Item name="level" label="Difficulty Level" rules={[{ required: true, message: 'Please select the difficulty level' }]}>
             <Select>
               <Option value="beginner">Beginner</Option>
               <Option value="intermediate">Intermediate</Option>
@@ -149,10 +194,10 @@ const CourseCard = ({ course }) => {
               <Option value="expert">Expert</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="length" label="Course Length">
+          <Form.Item name="length" label="Course Length" rules={[{ required: true, message: 'Please enter the course length' }]}>
             <Input type="number" />
           </Form.Item>
-          <Form.Item name="online" label="Online" valuePropName="checked">
+          <Form.Item name="online" label="Online" valuePropName="checked" rules={[{ required: true, message: 'Please select whether the course is online or not' }]}>
             <Switch />
           </Form.Item>
         </Form>
