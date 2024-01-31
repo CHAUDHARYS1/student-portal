@@ -176,7 +176,7 @@ const CourseCard = ({ course }) => {
               <DeleteOutlined />
             </Tooltip>
           </Popconfirm>,
-          <Tooltip title="Edit Course" placement="bottom">
+          <Tooltip title="Quick Edit" placement="bottom">
           <EditOutlined key="edit" onClick={showModal} />
           </Tooltip>,
           <Tooltip title="Expand Course for more info" placement="bottom">
