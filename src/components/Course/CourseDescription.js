@@ -26,7 +26,7 @@ const CourseDescription = ({ course }) => {
             },
             {
                 label: "Duration",
-                children: course.length + " Days",
+                children: course.length + " Weeks",
             },
             {
                 label: "Cost",

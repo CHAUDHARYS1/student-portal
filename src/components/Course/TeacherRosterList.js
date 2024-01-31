@@ -25,7 +25,7 @@ const TeacherRosterList = ({ course }) => {
                     <br />
                     <Text type="secondary">{teacherDetails.email}</Text>
                     <br />
-                    <Text type="secondary">{teacherDetails.phone}</Text>
+                    <Text type="secondary">{String(teacherDetails.phone).replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}</Text>
                 </List.Item>
             )}
         />
