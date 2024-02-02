@@ -1,23 +1,19 @@
 import React, { useState } from "react";
-import { Descriptions, Typography, Button } from "antd";
-import {
-    MobileOutlined,
-    LaptopOutlined,
-    DesktopOutlined,
-} from "@ant-design/icons";
+import { Descriptions, Typography, Button, Input, Select } from "antd";
 
 const { Text } = Typography;
+const { Option } = Select;
 
-const CourseDescription = ({ course, setCourse }) => {
+const CourseDescription = ({ course }) => {
     const [editMode, setEditMode] = useState(false);
     const [editedCourse, setEditedCourse] = useState(course);
-
+    const [, setCourse] = useState(course);
     const generateCourseItems = () => {
         return [
             {
                 label: "Course Name",
                 children: editMode ? (
-                    <input
+                    <Input
                         type="text"
                         value={editedCourse.courseName}
                         onChange={(e) =>
@@ -28,7 +24,7 @@ const CourseDescription = ({ course, setCourse }) => {
                         }
                     />
                 ) : (
-                    editedCourse.courseName
+                    <span>{editedCourse.courseName}</span>
                 ),
                 span: {
                     xs: 2,
@@ -42,7 +38,7 @@ const CourseDescription = ({ course, setCourse }) => {
             {
                 label: "Abbreviation",
                 children: editMode ? (
-                    <input
+                    <Input
                         type="text"
                         value={editedCourse.abbreviation}
                         onChange={(e) =>
@@ -53,28 +49,105 @@ const CourseDescription = ({ course, setCourse }) => {
                         }
                     />
                 ) : (
-                    course.abbreviation
+                    <span>{editedCourse.abbreviation}</span>
                 ),
             },
             {
                 label: "Duration",
-                children: course.length + " Weeks",
-            },
-            {
-                label: "Cost",
-                children: "$" + course.cost,
+                children: editMode ? (
+                    <Input
+                        type="number"
+                        value={editedCourse.length}
+                        onChange={(e) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                length: e.target.value,
+                            })
+                        }
+                    />
+                ) : (
+                    <span>{editedCourse.length} weeks</span>
+                ),
             },
             {
                 label: "Online",
-                children: course.online ? "Yes" : "No",
+                children: editMode ? (
+                    <Select
+                        value={editedCourse.online ? "Yes" : "No"}
+                        onChange={(value) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                online: value === "Yes" ? true : false,
+                            })
+                        }
+                    >
+                        <Option value="Yes">Yes</Option>
+                        <Option value="No">No</Option>
+                    </Select>
+                ) : editedCourse.online ? (
+                    "Yes"
+                ) : (
+                    "No"
+                ),
             },
             {
                 label: "Onsite",
-                children: course.onsite ? "Yes" : "No",
+                children: editMode ? (
+                    <Select
+                        value={editedCourse.onsite ? "Yes" : "No"}
+                        onChange={(value) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                onsite: value === "Yes" ? true : false,
+                            })
+                        }
+                    >
+                        <Option value="Yes">Yes</Option>
+                        <Option value="No">No</Option>
+                    </Select>
+                ) : editedCourse.onsite ? (
+                    "Yes"
+                ) : (
+                    "No"
+                ),
+            },
+            {
+                label: "Cost",
+                children: editMode ? (
+                    <Input
+                        type="number"
+                        value={editedCourse.cost}
+                        onChange={(e) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                cost: e.target.value,
+                            })
+                        }
+                    />
+                ) : (
+                    "$" + editedCourse.cost
+                ),
             },
             {
                 label: "Course Difficulty",
-                children: course.level + " Level",
+                children: editMode ? (
+                    <Select
+                        value={editedCourse.level}
+                        onChange={(value) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                level: value,
+                            })
+                        }
+                    >
+                        <Option value="beginner">Beginner</Option>
+                        <Option value="intermediate">Intermediate</Option>
+                        <Option value="advanced">Advanced</Option>
+                        <Option value="expert">Expert</Option>
+                    </Select>
+                ) : (
+                    <span>{editedCourse.level} Level</span>
+                ),
             },
             {
                 label: "Skills Covered",
@@ -86,36 +159,79 @@ const CourseDescription = ({ course, setCourse }) => {
                     xl: 2,
                     xxl: 2,
                 },
-                children: course.skillsCovered.join(", "),
+                children: editMode ? (
+                    <Input
+                        type="text"
+                        value={editedCourse.skillsCovered.join(", ")}
+                        onChange={(e) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                skillsCovered: e.target.value.split(", "),
+                            })
+                        }
+                    />
+                ) : (
+                    editedCourse.skillsCovered.join(", ")
+                ),
             },
             {
                 label: "Course Current Status",
-                children: course.courseStatus,
+                children: editMode ? (
+                    <Select
+                        value={editedCourse.courseStatus}
+                        onChange={(value) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                courseStatus: value,
+                            })
+                        }
+                    >
+                        <Option value="ongoing">Ongoing</Option>
+                        <Option value="completed">Completed</Option>
+                    </Select>
+                ) : (
+                    editedCourse.courseStatus
+                ),
             },
             {
                 label: "Platform Compatibility",
-                children: course.platformCompatibility.map((platform, index) => {
-                    switch (platform) {
-                        case "Mobile" ||
-                            "Android" ||
-                            "iOS" ||
-                            "iPhone" ||
-                            "iPad" ||
-                            "Tablet" ||
-                            "Phone":
-                            return <MobileOutlined key={index} />;
-                        case "MacOS":
-                            return <LaptopOutlined key={index} />;
-                        case "Desktop" || "Linux" || "Windows":
-                            return <DesktopOutlined  key={index}/>;
-                        default:
-                            return null;
-                    }
-                }),
+                children: editMode ? (
+                    <Select
+                        mode="multiple"
+                        value={editedCourse.platformCompatibility}
+                        onChange={(values) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                platformCompatibility: values,
+                            })
+                        }
+                    >
+                        <Option value="laptop">Laptop</Option>
+                        <Option value="desktop">Desktop</Option>
+                        <Option value="phone">Phone</Option>
+                        <Option value="tablet">Tablet</Option>
+                        <Option value="virtual reality">Virtual Reality</Option>
+                    </Select>
+                ) : (
+                    editedCourse.platformCompatibility.join(", ")
+                ),
             },
             {
                 label: "Flexible Learning Options",
-                children: course.flexibleLearningOptions.join(", "),
+                children: editMode ? (
+                    <Input
+                        type="text"
+                        value={editedCourse.flexibleLearningOptions.join(", ")}
+                        onChange={(e) =>
+                            setEditedCourse({
+                                ...editedCourse,
+                                flexibleLearningOptions: e.target.value.split(", "),
+                            })
+                        }
+                    />
+                ) : (
+                    editedCourse.flexibleLearningOptions.join(", ")
+                ),
             },
         ];
     };
@@ -127,31 +243,39 @@ const CourseDescription = ({ course, setCourse }) => {
     };
 
     const handleSaveChanges = async () => {
-        console.log(course);
+        // console.log(course);
+        console.log("coursesa:", JSON.stringify(course, null, 2));
+        // console.log(editedCourse);
         try {
-            if (!course.id) {
+            if (!course._id) {
                 throw new Error("Course ID is undefined");
             }
-            
 
-            const response = await fetch(`http://localhost:5000/api/courses/${course.id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(editedCourse),
-            });
+            // Add a 2-second delay
+            setTimeout(async () => {
+                const response = await fetch(
+                    `http://localhost:5000/api/courses/${course._id}`,
+                    {
+                        // And this line
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(editedCourse),
+                    }
+                );
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
-            const data = await response.json();
-
-            // Update the course state with the response data
-            setCourse(data);
-            // Exit edit mode
-            setEditMode(false);
+                const data = await response.json();
+                // Update the course state with the response data
+                setCourse(data);
+                // Exit edit mode
+                setEditMode(false);
+                // Reload the page
+            }, 500); // 2-second delay
         } catch (error) {
             console.error("Error:", error);
         }
