@@ -205,7 +205,7 @@ const CourseCard = ({ course }) => {
                 </>
               ) : (
                 <>
-                  {`${course.description}`} <br />
+                  {`${course.description.substring(0, 100) + '...'}`} <br />
                   <br /> Course Difficulty:{" "}
                   <Tag bordered={false} color={tagColor}>
                     {`${course.level
