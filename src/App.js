@@ -19,7 +19,6 @@ import { FloatButton, Tooltip, Layout } from "antd";
 import { LogoutOutlined, EllipsisOutlined } from "@ant-design/icons";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 const { Header } = Layout;
 

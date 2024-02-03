@@ -18,9 +18,6 @@ router.put('/:id', userController.updateUserById);
 // Delete user by ID
 router.delete('/:id', userController.deleteUserById);
 
-// Create a new user with the role "student"
-router.post('/create-student', userController.createStudentUser);
-
 // Login user and return JWT token
 router.post('/login', userController.loginUser);
 

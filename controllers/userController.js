@@ -30,23 +30,6 @@ exports.getUserById = async (req, res) => {
   }
 };
  
-// Create a new user
-exports.createUser = async (req, res) => {
-  const { username, password, role } = req.body;
-
-  try {
-    const newUser = new User({ username, password, role });
-    await newUser.save();
-
-    // Add validation for new username and password
-
-
-    res.status(201).json(newUser);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-};
 
 // Update user by ID
 exports.updateUserById = async (req, res) => {
@@ -140,26 +123,33 @@ exports.loginUser = async (req, res) => {
   })(req, res);
 };
 
-// Register a new user
-exports.registerUser = async (req, res) => {
-  try {
-    const { username, password } = req.body;
+// create a new user
+exports.createUser = async (req, res) => {
+  // const { error } = validateUser(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
-    // Add validation if needed
+  try {
+    const { username, password, email, role } = req.body;
+
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
-    const newUser = new User({ username, password: hashedPassword, role: 'student' });
+    const newUser = new User({ username, password: hashedPassword, email,  role });
     await newUser.save();
 
     // Generate a JWT token for the newly created user
-    const token = jwt.sign({ sub: newUser._id, username: newUser.username, role: newUser.role }, 'tisthesecret', { expiresIn: '1h' });
+    const token = jwt.sign({ sub: newUser._id, username: newUser.username, email: newUser.email,  role: newUser.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
 
     res.status(201).json({ user: newUser, token });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error registering user', error: error.message });
+  }  catch (error) {
+    if (error.code === 11000) {
+      res.status(400).json({ message: 'Username already exists' });
+    } else {
+      console.error(error);
+      res.status(500).json({ message: 'Error registering user', error: error.message });
+    }
   }
 };
 
