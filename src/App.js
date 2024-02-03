@@ -20,12 +20,10 @@ import { LogoutOutlined, EllipsisOutlined } from "@ant-design/icons";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 
-const { Header } = Layout;
 
 const App = () => {
   return (
     <div>
-      {/* <AuthProvider> */}
       <Layout style={{ minHeight: "100vh" }}>
         <Router>
           <AppHeader />
@@ -42,9 +40,7 @@ const App = () => {
           </Routes>
         </Router>
         <Layout>
-          {/* <AppFooter /> */}
-          {/* </AuthProvider> */}
-
+      
           <FloatButton.Group
             trigger="click"
             style={{ right: 24 }}

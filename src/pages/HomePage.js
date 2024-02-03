@@ -1,25 +1,31 @@
 // HomePage.js
 import React from 'react';
-import { Typography, Button, Layout } from 'antd';
-import { Link } from 'react-router-dom';
+import { Typography, Layout } from 'antd';
 const {Content} = Layout;
 const { Title, Text } = Typography;
 const HomePage = () => {
   return (
     <Content className="content">
-    <div>
-      <Title>Welcome to Our Learning Platform</Title>
-      <Text type="secondary">Empowering students, teachers, and parents in the learning journey.</Text>
-
-      <div style={{ marginTop: '20px' }}>
-        <Button className='btn-primary' size="large" style={{ marginRight: '10px' }}>
-          <Link to="/login" style={{ color: 'white' }}>Login</Link>
-        </Button>
-        <Button size="large">
-          <Link to="/register">Register</Link>
-        </Button>
+      <div>
+        <Title>Welcome to Our Learning Platform</Title>
+        <Text type="secondary">Empowering students, teachers, and parents in the learning journey.</Text>
       </div>
-    </div>
+      <div>
+        <Title level={2}>Latest News</Title>
+        <ul>
+          <li>News 1</li>
+          <li>News 2</li>
+          <li>News 3</li>
+        </ul>
+      </div>
+      <div>
+        <Title level={2}>Upcoming Events</Title>
+        <ul>
+          <li>Event 1</li>
+          <li>Event 2</li>
+          <li>Event 3</li>
+        </ul>
+      </div>
     </Content>
   );
 };

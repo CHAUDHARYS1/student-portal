@@ -1,9 +1,9 @@
 // controllers/userController.js
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../models/User');
-const Student = require('../models/Student');
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const User = require("../models/User");
+const Student = require("../models/Student");
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
@@ -12,7 +12,7 @@ exports.getAllUsers = async (req, res) => {
     res.json(users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -21,15 +21,14 @@ exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
     res.json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
- 
 
 // Update user by ID
 exports.updateUserById = async (req, res) => {
@@ -43,13 +42,13 @@ exports.updateUserById = async (req, res) => {
     );
 
     if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     res.json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -59,16 +58,15 @@ exports.deleteUserById = async (req, res) => {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
 
     if (!deletedUser) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.json({ message: 'User deleted successfully' });
+    res.json({ message: "User deleted successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 // Create a new user with the role "student"
 exports.createStudentUser = async (req, res) => {
@@ -80,7 +78,11 @@ exports.createStudentUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
-    const newUser = new User({ username, password: hashedPassword, role: 'student' });
+    const newUser = new User({
+      username,
+      password: hashedPassword,
+      role: "student",
+    });
     await newUser.save();
 
     // Create a corresponding student
@@ -89,38 +91,50 @@ exports.createStudentUser = async (req, res) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       gradeLevel: req.body.gradeLevel,
-
     });
     await newStudent.save();
 
     // Generate a JWT token for the newly created user
-    const token = jwt.sign({ sub: newUser._id, username: newUser.username, role: newUser.role }, 'tisthesecret', { expiresIn: '1h' });
+    const token = jwt.sign(
+      { sub: newUser._id, username: newUser.username, role: newUser.role },
+      "tisthesecret",
+      { expiresIn: "1h" }
+    );
 
     res.status(201).json({ user: newUser, student: newStudent, token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error creating user', error: error.message }); // Return a proper error response
+    res
+      .status(500)
+      .json({ message: "Error creating user", error: error.message }); // Return a proper error response
   }
 };
 
-// Create a new user
-
 // Login user and return JWT token
 exports.loginUser = async (req, res) => {
-  passport.authenticate('local', { session: false }, (err, user, info) => {
-    try {
-      if (err || !user) {
-        return res.status(401).json({ message: 'Authentication failed', error: info.message });
-      }
+  const { username, password } = req.body;
 
-      // Generate a JWT token for the authenticated user
-      const token = jwt.sign({ sub: user._id, username: user.username, role: user.role }, 'tisthesecret', { expiresIn: '1h' });
-
-      return res.json({ message: 'Authentication successful', token });
-    } catch (error) {
-      return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  try {
+    // check if user exists
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: "User does not exist" });
     }
-  })(req, res);
+
+    // check if the password is correct
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).json({ message: "Invalid password" });
+    }
+
+    // Generate a JWT token for the user
+    const token = jwt.sign({ sub: user._id, username: user.username, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 // create a new user
@@ -135,20 +149,35 @@ exports.createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
-    const newUser = new User({ username, password: hashedPassword, email,  role });
+    const newUser = new User({
+      username,
+      password: hashedPassword,
+      email,
+      role,
+    });
     await newUser.save();
 
     // Generate a JWT token for the newly created user
-    const token = jwt.sign({ sub: newUser._id, username: newUser.username, email: newUser.email,  role: newUser.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+    const token = jwt.sign(
+      {
+        sub: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        role: newUser.role,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
     res.status(201).json({ user: newUser, token });
-  }  catch (error) {
+  } catch (error) {
     if (error.code === 11000) {
-      res.status(400).json({ message: 'Username already exists' });
+      res.status(400).json({ message: "Username already exists" });
     } else {
       console.error(error);
-      res.status(500).json({ message: 'Error registering user', error: error.message });
+      res
+        .status(500)
+        .json({ message: "Error registering user", error: error.message });
     }
   }
 };
