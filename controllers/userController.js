@@ -29,7 +29,7 @@ exports.getUserById = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-
+ 
 // Create a new user
 exports.createUser = async (req, res) => {
   const { username, password, role } = req.body;
