@@ -31,7 +31,13 @@
     background: #ffffff;
 }
 
-
+.input-active::placeholder {
+    font-size: 14px;
+  }
+  .input-active{ 
+      padding:10px;
+  }
+  
 /* create margin all around */
 .m-1{
     margin: 10px;
@@ -220,3 +226,26 @@
 .border-radius-10{
     border-radius: 10px;
 }
+.border-radius-15{
+    border-radius: 15px;
+}
+
+/* style for border */
+.border-0{
+    border: 0px;
+}
+.border-1{
+    border: 1px solid #f0f2f5;
+}
+.border-2{
+    border: 2px solid #f0f2f5;
+}
+.border-3{
+    border: 3px solid #f0f2f5;
+}
+
+
+.border-active:focus{
+    outline: 1px solid #5f9cf9!important;
+}
+    

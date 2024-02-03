@@ -7,11 +7,11 @@ const LoginPage = () => {
   return (
     <Content className="content">
       <Row>
-        <Col span={16} style={{ background: 'white', height: '100vh' }}>
+        <Col xs={24} sm={8} style={{ background: 'white', height: '100vh' }}>
       
 
         </Col>
-        <Col span={8} className="mt-5 pl-5">
+        <Col xs={24} sm={16} className="mt-5 pl-5">
           <Login />
         </Col>
       </Row>

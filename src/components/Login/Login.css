@@ -2,9 +2,3 @@
   width: 300px;
 }
 
-.input-active::placeholder {
-  font-size: 14px;
-}
-.input-active{ 
-    padding:10px;
-}

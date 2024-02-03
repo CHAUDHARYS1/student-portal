@@ -34,14 +34,15 @@ const Login = () => {
         >
           <Form.Item
             name="username"
-            label={<span style={{ padding: "0px" }}>Email address</span>}
-            rules={[{ required: true, message: "Please enter your email!" }]}
+            label={<span style={{ padding: "0px" }}>Username</span>}
+            rules={[{ required: true, message: "Please enter your username!" }]}
+            hasFeedback validateDebounce={1000}
           >
             <Input
-              placeholder="Enter your email"
+              placeholder="Enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="bg-white input-active border-radius-0"
+              className="bg-white input-active border-radius-0 border-active"
               bordered={false}
             />
           </Form.Item>
@@ -50,6 +51,7 @@ const Login = () => {
             label="Password"
             rules={[{ required: true, message: "Please enter your password!" }]}
             style={{ marginBottom: "0px" }}
+            hasFeedback validateDebounce={1000}
           >
             <Input.Password
               placeholder="Enter your password"
@@ -60,10 +62,11 @@ const Login = () => {
               }
               className="bg-white input-active border-radius-0"
               bordered={false}
+                
             />
           </Form.Item>
           <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Form.Item name="remember" valuePropName="checked" noStyle >
               <Checkbox
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
@@ -85,7 +88,7 @@ const Login = () => {
             <Button
               className="btn-primary btn-shadow border-radius-0"
               htmlType="submit"
-              style={{ width: "100%" }}
+             
             >
               Log in
             </Button>
