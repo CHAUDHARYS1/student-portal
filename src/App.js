@@ -14,7 +14,8 @@ import AppHeader from "./components/Header/Header";
 import Dashboard from "./components/Dashboard/Dashboard";
 // import AppFooter from './components/Footer/Footer';
 import HomePage from "./pages/HomePage";
-import Intro from "./pages/LoginRegisterPage";
+import Login from "./pages/LoginPage";
+import Signup from "./pages/SignupPage";
 import { FloatButton, Tooltip, Layout } from "antd";
 import { LogoutOutlined, EllipsisOutlined } from "@ant-design/icons";
 import CoursesList from "./components/Course/CoursesList";
@@ -30,7 +31,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             
-            <Route path="/intro" element={<Intro />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
             <Route exact path="/courses" element={<CoursesList />} />
             <Route path="/courses/:id" element={<CourseDetails />} />

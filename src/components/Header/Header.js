@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 
-const { Header, Sider, Content } = Layout;
+const { Sider  } = Layout;
 
 const AppHeader = () => {
   const items = [
@@ -14,10 +14,14 @@ const AppHeader = () => {
     },
   
     {
-      label: <Link to="/intro">Login/Register</Link>,
-      key: "intro",
+      label: <Link to="/login">Login</Link>,
+      key: "login",
     },
     
+    {
+      label: <Link to="/signup">Signup</Link>,
+      key: "signup",
+    },
     {
       label: <Link to="/courses">Courses</Link>,
       key: "courses",

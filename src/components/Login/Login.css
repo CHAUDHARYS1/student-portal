@@ -1,3 +1,10 @@
-.login-container{
- width: 250px;
+.login-container {
+  width: 300px;
+}
+
+.input-active::placeholder {
+  font-size: 14px;
+}
+.input-active{ 
+    padding:10px;
 }
