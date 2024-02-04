@@ -18,7 +18,7 @@ import { Layout } from "antd";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 import LogoutButton from "./components/Login/Logout";
-
+import LogOutSuccessPage from "./pages/LogoutSuccessPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,6 +46,7 @@ const App = () => {
             
            
             <Route path="/login" element={<Login />} />
+            <Route path="/logout-success" element={<LogOutSuccessPage />} />
             <Route path="/signup" element={<Signup />} />
             {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
             <Route exact path="/courses" element={<CoursesList />} />

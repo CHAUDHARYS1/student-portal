@@ -15,7 +15,7 @@ const LogoutButton = () => {
     const handleClick = () => {
         handleLogout();
         setTimeout(() => {
-            window.location.href = "/";
+            window.location.href = "/logout-success";
         }, 500);
     };
 
