@@ -1,36 +1,49 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState,} from "react";
 import {
   BrowserRouter as Router,
   Route,
   Navigate,
-  Routes,
+  Routes
 } from "react-router-dom";
-// import { AuthProvider } from './authContext';
 
 
-// import ProtectedRoute from './ProtectedRoute';
 import AppHeader from "./components/Header/Header";
 import Dashboard from "./components/Dashboard/Dashboard";
-// import AppFooter from './components/Footer/Footer';
 import HomePage from "./pages/HomePage";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
-import { FloatButton, Tooltip, Layout } from "antd";
-import { LogoutOutlined, EllipsisOutlined } from "@ant-design/icons";
+import AuthContext from "./authContext";
+import { Layout } from "antd";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
+import LogoutButton from "./components/Login/Logout";
 
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  };
+
   return (
     <div>
       <Layout style={{ minHeight: "100vh" }}>
         <Router>
           <AppHeader />
+          <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleLogout }}>
+
           <Routes>
             <Route path="/" element={<HomePage />} />
             
+           
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
@@ -40,18 +53,12 @@ const App = () => {
             {/* route to home page if endpoint is not found */}
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
+
+          {isLoggedIn && <LogoutButton />}
+      </AuthContext.Provider>
         </Router>
         <Layout>
-      
-          <FloatButton.Group
-            trigger="click"
-            style={{ right: 24 }}
-            icon={<EllipsisOutlined />}
-          >
-            <Tooltip title="Logout">
-              <FloatButton icon={<LogoutOutlined />} />
-            </Tooltip>
-          </FloatButton.Group>
+        
         </Layout>
       </Layout>
     </div>
