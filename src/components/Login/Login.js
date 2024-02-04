@@ -2,8 +2,9 @@ import "./Login.css";
 import React, { useContext, useState } from "react";
 import AuthContext from "../../authContext";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, Checkbox, Typography } from "antd";
+import { Form, Input, Button, Checkbox, Typography, Spin, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { set } from "mongoose";
 
 const { Title } = Typography;
 
@@ -12,10 +13,12 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = async (values) => {
+    setLoading(true);
     console.log("Login form values:", values);
 
     const response = await fetch("http://localhost:5000/api/users/login", {
@@ -29,6 +32,8 @@ const Login = () => {
       }),
     });
 
+    setLoading(false);
+
     if (response.ok) {
       const data = await response.json();
       console.log("Login successful:", data);
@@ -39,9 +44,10 @@ const Login = () => {
       // Redirect the user to the home/dashboarrd page
       navigate("/dashboard");
     } else {
-      console.log("Login failed:", response);
+      const data = await response.json();
+      console.log("Login failed:", data);
       // Here you would display an error message to the user
-      alert("Login failed");
+      message.error(data.message || "Login failed");
     }
   };
 
@@ -59,7 +65,12 @@ const Login = () => {
           <Form.Item
             name="username"
             label={<span style={{ padding: "0px" }}>Username</span>}
-            rules={[{ required: true, message: "Please enter your username!" }]}
+            rules={[
+              { required: true, message: "Please enter your username!" },
+              { min: 3, message: 'Username must be minimum 3 characters.' },
+              { max: 30, message: 'Username must be maximum 30 characters.' },
+
+            ]}
             hasFeedback
             validateDebounce={1000}
           >
@@ -74,7 +85,10 @@ const Login = () => {
           <Form.Item
             name="password"
             label="Password"
-            rules={[{ required: true, message: "Please enter your password!" }]}
+            rules={[{ required: true, message: "Please enter your password!" },
+            { min: 8, message: 'Password must be minimum 8 characters.' },
+            
+          ]}
             style={{ marginBottom: "0px" }}
             hasFeedback
             validateDebounce={1000}
@@ -97,6 +111,7 @@ const Login = () => {
                 onChange={(e) => setRememberMe(e.target.checked)}
                 className="border-radius-0 tsize-12"
                 style={{ fontSize: "12px" }}
+                disabled
               >
                 Remember me
               </Checkbox>
@@ -105,6 +120,7 @@ const Login = () => {
               href="/forgot-password"
               className="text-size-10"
               style={{ fontSize: "12px", marginLeft: "100px" }}
+              disabled
             >
               Forgot password
             </a>
@@ -113,6 +129,7 @@ const Login = () => {
             <Button
               className="btn-primary btn-shadow border-radius-0"
               htmlType="submit"
+              loading={loading}
             >
               Log in
             </Button>

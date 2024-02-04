@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const Student = require("../models/Student");
+const Joi = require("joi");
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
@@ -128,7 +129,16 @@ exports.loginUser = async (req, res) => {
     }
 
     // Generate a JWT token for the user
-    const token = jwt.sign({ sub: user._id, username: user.username, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(
+      {
+        sub: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
     res.json({ token });
   } catch (error) {
@@ -137,10 +147,17 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+const schema = Joi.object({
+  username: Joi.string().alphanum().min(3).max(30).required(),
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+  email: Joi.string().email().required(),
+  role: Joi.string().valid('admin', 'teacher', 'student').required(),
+});
+
 // create a new user
 exports.createUser = async (req, res) => {
-  // const { error } = validateUser(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
+  const { error } = schema.validate(req.body);
+  if (error) return res.status(400).json({ message: error.details[0].message });
 
   try {
     const { username, password, email, role } = req.body;
@@ -173,6 +190,8 @@ exports.createUser = async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       res.status(400).json({ message: "Username already exists" });
+    } else if (error.name === 'ValidationError') {
+      res.status(400).json({ message: "Invalid user data", error: error.message });
     } else {
       console.error(error);
       res
@@ -182,4 +201,3 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// ... (other code)

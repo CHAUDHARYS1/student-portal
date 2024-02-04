@@ -12,7 +12,12 @@ const AppHeader = () => {
   const { isLoggedIn } = useContext(AuthContext);
 
   const items = [
-    {
+  
+    
+  ];
+
+  if (isLoggedIn) {
+    items.push({
       label: <Link to="/">Home</Link>,
       key: "home",
     },
@@ -23,8 +28,9 @@ const AppHeader = () => {
     {
       label: <Link to="/dashboard">Dashboard</Link>,
       key: "dashboard",
-    },
-  ];
+    }
+    );
+  }
 
   if (!isLoggedIn) {
     items.push(

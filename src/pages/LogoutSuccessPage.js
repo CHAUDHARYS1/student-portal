@@ -9,8 +9,7 @@ const LogoutPage = () => {
                 icon={<CheckCircleOutlined style={{ fontSize: '72px', color: '#52c41a' }} />}
                 title="You have been successfully logged out"
                 extra={[
-                    <Button key="home" className="btn-primary" icon={<HomeOutlined />} href="/">Go Home</Button>,
-                    <Button key="login" icon={<LoginOutlined />} href="/login">Login</Button>,
+                    <Button key="login"className="btn-primary" icon={<LoginOutlined />} href="/login">Login</Button>,
                 ]}
             />
         </div>
