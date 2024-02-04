@@ -36,9 +36,10 @@ const App = () => {
   return (
     <div>
       <Layout style={{ minHeight: "100vh" }}>
+      <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleLogout }}>
+
         <Router>
           <AppHeader />
-          <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleLogout }}>
 
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -55,8 +56,9 @@ const App = () => {
           </Routes>
 
           {isLoggedIn && <LogoutButton />}
-      </AuthContext.Provider>
         </Router>
+        </AuthContext.Provider>
+
         <Layout>
         
         </Layout>

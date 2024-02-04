@@ -9,25 +9,27 @@ import { LogoutOutlined, EllipsisOutlined } from "@ant-design/icons";
 
 
 const LogoutButton = () => {
-  const { handleLogout } = useContext(AuthContext);
-  const navigate = useNavigate();
+    const { handleLogout } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-  const handleClick = () => {
-    handleLogout();
-    navigate("/");
-  };
+    const handleClick = () => {
+        handleLogout();
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 500);
+    };
 
-  return (
-    <FloatButton.Group
-      trigger="click"
-      style={{ right: 24 }}
-      icon={<EllipsisOutlined />}
-    >
-      <Tooltip title="Logout">
-        <FloatButton icon={<LogoutOutlined />} onClick={handleClick} />
-      </Tooltip>
-    </FloatButton.Group>
-  );
+    return (
+        <FloatButton.Group
+            trigger="click"
+            style={{ right: 24 }}
+            icon={<EllipsisOutlined />}
+        >
+            <Tooltip title="Logout">
+                <FloatButton icon={<LogoutOutlined />} onClick={handleClick} />
+            </Tooltip>
+        </FloatButton.Group>
+    );
 };
 
 export default LogoutButton;

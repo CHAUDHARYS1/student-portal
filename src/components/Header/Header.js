@@ -1,26 +1,20 @@
 // Header.js
 import "./Header.css";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
+import AuthContext from "../../authContext";
 
 const { Sider  } = Layout;
 
 const AppHeader = () => {
+
+  const { isLoggedIn } = useContext(AuthContext);
+
   const items = [
     {
       label: <Link to="/">Home</Link>,
       key: "home",
-    },
-  
-    {
-      label: <Link to="/login">Login</Link>,
-      key: "login",
-    },
-    
-    {
-      label: <Link to="/signup">Signup</Link>,
-      key: "signup",
     },
     {
       label: <Link to="/courses">Courses</Link>,
@@ -31,6 +25,20 @@ const AppHeader = () => {
       key: "dashboard",
     },
   ];
+
+  if (!isLoggedIn) {
+    items.push(
+      {
+        label:<Link to="/login">Login</Link>,
+        key: "login",
+      },
+      {
+        label: <Link to="/signup">Signup</Link>,
+        key: "signup",
+      }
+    );
+  }
+
 
   const [current, setCurrent] = useState("home");
   const onClick = (e) => {
@@ -47,7 +55,7 @@ const AppHeader = () => {
       </div>
       <Menu
         onClick={onClick}
-        selectedKeys={[0]}
+        selectedKeys={[current]}
         mode="inline"
         items={items}
         style={{
