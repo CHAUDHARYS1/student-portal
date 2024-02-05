@@ -8,11 +8,16 @@ const SignupPage = () => {
   return (
     <Content className="content">
       <Row>
-        <Col xs={24} sm={8} style={{ background: 'white', height: '100vh' }}>
-          {/* Content for larger screens */}
+        <Col xs={24} sm={12} style={{ background: 'white', height: '100vh' }}>
+          {/* Content for larger screens */} 
         </Col>
-        <Col xs={24} sm={16} className="mt-5 pl-5">
+        <Col xs={24} sm={12} className="mt-5 pl-5">
           <Signup />
+          <div>
+            <p>
+              Already have an account? <a href="/login"><u>Log in</u></a>
+            </p>
+          </div>
         </Col>
       </Row>
     </Content>

@@ -2,7 +2,7 @@ import "./Login.css";
 import React, { useContext, useState } from "react";
 import AuthContext from "../../authContext";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, Checkbox, Typography, Spin, message } from "antd";
+import { Form, Input, Button, Checkbox, Typography, Divider, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { set } from "mongoose";
 
@@ -135,6 +135,16 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
+
+        <Divider />
+
+        <div style={{ textAlign: "center" }}>
+          <Title level={5}>Don't have an account?</Title>
+          <a href="/signup" className="text-size-10" style={{ fontSize: "12px" }}>
+           <u>Sign up</u>
+          </a>
+        </div>
+
       </div>
     </>
   );

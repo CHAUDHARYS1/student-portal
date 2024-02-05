@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 
-import AppHeader from "./components/Header/Header";
+import Sider from "./components/Header/Header";
 import Dashboard from "./components/Dashboard/Dashboard";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/LoginPage";
@@ -40,7 +40,8 @@ const App = () => {
       <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleLogout }}>
 
         <Router>
-          <AppHeader />
+          
+          {isLoggedIn && <Sider />}
 
           <Routes>
             <Route path="/" element={<HomePage />} />
