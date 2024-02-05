@@ -2,7 +2,7 @@
 import "./Signup.css";
 
 import React, { useState } from "react";
-import { Form, Input, Button, Select } from "antd";
+import { Form, Input, Button, Select, message } from "antd";
 import { Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -42,17 +42,21 @@ const Signup = () => {
 
       if (response.ok) {
         // Registration successful, navigate to login page
-        alert("Registration successful");
-        navigate("/login");
+        const data = await response.json();
+
+        message.success("Registration successful. Redirecting to login...");
+        
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       } else {
         // Handle error here
-        console.error("Registration failed");
-        alert("Registration failed");
+        const data = await response.json();
+        message.error(data.message || "Registration failed");
 
       }
     } catch (error) {
       // Handle error here
-
       console.error("Error:", error);
     }
   };
@@ -65,7 +69,7 @@ const Signup = () => {
         <Form.Item
           name="username"
           label="Username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Please input your username!" },  { min: 3, message: 'Username must be at least 3 characters long' }, ]}
           hasFeedback
           validateDebounce={1000}
         >
@@ -81,7 +85,7 @@ const Signup = () => {
         <Form.Item
           name="password"
           label="Password"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          rules={[{ required: true, message: "Please input your password!" }, { min: 8, message: 'Password must be at least 8 characters long' },]}
           hasFeedback
           validateDebounce={1000}
         >
