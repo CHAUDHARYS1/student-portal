@@ -98,10 +98,10 @@ const CourseCard = ({ course }) => {
 
       // Validate form fields
       const values = await form.validateFields();
-const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       // Simulate an asynchronous API call to update the course details in the database
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      
+
       // Make the actual API call to update the course details
       const response = await fetch(
         `http://localhost:5000/api/courses/${course._id}`,
@@ -151,7 +151,8 @@ const token = localStorage.getItem("token");
 
   return (
     <>
-      <Card className="border-radius-0"
+      <Card
+        className="border-radius-0"
         title={
           loading ? (
             <Skeleton.Input style={{ width: 100 }} active />
@@ -159,7 +160,7 @@ const token = localStorage.getItem("token");
             course.abbreviation
           )
         }
-        style={{ width: 300, margin: 16 }}
+        style={{ width: 300 }}
         extra={[
           <Tag key="online" color="green" bordered={false}>
             {loading ? (
@@ -189,7 +190,7 @@ const token = localStorage.getItem("token");
             </Tooltip>
           </Popconfirm>,
           <Tooltip title="Quick Edit" placement="bottom">
-          <EditOutlined key="edit" onClick={showModal} />
+            <EditOutlined key="edit" onClick={showModal} />
           </Tooltip>,
           <Tooltip title="Expand Course for more info" placement="bottom">
             <Link to={`/courses/${course._id}`}>
@@ -217,7 +218,7 @@ const token = localStorage.getItem("token");
                 </>
               ) : (
                 <>
-                  {`${course.description.substring(0, 100) + '...'}`} <br />
+                  {`${course.description.substring(0, 100) + "..."}`} <br />
                   <br /> Course Difficulty:{" "}
                   <Tag bordered={false} color={tagColor}>
                     {`${course.level

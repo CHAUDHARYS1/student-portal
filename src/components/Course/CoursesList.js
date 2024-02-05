@@ -1,9 +1,8 @@
 // CoursesList.js
 import React, { useState, useEffect } from "react";
-import { Row, Col, Layout, Breadcrumb, Typography } from "antd";
+import { Row, Col, Layout, Breadcrumb } from "antd";
 import CourseCard from "./CourseCard";
 const { Content } = Layout;
-const { Title } = Typography;
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
 
@@ -12,9 +11,9 @@ const CoursesList = () => {
     const fetchCourses = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/courses",{
+        const response = await fetch("http://localhost:5000/api/courses", {
           headers: {
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -35,9 +34,8 @@ const CoursesList = () => {
   return (
     <Content className="content">
       <div className="mt-2">
-
         <Breadcrumb items={[{ title: "Courses" }]} />
-        <Row>
+        <Row gutter={20} className="mt-2">
           {courses.map((course) => (
             <Col key={course._id}>
               <CourseCard course={course} />
