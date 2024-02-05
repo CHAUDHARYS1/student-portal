@@ -49,7 +49,6 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/logout-success" element={<LogOutSuccessPage />} />
             <Route path="/signup" element={<Signup />} />
-            {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
             <Route exact path="/courses" element={<CoursesList />} />
             <Route path="/courses/:id" element={<CourseDetails />} />
             <Route path="/dashboard" element={<Dashboard />} />
