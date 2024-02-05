@@ -96,3 +96,25 @@ If you encounter any issues, please refer to the Troubleshooting section in the 
 ## Contributing
 Not yet ready.
 
+
+
+## Future Features
+User Profile: Allow users to view and edit their profiles. This could include their name, email, profile picture, etc.
+
+Search Functionality: Implement a search bar to allow users to search for courses, students, or teachers.
+
+Notifications: Implement a notification system to alert users of important events, such as assignment due dates, new course enrollments, etc.
+
+Course Enrollment: Allow students to enroll in courses.
+
+Grading System: Implement a system for teachers to grade students and for students to view their grades.
+
+Discussion Forums: Implement discussion forums for each course to facilitate communication between students and teachers.
+
+Calendar: Implement a calendar to display important dates such as exam dates, assignment due dates, etc.
+
+File Upload: Allow users to upload and download files. This could be used for submitting assignments, sharing course materials, etc.
+
+Analytics: Implement analytics to track user activity and course performance.
+
+Accessibility Features: Implement features to make your app more accessible, such as text-to-speech, high contrast mode, etc.

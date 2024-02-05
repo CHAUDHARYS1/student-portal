@@ -1,5 +1,5 @@
 // Header.js
-import "./Header.css";
+import "./Sider.css";
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
@@ -7,7 +7,7 @@ import AuthContext from "../../authContext";
 
 const { Sider  } = Layout;
 
-const AppHeader = () => {
+const SideBar = () => {
 
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -28,7 +28,12 @@ const AppHeader = () => {
     {
       label: <Link to="/dashboard">Dashboard</Link>,
       key: "dashboard",
-    }
+    },
+    {
+      label: <Link to="/calendar">Calendar</Link>,
+      key: "calendar",
+    },
+    
     );
   }
 
@@ -72,4 +77,4 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+export default SideBar;

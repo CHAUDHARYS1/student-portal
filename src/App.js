@@ -8,8 +8,8 @@ import {
 } from "react-router-dom";
 
 
-import Sider from "./components/Header/Header";
-import Dashboard from "./components/Dashboard/Dashboard";
+import SideBar from "./components/Sider/Sider";
+import Dashboard from "./pages/DashboardPage";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
@@ -20,6 +20,7 @@ import CourseDetails from "./components/Course/CourseDetails";
 import LogoutButton from "./components/Login/Logout";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
 import ProtectedRoute from "./ProtectedRoute";
+import SchoolCalendar from "./pages/CalenderPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -41,7 +42,7 @@ const App = () => {
 
         <Router>
           
-          {isLoggedIn && <Sider />}
+          {isLoggedIn && <SideBar />}
 
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -53,6 +54,7 @@ const App = () => {
             <Route exact path="/courses" element={<CoursesList />} />
             <Route path="/courses/:id" element={<CourseDetails />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/calendar" element={<SchoolCalendar />} />
 
             {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
             {/* route to home page if endpoint is not found */}

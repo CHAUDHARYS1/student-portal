@@ -1,8 +1,8 @@
 // Dashboard.js
 import React from 'react';
 import { Tabs, Typography, Layout } from 'antd';
-import StudentTable from '../Student/studentDataTable';
-import TeacherTable from '../Teacher/teacherDataTable';
+import StudentTable from '../components/Student/studentDataTable';
+import TeacherTable from '../components/Teacher/teacherDataTable';
 const {Content } = Layout;
 
 const { Title,} = Typography;
