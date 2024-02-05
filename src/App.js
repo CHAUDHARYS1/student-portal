@@ -21,6 +21,7 @@ import LogoutButton from "./components/Login/Logout";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
 import ProtectedRoute from "./ProtectedRoute";
 import SchoolCalendar from "./pages/CalenderPage";
+import Upcoming from "./pages/UpcomingPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/courses/:id" element={<CourseDetails />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/calendar" element={<SchoolCalendar />} />
+            <Route path="/upcoming" element={<Upcoming />} />
 
             {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
             {/* route to home page if endpoint is not found */}

@@ -1,251 +1,259 @@
-
-.content{
-    margin: '15px';
-    background: #f0f2f5;
-    border-radius: 0px;
-    min-width: 87%;
-    padding-left: 20px;
+.content {
+  margin: "15px";
+  background: #f0f2f5;
+  border-radius: 0px;
+  min-width: 87%;
+  padding-left: 20px;
 }
-.btn-primary{
-    background: #163172;
-    color: white;
-    border: 0px;
+.btn-primary {
+  background: #163172;
+  color: white;
+  border: 0px;
 }
-.btn-primary:hover{
-    background: #ffffff;
-    color: rgb(35, 35, 35) !important;
-    border: 0px
+.btn-primary:hover {
+  background: #ffffff;
+  color: rgb(35, 35, 35) !important;
+  border: 0px;
 }
-.bg-white{
-    background: white;
+.bg-white {
+  background: white;
 }
 /* Create btn shadow with animation */
-.btn-shadow{
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;    
-    animation: mymove 2s infinite;
+.btn-shadow {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  animation: mymove 2s infinite;
 }
-.input-active:focus{
-    background: #ffffff;
+.input-active:focus {
+  background: #ffffff;
 }
-.input-active:hover{
-    background: #ffffff;
+.input-active:hover {
+  background: #ffffff;
 }
 
 .input-active::placeholder {
-    font-size: 14px;
-  }
-  .input-active{ 
-      padding:10px;
-  }
-  
+  font-size: 14px;
+}
+.input-active {
+  padding: 10px;
+}
+
 /* create margin all around */
-.m-1{
-    margin: 10px;
+.m-1 {
+  margin: 10px;
 }
-.m-2{
-    margin: 20px;
+.m-2 {
+  margin: 20px;
 }
-.m-3{
-    margin: 30px;
+.m-3 {
+  margin: 30px;
 }
-.m-4{
-    margin: 40px;
+.m-4 {
+  margin: 40px;
 }
-.m-5{
-    margin: 50px;
+.m-5 {
+  margin: 50px;
 }
 /*  create margin top  */
 
-.mt-1{
-    margin-top: 10px;
+.mt-1 {
+  margin-top: 10px;
 }
-.mt-2{
-    margin-top: 20px;
+.mt-2 {
+  margin-top: 20px;
 }
-.mt-3{
-    margin-top: 30px;
+.mt-3 {
+  margin-top: 30px;
 }
-.mt-4{
-    margin-top: 40px;
+.mt-4 {
+  margin-top: 40px;
 }
-.mt-5{
-    margin-top: 50px;
+.mt-5 {
+  margin-top: 50px;
 }
 /* create margin left  */
-.ml-1{
-    margin-left: 10px;
+.ml-1 {
+  margin-left: 10px;
 }
-.ml-2{
-    margin-left: 20px;
+.ml-2 {
+  margin-left: 20px;
 }
-.ml-3{
-    margin-left: 30px;
+.ml-3 {
+  margin-left: 30px;
 }
-.ml-4{
-    margin-left: 40px;
+.ml-4 {
+  margin-left: 40px;
 }
-.ml-5{
-    margin-left: 50px;
+.ml-5 {
+  margin-left: 50px;
 }
 
 /* create margin right  */
-.mr-1{
-    margin-right: 10px;
+.mr-1 {
+  margin-right: 10px;
 }
-.mr-2{
-    margin-right: 20px;
+.mr-2 {
+  margin-right: 20px;
 }
-.mr-3{
-    margin-right: 30px;
+.mr-3 {
+  margin-right: 30px;
 }
-.mr-4{
-    margin-right: 40px;
+.mr-4 {
+  margin-right: 40px;
 }
-.mr-5{
-    margin-right: 50px;
+.mr-5 {
+  margin-right: 50px;
 }
 
 /* create margin bottom  */
 
-.mb-1{
-    margin-bottom: 10px;
+.mb-1 {
+  margin-bottom: 10px;
 }
-.mb-2{
-    margin-bottom: 20px;
+.mb-2 {
+  margin-bottom: 20px;
 }
-.mb-3{
-    margin-bottom: 30px;
+.mb-3 {
+  margin-bottom: 30px;
 }
-.mb-4{
-    margin-bottom: 40px;
+.mb-4 {
+  margin-bottom: 40px;
 }
-.mb-5{
-    margin-bottom: 50px;
+.mb-5 {
+  margin-bottom: 50px;
 }
 
 /* create padding all around */
-.p-1{
-    padding: 10px;
+.p-1 {
+  padding: 10px;
 }
-.p-2{
-    padding: 20px;
+.p-2 {
+  padding: 20px;
 }
-.p-3{
-    padding: 30px;
+.p-3 {
+  padding: 30px;
 }
-.p-4{
-    padding: 40px;
+.p-4 {
+  padding: 40px;
 }
-.p-5{
-    padding: 50px;
+.p-5 {
+  padding: 50px;
 }
 
 /* create padding left  */
-.pl-1{
-    padding-left: 10px;
+.pl-1 {
+  padding-left: 10px;
 }
-.pl-2{
-    padding-left: 20px;
+.pl-2 {
+  padding-left: 20px;
 }
-.pl-3{
-    padding-left: 30px;
+.pl-3 {
+  padding-left: 30px;
 }
-.pl-4{
-    padding-left: 40px;
+.pl-4 {
+  padding-left: 40px;
 }
-.pl-5{
-    padding-left: 50px;
+.pl-5 {
+  padding-left: 50px;
 }
 /* create padding right  */
-.pr-1{
-    padding-right: 10px;
+.pr-1 {
+  padding-right: 10px;
 }
-.pr-2{
-    padding-right: 20px;
+.pr-2 {
+  padding-right: 20px;
 }
-.pr-3{
-    padding-right: 30px;
+.pr-3 {
+  padding-right: 30px;
 }
-.pr-4{
-    padding-right: 40px;
+.pr-4 {
+  padding-right: 40px;
 }
-.pr-5{
-    padding-right: 50px;
-}   
+.pr-5 {
+  padding-right: 50px;
+}
 
 /* create padding top  */
 
-.pt-1{
-    padding-top: 10px;
+.pt-1 {
+  padding-top: 10px;
 }
-.pt-2{
-    padding-top: 20px;
+.pt-2 {
+  padding-top: 20px;
 }
-.pt-3{
-    padding-top: 30px;
+.pt-3 {
+  padding-top: 30px;
 }
-.pt-4{
-    padding-top: 40px;
+.pt-4 {
+  padding-top: 40px;
 }
-.pt-5{
-    padding-top: 50px;
+.pt-5 {
+  padding-top: 50px;
 }
 
 /* create padding bottom  */
-.pb-1{
-    padding-bottom: 10px;
+.pb-1 {
+  padding-bottom: 10px;
 }
-.pb-2{
-    padding-bottom: 20px;
+.pb-2 {
+  padding-bottom: 20px;
 }
-.pb-3{
-    padding-bottom: 30px;
+.pb-3 {
+  padding-bottom: 30px;
 }
-.pb-4{
-    padding-bottom: 40px;
+.pb-4 {
+  padding-bottom: 40px;
 }
-.pb-5{
-    padding-bottom: 50px;
+.pb-5 {
+  padding-bottom: 50px;
 }
 
 /* create text styles */
-.tsize-10{
-    font-size: 10px;
+.tsize-10 {
+  font-size: 10px;
 }
-.tsize-12{
-    font-size: 12px;
+.tsize-12 {
+  font-size: 12px;
 }
 
 /* style for border-radius */
-.border-radius-0{
-    border-radius: 0px;
+.border-radius-0 {
+  border-radius: 0px;
 }
-.border-radius-5{
-    border-radius: 5px;
+.border-radius-5 {
+  border-radius: 5px;
 }
-.border-radius-10{
-    border-radius: 10px;
+.border-radius-10 {
+  border-radius: 10px;
 }
-.border-radius-15{
-    border-radius: 15px;
+.border-radius-15 {
+  border-radius: 15px;
 }
 
 /* style for border */
-.border-0{
-    border: 0px;
+.border-0 {
+  border: 0px;
 }
-.border-1{
-    border: 1px solid #f0f2f5;
+.border-1 {
+  border: 1px solid #f0f2f5;
 }
-.border-2{
-    border: 2px solid #f0f2f5;
+.border-2 {
+  border: 2px solid #f0f2f5;
 }
-.border-3{
-    border: 3px solid #f0f2f5;
+.border-3 {
+  border: 3px solid #f0f2f5;
 }
 
-
-.border-active:focus{
-    outline: 1px solid #5f9cf9!important;
+.border-active:focus {
+  outline: 1px solid #5f9cf9 !important;
 }
-    
+
+.upcoming-features-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.upcoming-features-ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f2f5;
+}

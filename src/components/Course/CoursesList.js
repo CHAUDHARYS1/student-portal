@@ -1,9 +1,9 @@
 // CoursesList.js
 import React, { useState, useEffect } from "react";
-import { Row, Col, Layout, Breadcrumb } from "antd";
+import { Row, Col, Layout, Breadcrumb, Typography } from "antd";
 import CourseCard from "./CourseCard";
-
 const { Content } = Layout;
+const { Title } = Typography;
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
 
@@ -35,6 +35,7 @@ const CoursesList = () => {
   return (
     <Content className="content">
       <div className="mt-2">
+
         <Breadcrumb items={[{ title: "Courses" }]} />
         <Row>
           {courses.map((course) => (

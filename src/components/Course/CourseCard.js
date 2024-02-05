@@ -151,7 +151,7 @@ const token = localStorage.getItem("token");
 
   return (
     <>
-      <Card
+      <Card className="border-radius-0"
         title={
           loading ? (
             <Skeleton.Input style={{ width: 100 }} active />

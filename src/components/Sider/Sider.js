@@ -11,10 +11,9 @@ const SideBar = () => {
 
   const { isLoggedIn } = useContext(AuthContext);
 
-  const items = [
-  
-    
-  ];
+  const items = [];
+  const addtionalItems = [];
+
 
   if (isLoggedIn) {
     items.push({
@@ -35,6 +34,10 @@ const SideBar = () => {
     },
     
     );
+    addtionalItems.push({
+      label: <Link to="/upcoming">Upcoming Features</Link>,
+      key: "upcoming",
+    });
   }
 
   if (!isLoggedIn) {
@@ -73,6 +76,19 @@ const SideBar = () => {
           marginTop: "30px",
         }}
       />
+
+      <Menu 
+        onClick={onClick}
+        selectedKeys={[current]}
+        mode="inline"
+        items={addtionalItems}
+        style={{
+          position: "absolute",
+          bottom: "0",
+          marginTop: "30px",
+        }}
+      />
+
     </Sider>
   );
 };
