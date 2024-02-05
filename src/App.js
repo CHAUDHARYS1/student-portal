@@ -17,11 +17,12 @@ import AuthContext from "./authContext";
 import { Layout } from "antd";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
-import LogoutButton from "./components/Login/Logout";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
-import ProtectedRoute from "./ProtectedRoute";
+// import ProtectedRoute from "./ProtectedRoute";
 import SchoolCalendar from "./pages/CalenderPage";
 import Upcoming from "./pages/UpcomingPage";
+import FloatingGroup from "./components/FloatButton/FloatButton";
+import UserProfile from "./components/User/userProfile";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,7 +45,6 @@ const App = () => {
         <Router>
           
           {isLoggedIn && <SideBar />}
-
           <Routes>
             <Route path="/" element={<HomePage />} />
             
@@ -57,13 +57,14 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/calendar" element={<SchoolCalendar />} />
             <Route path="/upcoming" element={<Upcoming />} />
+            <Route path="/userprofile" element={<UserProfile />} />
 
             {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
             {/* route to home page if endpoint is not found */}
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>
 
-          {isLoggedIn && <LogoutButton />}
+          {isLoggedIn && <FloatingGroup />}
         </Router>
         </AuthContext.Provider>
 

@@ -156,6 +156,15 @@ const schema = Joi.object({
   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
   email: Joi.string().email().required(),
   role: Joi.string().valid('admin', 'teacher', 'student').required(),
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+  address: Joi.string(),
+  aptSuiteUnit: Joi.string(),
+  city: Joi.string(),
+  state: Joi.string(),
+  phoneNumber: Joi.string(),
+  dateOfBirth: Joi.date(),
+  gender: Joi.string(),
 });
 
 // create a new user
@@ -164,7 +173,7 @@ exports.createUser = async (req, res) => {
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   try {
-    const { username, password, email, role } = req.body;
+    const { username, password, email, role, firstName, lastName, address, aptSuiteUnit, city, state, phoneNumber, dateOfBirth, gender } = req.body;
 
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -175,6 +184,15 @@ exports.createUser = async (req, res) => {
       password: hashedPassword,
       email,
       role,
+      firstName,
+      lastName,
+      address,
+      aptSuiteUnit,
+      city,
+      state,
+      phoneNumber,
+      dateOfBirth,
+      gender,
     });
     await newUser.save();
 
