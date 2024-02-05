@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Table, Modal, Form, Input, Button, Select, InputNumber } from "antd";
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
-
+import {
+  EditOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
 
 const { Option } = Select;
 const { Item } = Form;
 const { confirm } = Modal;
 
-
 const StudentTable = () => {
-
   const [students, setStudents] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editedStudent, setEditingStudent] = useState(null);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [selectedStudentToDelete] = useState(null);
-  const [isAddNewStudentModalVisible, setIsAddNewStudentModalVisible] = useState(false);
+  const [isAddNewStudentModalVisible, setIsAddNewStudentModalVisible] =
+    useState(false);
 
   const formRef = useRef();
 
@@ -30,73 +33,84 @@ const StudentTable = () => {
     // Fetch student data from the server when the component mounts
     const fetchStudents = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/students');
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:5000/api/students", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         setStudents(data);
       } catch (error) {
-        console.error('Error fetching student data:', error);
+        console.error("Error fetching student data:", error);
       }
     };
-
 
     fetchStudents();
   }, []);
 
-
   const handleSave = async () => {
     try {
-
-      console.log('Editing student:', editedStudent);
+      console.log("Editing student:", editedStudent);
 
       if (!editedStudent || !editedStudent.key) {
-        console.error('Invalid student data for update');
+        console.error("Invalid student data for update");
         return;
       }
 
       // Validate form values and make sure it's not empty
       if (!formRef.current?.getFieldsValue()) {
-        console.error('Form values are empty');
+        console.error("Form values are empty");
         return;
       }
 
       // get form values
       const formValues = formRef.current?.getFieldsValue();
-      console.log('Form values:', formValues);
-
+      console.log("Form values:", formValues);
+      const token = localStorage.getItem("token");
       // Send a request to update the student data
-      const response = await fetch(`http://localhost:5000/api/students/${editedStudent.key}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // Update with the form values
-          firstName: formValues.firstName,
-          lastName: formValues.lastName,
-          email: formValues.email,
-          phone: formValues.phone,
-
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/students/${editedStudent.key}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            // Update with the form values
+            firstName: formValues.firstName,
+            lastName: formValues.lastName,
+            email: formValues.email,
+            phone: formValues.phone,
+          }),
+        }
+      );
 
       if (!response.ok) {
-        console.error('Failed to update student data');
-        // Handle error
-
-      } else {
-        const updatedData = await fetch('http://localhost:5000/api/students').then((res) => res.json());
-        setStudents(updatedData);
-        setIsModalVisible(false);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const updatedStudent = await response.json();
+      setStudents(prevStudents =>
+        prevStudents.map(student =>
+          student._id === updatedStudent._id ? updatedStudent : student
+        )
+      );    
+       setIsModalVisible(false);
     } catch (error) {
-      console.error('Error updating student data:', error);
+      console.error("Error updating student data:", error);
       // Handle error
     }
   };
 
   const handleDelete = (student) => {
     confirm({
-      title: 'Confirm Deletion',
+      title: "Confirm Deletion",
       icon: <ExclamationCircleOutlined />,
       content: `Are you sure you want to delete ${student.firstName}?`,
       onOk() {
@@ -113,92 +127,111 @@ const StudentTable = () => {
       if (!student || !student.key) {
         return;
       }
-
-      const response = await fetch(`http://localhost:5000/api/students/${student.key}`, {
-        method: 'DELETE',
-      });
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:5000/api/students/${student.key}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
-        console.error('Failed to delete student');
-        // Handle error
-      } else {
-        const updatedData = await fetch('http://localhost:5000/api/students').then((res) => res.json());
-        setStudents(updatedData);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+  
+      // Remove the deleted student from the students state
+      setStudents(prevStudents => prevStudents.filter(s => s._id !== student.key));
+      setIsModalVisible(false);
     } catch (error) {
-      console.error('Error deleting student:', error);
+      console.error('Error deleting student data:', error);
       // Handle error
     }
   };
 
   const studentDataTable = [
     {
-      title: 'First Name',
-      dataIndex: 'firstName',
-      filters: students.map(student => ({ text: student.firstName, value: student.firstName })),
+      title: "First Name",
+      dataIndex: "firstName",
+      filters: students.map((student) => ({
+        text: student.firstName,
+        value: student.firstName,
+      })),
       filterSearch: true,
       onFilter: (value, record) => record.firstName.includes(value),
     },
     {
-      title: 'Last Name',
-      dataIndex: 'lastName',
-      filters: students.map(student => ({ text: student.lastName, value: student.lastName })),
+      title: "Last Name",
+      dataIndex: "lastName",
+      filters: students.map((student) => ({
+        text: student.lastName,
+        value: student.lastName,
+      })),
       filterSearch: true,
       onFilter: (value, record) => record.lastName.includes(value),
     },
 
     {
-      title: 'Age',
-      dataIndex: 'age',
+      title: "Age",
+      dataIndex: "age",
       sorter: (a, b) => a.age - b.age,
     },
     {
-      title: 'Gender',
-      dataIndex: 'gender'
+      title: "Gender",
+      dataIndex: "gender",
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      filters: students.map(student => ({ text: student.email, value: student.email })),
+      title: "Email",
+      dataIndex: "email",
+      filters: students.map((student) => ({
+        text: student.email,
+        value: student.email,
+      })),
       filterSearch: true,
       onFilter: (value, record) => record.email.includes(value),
     },
     {
-      title: 'Phone',
-      dataIndex: 'phone',
+      title: "Phone",
+      dataIndex: "phone",
       render: (text, record) => {
         const phoneNumber = record.phone.toString();
-        const formattedPhone = `(${phoneNumber.substring(0, 3)}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}`;
+        const formattedPhone = `(${phoneNumber.substring(
+          0,
+          3
+        )}) ${phoneNumber.substring(3, 6)}-${phoneNumber.substring(6)}`;
         return <span>{formattedPhone}</span>;
       },
     },
     {
-      title: 'Edit',
+      title: "Edit",
       render: (text, record) => (
-        <Button onClick={() => handleEdit(record)}><EditOutlined /></Button>
+        <Button onClick={() => handleEdit(record)}>
+          <EditOutlined />
+        </Button>
       ),
-      width: '10px'
+      width: "10px",
     },
     {
-      title: 'Delete',
+      title: "Delete",
       render: (text, record) => (
-        <Button onClick={() => handleDelete(record)}><DeleteOutlined /></Button>
+        <Button onClick={() => handleDelete(record)}>
+          <DeleteOutlined />
+        </Button>
       ),
-    }
-
+    },
   ];
 
-  const tableData = students.map(student => ({
+  const tableData = students.map((student) => ({
     key: student._id,
     firstName: student.firstName,
     lastName: student.lastName,
     age: student.age,
     gender: student.gender,
     email: student.email,
-    phone: student.phone
+    phone: student.phone,
   }));
-
-
 
   const handleAddNewStudent = () => {
     setIsAddNewStudentModalVisible(true);
@@ -206,21 +239,22 @@ const StudentTable = () => {
 
   const handleSaveNewStudent = async () => {
     try {
-
       // Validate form values and make sure it's not empty
       if (!formRef.current?.getFieldsValue()) {
-        console.error('Form values are empty');
+        console.error("Form values are empty");
         return;
       }
 
       // Get form values
       const formValues = formRef.current?.getFieldsValue();
 
+      const token = localStorage.getItem("token");
       // Send a request to create a new student
-      const response = await fetch('http://localhost:5000/api/students', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/api/students", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           // Include the form values for the new student
@@ -236,7 +270,7 @@ const StudentTable = () => {
       });
 
       if (!response.ok) {
-        console.error('Failed to create a new student');
+        console.error(`HTTP error! status: ${response.status}`);
         // Handle error
       } else {
         const newStudentData = await response.json();
@@ -245,65 +279,84 @@ const StudentTable = () => {
         formRef.current?.resetFields(); // Clear the form fields
       }
     } catch (error) {
-      console.error('Error creating a new student:', error);
+      console.error("Error creating a new student:", error);
       // Handle error
     }
   };
 
-
   return (
     <>
-
-
-      <Table columns={[...studentDataTable]} dataSource={tableData} rowKey={(student) => student.key} />
-
+      <Table
+        columns={[...studentDataTable]}
+        dataSource={tableData}
+        rowKey={(student) => student.key}
+      />
 
       <Modal
         title="Edit Student"
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
-        footer={null}>
-
-        <p>Here is {editedStudent?.firstName}'s {editedStudent?.lastName} information. Update any part of the information using the form below.</p>
+        footer={null}
+      >
+        <p>
+          Here is {editedStudent?.firstName}'s {editedStudent?.lastName}{" "}
+          information. Update any part of the information using the form below.
+        </p>
 
         <Form layout="vertical" onFinish={handleSave} ref={formRef}>
-
-          <Form.Item hasFeedback label="First Name" name="firstName" validateDebounce={1000} initialValue={editedStudent?.firstName}
+          <Form.Item
+            hasFeedback
+            label="First Name"
+            name="firstName"
+            validateDebounce={1000}
+            initialValue={editedStudent?.firstName}
             rules={[
-              { required: true, message: 'Please enter first name' },
-              { type: 'string', message: 'Please enter a valid first name' },
-            ]}>
+              { required: true, message: "Please enter first name" },
+              { type: "string", message: "Please enter a valid first name" },
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item hasFeedback label="Last Name" name="lastName" validateDebounce={1000} initialValue={editedStudent?.lastName}
+          <Form.Item
+            hasFeedback
+            label="Last Name"
+            name="lastName"
+            validateDebounce={1000}
+            initialValue={editedStudent?.lastName}
             rules={[
-              { required: true, message: 'Please enter last name' },
-              { type: 'string', message: 'Please enter a valid last name' },
-            ]}>
+              { required: true, message: "Please enter last name" },
+              { type: "string", message: "Please enter a valid last name" },
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Item hasFeedback
+          <Item
+            hasFeedback
             label="Email"
             name="email"
             validateDebounce={1000}
             initialValue={editedStudent?.email}
             rules={[
-              { required: true, message: 'Please enter the email address' },
-              { type: 'email', message: 'Please enter a valid email address' },
+              { required: true, message: "Please enter the email address" },
+              { type: "email", message: "Please enter a valid email address" },
             ]}
           >
             <Input />
           </Item>
 
-          <Item hasFeedback
+          <Item
+            hasFeedback
             label="Phone"
             name="phone"
             validateDebounce={1000}
             initialValue={editedStudent?.phone}
             rules={[
-              { required: true, message: 'Please enter the phone number' },
-              { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },
+              { required: true, message: "Please enter the phone number" },
+              {
+                pattern: /^\d{10}$/,
+                message: "Please enter a valid 10-digit phone number",
+              },
             ]}
           >
             <Input />
@@ -314,15 +367,23 @@ const StudentTable = () => {
           <Button key="cancel" onClick={() => setIsModalVisible(false)}>
             Cancel
           </Button>
-          <Button key="save" type="primary" htmlType="submit" >
+          <Button key="save" type="primary" htmlType="submit">
             Save
           </Button>
         </Form>
       </Modal>
 
       {/* Delete selected student - modal */}
-      <Modal title="Confirm Deletion" open={isDeleteModalVisible} onCancel={() => setIsDeleteModalVisible(false)} onOk={handleDeleteConfirmed(selectedStudentToDelete)}>
-        <p>Are you sure you want to delete {selectedStudentToDelete?.firstName} record from the database? This action cannot be undone. </p>
+      <Modal
+        title="Confirm Deletion"
+        open={isDeleteModalVisible}
+        onCancel={() => setIsDeleteModalVisible(false)}
+        onOk={handleDeleteConfirmed(selectedStudentToDelete)}
+      >
+        <p>
+          Are you sure you want to delete {selectedStudentToDelete?.firstName}{" "}
+          record from the database? This action cannot be undone.{" "}
+        </p>
       </Modal>
       <Button
         className="btn-primary"
@@ -332,8 +393,13 @@ const StudentTable = () => {
         Add new Student
       </Button>
 
-      <Modal title="Add New Student" open={isAddNewStudentModalVisible} onCancel={() => setIsAddNewStudentModalVisible(false)} onOk={handleSaveNewStudent} footer={null}>
-
+      <Modal
+        title="Add New Student"
+        open={isAddNewStudentModalVisible}
+        onCancel={() => setIsAddNewStudentModalVisible(false)}
+        onOk={handleSaveNewStudent}
+        footer={null}
+      >
         <p>Add a new student to the database.</p>
 
         {/* TODO: \
@@ -346,52 +412,105 @@ const StudentTable = () => {
         {/* Your form for adding a new student */}
         <Form ref={formRef} onFinish={handleSaveNewStudent}>
           {/* ... form fields for new student ... */}
-          <Form.Item hasFeedback label="First Name" name="firstName" validateDebounce={1000}
+          <Form.Item
+            hasFeedback
+            label="First Name"
+            name="firstName"
+            validateDebounce={1000}
             rules={[
-              { required: true, message: 'Please enter first name' },
-              { type: 'string', message: 'Please enter a valid first name' },
-            ]}>
+              { required: true, message: "Please enter first name" },
+              { type: "string", message: "Please enter a valid first name" },
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item hasFeedback label="Last Name" name="lastName" validateDebounce={1000}
+          <Form.Item
+            hasFeedback
+            label="Last Name"
+            name="lastName"
+            validateDebounce={1000}
             rules={[
-              { required: true, message: 'Please enter last name' },
-              { type: 'string', message: 'Please enter a valid last name' },
-            ]}>
+              { required: true, message: "Please enter last name" },
+              { type: "string", message: "Please enter a valid last name" },
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item hasFeedback label="Email" name="email" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the email address' }, { type: 'email', message: 'Please enter a valid email address' },]}>
+          <Form.Item
+            hasFeedback
+            label="Email"
+            name="email"
+            validateDebounce={1000}
+            rules={[
+              { required: true, message: "Please enter the email address" },
+              { type: "email", message: "Please enter a valid email address" },
+            ]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item hasFeedback label="Age" name="age" validateDebounce={1000} rules={[{ required: true, message: 'Please enter age' }]}>
+          <Form.Item
+            hasFeedback
+            label="Age"
+            name="age"
+            validateDebounce={1000}
+            rules={[{ required: true, message: "Please enter age" }]}
+          >
             <InputNumber />
           </Form.Item>
 
-          <Form.Item hasFeedback label="Phone" name="phone" validateDebounce={1000} rules={[{ required: true, message: 'Please enter the phone number' }, { pattern: /^\d{10}$/, message: 'Please enter a valid 10-digit phone number' },]}>
+          <Form.Item
+            hasFeedback
+            label="Phone"
+            name="phone"
+            validateDebounce={1000}
+            rules={[
+              { required: true, message: "Please enter the phone number" },
+              {
+                pattern: /^\d{10}$/,
+                message: "Please enter a valid 10-digit phone number",
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item label="Gender" name="gender" rules={[{ required: true, message: 'Please select gender' },]}>
-            <Select placeholder="Select from option below" >
+          <Form.Item
+            label="Gender"
+            name="gender"
+            rules={[{ required: true, message: "Please select gender" }]}
+          >
+            <Select placeholder="Select from option below">
               <Option value="Male">Male</Option>
               <Option value="Female">Female</Option>
               <Option value="Other">Other</Option>
             </Select>
           </Form.Item>
 
-          <Form.Item hasFeedback label="Grade Level" name="gradeLevel" validateDebounce={1000} rules={[{ required: true, message: "Please enter student's grade" }]}>
+          <Form.Item
+            hasFeedback
+            label="Grade Level"
+            name="gradeLevel"
+            validateDebounce={1000}
+            rules={[
+              { required: true, message: "Please enter student's grade" },
+            ]}
+          >
             <InputNumber />
           </Form.Item>
 
-
-          <Button key="cancel" onClick={() => setIsAddNewStudentModalVisible(false)}>Cancel</Button>
-          <Button key="save" className="btn-primary" htmlType="submit">Save</Button>
-
+          <Button
+            key="cancel"
+            onClick={() => setIsAddNewStudentModalVisible(false)}
+          >
+            Cancel
+          </Button>
+          <Button key="save" className="btn-primary" htmlType="submit">
+            Save
+          </Button>
         </Form>
       </Modal>
     </>
-  )
+  );
 };
-
 
 export default StudentTable;

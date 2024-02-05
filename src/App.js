@@ -19,6 +19,7 @@ import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 import LogoutButton from "./components/Login/Logout";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +53,8 @@ const App = () => {
             <Route exact path="/courses" element={<CoursesList />} />
             <Route path="/courses/:id" element={<CourseDetails />} />
             <Route path="/dashboard" element={<Dashboard />} />
+
+            {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
             {/* route to home page if endpoint is not found */}
             <Route path="/*" element={<Navigate to="/" />} />
           </Routes>

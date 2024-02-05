@@ -22,7 +22,17 @@ const CourseDetails = () => {
 
     const fetchCourseDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/courses/${id}`);
+        const token = localStorage.getItem("token");
+        const response = await fetch(`http://localhost:5000/api/courses/${id}`,{
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         setCourse(data);
       } catch (error) {

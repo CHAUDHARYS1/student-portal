@@ -337,6 +337,7 @@ const CourseDescription = ({ course }) => {
 
       // Add a 2-second delay
       setTimeout(async () => {
+        const token = localStorage.getItem("token");
         const response = await fetch(
           `http://localhost:5000/api/courses/${course._id}`,
           {
@@ -344,6 +345,8 @@ const CourseDescription = ({ course }) => {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${token}`
+
             },
             body: JSON.stringify(editedCourse),
           }

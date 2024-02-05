@@ -44,14 +44,21 @@ const CourseCard = ({ course }) => {
 
       // Simulate an asynchronous API call to delete the course
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
+      const token = localStorage.getItem("token");
       // Make the actual API call to delete the course
       const response = await fetch(
         `http://localhost:5000/api/courses/${course._id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       if (response.ok) {
         // Show success message
@@ -91,10 +98,10 @@ const CourseCard = ({ course }) => {
 
       // Validate form fields
       const values = await form.validateFields();
-
+const token = localStorage.getItem("token");
       // Simulate an asynchronous API call to update the course details in the database
       await new Promise((resolve) => setTimeout(resolve, 2000));
-
+      
       // Make the actual API call to update the course details
       const response = await fetch(
         `http://localhost:5000/api/courses/${course._id}`,
@@ -103,9 +110,14 @@ const CourseCard = ({ course }) => {
           body: JSON.stringify(values),
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       if (response.ok) {
         // Show success message

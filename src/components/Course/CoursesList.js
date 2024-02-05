@@ -11,7 +11,17 @@ const CoursesList = () => {
     // Fetch courses data from API
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/courses");
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://localhost:5000/api/courses",{
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         setCourses(data);
       } catch (error) {

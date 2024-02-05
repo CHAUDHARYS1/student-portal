@@ -115,9 +115,13 @@ exports.createStudentUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
+  console.log(`Received username: ${username}`);
+  console.log(`Received password: ${password}`);
+
   try {
     // check if user exists
     const user = await User.findOne({ username });
+    console.log(`Found user: ${user}`);
     if (!user) {
       return res.status(400).json({ message: "User does not exist" });
     }
