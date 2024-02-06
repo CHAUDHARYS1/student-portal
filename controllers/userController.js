@@ -144,6 +144,9 @@ exports.loginUser = async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    // Remove token after 1 hour
+   
+
     res.json({ token });
   } catch (error) {
     console.error(error);

@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Navigate,
-  Routes
+  Routes, useNavigate
 } from "react-router-dom";
 
 
@@ -13,7 +13,7 @@ import Dashboard from "./pages/DashboardPage";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
 import AuthContext from "./authContext";
-import { Layout } from "antd";
+import { Layout, message } from "antd";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
@@ -22,15 +22,14 @@ import SchoolCalendar from "./pages/CalenderPage";
 import Upcoming from "./pages/UpcomingPage";
 import FloatingGroup from "./components/FloatButton/FloatButton";
 import UserProfile from "./components/User/userProfile";
+import UserActivityMonitor from "./components/User/userActivityTracker";
+
+
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, []);
-
+  
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
@@ -43,7 +42,7 @@ const App = () => {
 
         <Router>
           
-          {isLoggedIn && <SideBar />}
+          {isLoggedIn ? <SideBar /> : null}
           <Routes>
          
            <Route path="/login" element={<Login />} />
@@ -62,6 +61,8 @@ const App = () => {
           </Routes>
 
           {isLoggedIn && <FloatingGroup />}
+          {isLoggedIn && <UserActivityMonitor />}
+
         </Router>
         </AuthContext.Provider>
 
