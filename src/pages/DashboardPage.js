@@ -32,7 +32,7 @@ const Dashboard = () => {
   return (
     <Content className="content">
       <div>
-          <Title level={2}>Dashboard</Title>       
+          <Title level={4}>Dashboard</Title>       
       </div>
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </Content>

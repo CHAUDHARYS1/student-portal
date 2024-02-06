@@ -10,7 +10,6 @@ import {
 
 import SideBar from "./components/Sider/Sider";
 import Dashboard from "./pages/DashboardPage";
-import HomePage from "./pages/HomePage";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
 import AuthContext from "./authContext";
@@ -46,10 +45,8 @@ const App = () => {
           
           {isLoggedIn && <SideBar />}
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            
-           
-            <Route path="/login" element={<Login />} />
+         
+           <Route path="/login" element={<Login />} />
             <Route path="/logout-success" element={<LogOutSuccessPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route exact path="/courses" element={<CoursesList />} />
@@ -61,7 +58,7 @@ const App = () => {
 
             {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
             {/* route to home page if endpoint is not found */}
-            <Route path="/*" element={<Navigate to="/" />} />
+            <Route path="/*" element={<Navigate to="/login" />} />
           </Routes>
 
           {isLoggedIn && <FloatingGroup />}

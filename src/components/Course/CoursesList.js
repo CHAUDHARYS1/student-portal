@@ -35,7 +35,7 @@ const CoursesList = () => {
     <Content className="content">
       <div className="mt-2">
         <Breadcrumb items={[{ title: "Courses" }]} />
-        <Row gutter={20} className="mt-2">
+        <Row gutter={[20,20]} className="mt-2">
           {courses.map((course) => (
             <Col key={course._id}>
               <CourseCard course={course} />

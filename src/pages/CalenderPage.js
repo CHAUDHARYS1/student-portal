@@ -11,7 +11,7 @@ const SchoolCalendar = () => {
 
   return (
     <Content className="content">
-      <Title level={2}>School Calendar</Title>
+      <Title level={4}>School Calendar</Title>
       <div style={{}}>
         <Calendar className="mt-2" onPanelChange={onPanelChange} />
       </div>

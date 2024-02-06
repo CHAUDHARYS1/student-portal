@@ -16,10 +16,7 @@ const SideBar = () => {
 
 
   if (isLoggedIn) {
-    items.push({
-      label: <Link to="/">Home</Link>,
-      key: "home",
-    },
+    items.push(
     {
       label: <Link to="/courses">Courses</Link>,
       key: "courses",
@@ -40,18 +37,7 @@ const SideBar = () => {
     });
   }
 
-  if (!isLoggedIn) {
-    items.push(
-      {
-        label:<Link to="/login">Login</Link>,
-        key: "login",
-      },
-      {
-        label: <Link to="/signup">Signup</Link>,
-        key: "signup",
-      }
-    );
-  }
+
 
 
   const [current, setCurrent] = useState("home");
@@ -63,33 +49,40 @@ const SideBar = () => {
  
 
   return (
-    <Sider style={{ minHeight: "100vh", backgroundColor: "white" }}>
+    <>
+    {isLoggedIn && (
+
+    <Sider id="sider">
       <div className="demo-logo">
         <img src="logo.png" alt="Logo" />
       </div>
       <Menu
         onClick={onClick}
         selectedKeys={[current]}
-        mode="inline"
         items={items}
-        style={{
-          marginTop: "30px",
-        }}
+       className="main-menu"
+       style={{
+        position: "absolute",
+        width: "100%",
+        
+       }}
       />
 
       <Menu 
         onClick={onClick}
         selectedKeys={[current]}
-        mode="inline"
         items={addtionalItems}
         style={{
           position: "absolute",
           bottom: "0",
+          width: "100%",
           marginTop: "30px",
         }}
       />
 
     </Sider>
+    )}
+    </>
   );
 };
 

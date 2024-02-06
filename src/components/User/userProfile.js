@@ -11,7 +11,7 @@ const UserProfile = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:5000/api/users/65bda566c8c028164ab094e6`, {
+        const response = await fetch(`http://localhost:5000/api/users/65c1556471bb5881142feaab`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -39,17 +39,60 @@ const UserProfile = () => {
   const generateUserItems = () => {
     return [
       {
+        label: "Username",
+        children: user.username,
+        span: 4
+      },
+      {
         label: "Email",
         children: user.email
       },
       {
-        label: "Username",
-        children: user.username
+        label: "Role",
+        children: user.role
       },
       {
         label: "First Name",
-        children: user.email
+        children: user.firstName
       },
+      {
+        label: "Last Name",
+        children: user.lastName
+      },
+      {
+        label: "Address",
+        children: user.address
+
+      },
+      {
+        label: "Apt/Suite/Unit",
+        children: user.aptSuiteUnit
+      },
+      {
+        label: "City",
+        children: user.city
+      }
+      ,
+      {
+        label: "State",
+        children: user.state
+      },
+      {
+        label: "Phone Number",
+        children: user.phoneNumber
+      },
+      {
+        label: "Date of Birth",
+        children: new Date(user.dateOfBirth).toLocaleDateString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric"
+        })
+      },
+      {
+        label: "Gender",
+        children: user.gender
+      }
     ];
   };
   const dynamicUserItems = generateUserItems();
@@ -57,20 +100,24 @@ const UserProfile = () => {
 
   return (
     <Content className="content">
-      <Title level={2}>User Profile</Title>
+      <Title level={4}>Profile</Title>
       <Descriptions
-        size="large"
+        size="default"
+        className=""
+        title="User Info"
+        layout=""
         bordered
+        extra={<Button className="btn-primary">Edit</Button>}
         column={{
-          xs: 2,
-          sm: 3,
-          md: 4,
-          lg: 4,
-          xl: 4,
+          xs: 1,
+          sm: 1,
+          md: 2,
+          lg: 3,
+          xl: 3,
           xxl: 4,
         }}
+       
         items={dynamicUserItems}
-        style={{ marginTop: "20px" }}
       />
     </Content>
   );
