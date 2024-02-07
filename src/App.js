@@ -1,10 +1,10 @@
 import "./App.css";
-import React, { useEffect, useState,} from "react";
+import React, { useState,} from "react";
 import {
   BrowserRouter as Router,
   Route,
   Navigate,
-  Routes, useNavigate
+  Routes, 
 } from "react-router-dom";
 
 
@@ -13,7 +13,7 @@ import Dashboard from "./pages/DashboardPage";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
 import AuthContext from "./authContext";
-import { Layout, message } from "antd";
+import { Layout } from "antd";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
