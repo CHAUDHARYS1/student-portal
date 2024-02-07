@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { Form, Input, Button, Layout, Typography, Descriptions } from "antd";
 
 const { Content } = Layout;
@@ -6,33 +7,37 @@ const { Title } = Typography;
 
 const UserProfile = () => {
   const [user, setUser] = useState({});
+
  
   useEffect(() => {
     const fetchUser = async () => {
       try {
+
         const token = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:5000/api/users/65c1556471bb5881142feaab`, {
+        const userId = localStorage.getItem("userId"); // replace this with how you get the logged-in user's ID
+  
+        if (!userId) {
+          console.error("User ID is undefined");
+          return;
+        }
+  
+        const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        
+  
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        if (response.ok )
-        {
-          console.log("Response", response)
-        }
+  
         const data = await response.json();
         setUser(data);
       } catch (error) {
         console.error("Error fetching user:", error);
       }
     };
-
+  
     fetchUser();
   }, []);
 

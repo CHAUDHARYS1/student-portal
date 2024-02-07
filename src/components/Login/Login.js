@@ -40,6 +40,7 @@ const Login = () => {
       setIsLoggedIn(true);
       // Here you would typically save the JWT to local storage
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
       message.success(data.message || "Login successful. Redirecting...");
       // Redirect the user to the home/dashboarrd page
       navigate("/dashboard");

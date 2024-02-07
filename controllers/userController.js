@@ -147,7 +147,7 @@ exports.loginUser = async (req, res) => {
     // Remove token after 1 hour
    
 
-    res.json({ token });
+    res.json({ token, userId: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
