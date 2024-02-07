@@ -14,6 +14,7 @@ Quinary: #191919
   background: #E6E8E6;
   border-radius: 0px;
   width: 100%!important; /* Set width to viewport width */
+  min-height: 100vh; /* Set height to viewport height */
   padding-left: 20px;
   overflow-x: hidden; /* Hide horizontal overflow */
 }

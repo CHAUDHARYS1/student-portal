@@ -1,20 +1,10 @@
-.demo-logo{
-
+.demo-logo img {
+  width: 100%;
+  filter: grayscale(100%);
 }
 
-.demo-logo img{
-width: 100%;
-filter: grayscale(100%);
-
-}
-
-#sider{
-    background: #CED0CE;
-    color: white;
-    min-height: 100vh;
-    
-
-}
-.main-menu{
-   background: none;
+#sider {
+  background: #ced0ce;
+  color: white;
+  min-height: 100vh;
 }

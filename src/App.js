@@ -1,19 +1,19 @@
 import "./App.css";
-import React, { useState,} from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Navigate,
-  Routes, 
+  Routes,
 } from "react-router-dom";
-
 
 import SideBar from "./components/Sider/Sider";
 import Dashboard from "./pages/DashboardPage";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
 import AuthContext from "./authContext";
-import { Layout } from "antd";
+import { Layout, Button } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
@@ -24,51 +24,77 @@ import FloatingGroup from "./components/FloatButton/FloatButton";
 import UserProfile from "./components/User/userProfile";
 import UserActivityMonitor from "./components/User/userActivityTracker";
 
-
-
-
+const { Header } = Layout;
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+  const [isSiderCollapsed, setIsSiderCollapsed] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
   };
 
   return (
     <div>
       <Layout style={{ minHeight: "100vh" }}>
-      <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, handleLogout }}>
+        <AuthContext.Provider
+          value={{ isLoggedIn, setIsLoggedIn, handleLogout }}
+        >
+          <Router>
+            {isLoggedIn && <SideBar collapsed={isSiderCollapsed} />}
 
-        <Router>
-          
-          {isLoggedIn ? <SideBar /> : null}
-          <Routes>
-         
-           <Route path="/login" element={<Login />} />
-            <Route path="/logout-success" element={<LogOutSuccessPage />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route exact path="/courses" element={<CoursesList />} />
-            <Route path="/courses/:id" element={<CourseDetails />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/calendar" element={<SchoolCalendar />} />
-            <Route path="/upcoming" element={<Upcoming />} />
-            <Route path="/userprofile" element={<UserProfile />} />
+            <Layout>
+              {isLoggedIn && (
+                <Header style={{background: '#191919', padding:'0px' }}>
+                  <Button
+                    icon={
+                      isSiderCollapsed ? (
+                        <MenuUnfoldOutlined />
+                      ) : (
+                        <MenuFoldOutlined />
+                      )
+                    }
+                    onClick={() => setIsSiderCollapsed(!isSiderCollapsed)}
+                    style={{
+                      fontSize: "16px",
+                      width: 64,
+                      height: 64,
+                      borderRadius: 0,
+                    }}
+                  />
+                </Header>
+              )}
 
-            {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
-            {/* route to home page if endpoint is not found */}
-            <Route path="/*" element={<Navigate to="/login" />} />
-          </Routes>
+              {/* Pass the state to SideBar */}
+              {/* Add a button to toggle the Sider */}
+              {/* ... rest of your code ... */}
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/logout-success" element={<LogOutSuccessPage />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route exact path="/courses" element={<CoursesList />} />
+                <Route path="/courses/:id" element={<CourseDetails />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/calendar" element={<SchoolCalendar />} />
+                <Route path="/upcoming" element={<Upcoming />} />
+                <Route path="/userprofile" element={<UserProfile />} />
 
-          {isLoggedIn && <FloatingGroup />}
-          {isLoggedIn && <UserActivityMonitor />}
-
-        </Router>
+                {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
+                {/* route to home page if endpoint is not found */}
+                <Route path="/*" element={<Navigate to="/login" />} />
+              </Routes>
+              {isLoggedIn && <FloatingGroup />}
+              {isLoggedIn && <UserActivityMonitor />}
+            </Layout>
+          </Router>
         </AuthContext.Provider>
-
-        <Layout>
-        
-        </Layout>
       </Layout>
     </div>
   );
