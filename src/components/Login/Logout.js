@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import AuthContext from "../../authContext";
 
-import { FloatButton, Tooltip } from "antd";
+import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 
 const LogoutButton = () => {
@@ -17,9 +17,12 @@ const LogoutButton = () => {
   };
 
   return (
-    <Tooltip title="Logout" placement="left">
-      <FloatButton icon={<LogoutOutlined />} onClick={handleClick} />
-    </Tooltip>
+      <Button icon={<LogoutOutlined />} onClick={handleClick}  style={{
+        width: 150,
+        height: 50,
+        borderRadius: 0,
+        float: "right",
+      }} >Logout</Button>
   );
 };
 

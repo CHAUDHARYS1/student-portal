@@ -45,8 +45,7 @@ const SideBar = ({ collapsed }) => {
         label: <Link to="/userprofile">User Profile</Link>,
         key: "userprofile",
         icon: <UserOutlined />,
-      },
-      
+      }
     );
   }
 

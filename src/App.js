@@ -23,6 +23,7 @@ import Upcoming from "./pages/UpcomingPage";
 import FloatingGroup from "./components/FloatButton/FloatButton";
 import UserProfile from "./components/User/userProfile";
 import UserActivityMonitor from "./components/User/userActivityTracker";
+import Logout from "./components/Login/Logout";
 
 const { Header } = Layout;
 const App = () => {
@@ -52,6 +53,7 @@ const App = () => {
 
             <Layout>
               {isLoggedIn && (
+                <Header style={{background: 'none', padding:'0px', lineHeight: '0', height: '50px' }}>
                   <Button
                     icon={
                       isSiderCollapsed ? (
@@ -62,12 +64,13 @@ const App = () => {
                     }
                     onClick={() => setIsSiderCollapsed(!isSiderCollapsed)}
                     style={{
-                      fontSize: "16px",
-                      position: "absolute",
+                      width: 64,
+                      height: 50,
                       borderRadius: 0,
-                      marginLeft: "-30px",
                     }}
                   />
+                    <Logout />
+                </Header>
               )}
 
               {/* Pass the state to SideBar */}
