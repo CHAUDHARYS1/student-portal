@@ -9,6 +9,7 @@ import {
   UnorderedListOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
+  UserOutlined,
 } from "@ant-design/icons"; // Import the icons
 
 const { Sider } = Layout;
@@ -17,7 +18,6 @@ const SideBar = ({ collapsed }) => {
   const { isLoggedIn } = useContext(AuthContext);
 
   const items = [];
-  const addtionalItems = [];
 
   if (isLoggedIn) {
     items.push(
@@ -40,7 +40,13 @@ const SideBar = ({ collapsed }) => {
         label: <Link to="/upcoming">Upcoming Features</Link>,
         key: "upcoming",
         icon: <ClockCircleOutlined />,
-      }
+      }, 
+      {
+        label: <Link to="/userprofile">User Profile</Link>,
+        key: "userprofile",
+        icon: <UserOutlined />,
+      },
+      
     );
   }
 
@@ -63,11 +69,7 @@ const SideBar = ({ collapsed }) => {
           className="main-menu"
         />
 
-        <Menu
-          onClick={onClick}
-          selectedKeys={[current]}
-          items={addtionalItems}
-        />
+       
       </Sider>
     </>
   );

@@ -52,7 +52,6 @@ const App = () => {
 
             <Layout>
               {isLoggedIn && (
-                <Header style={{background: '#191919', padding:'0px' }}>
                   <Button
                     icon={
                       isSiderCollapsed ? (
@@ -64,12 +63,11 @@ const App = () => {
                     onClick={() => setIsSiderCollapsed(!isSiderCollapsed)}
                     style={{
                       fontSize: "16px",
-                      width: 64,
-                      height: 64,
+                      position: "absolute",
                       borderRadius: 0,
+                      marginLeft: "-30px",
                     }}
                   />
-                </Header>
               )}
 
               {/* Pass the state to SideBar */}
