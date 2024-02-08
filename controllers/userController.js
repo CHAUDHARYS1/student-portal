@@ -33,12 +33,10 @@ exports.getUserById = async (req, res) => {
 
 // Update user by ID
 exports.updateUserById = async (req, res) => {
-  const { username, password, role } = req.body;
-
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      { username, password, role },
+      req.body, // Update all fields in the user document
       { new: true }
     );
 
@@ -69,47 +67,6 @@ exports.deleteUserById = async (req, res) => {
   }
 };
 
-// Create a new user with the role "student"
-exports.createStudentUser = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    // Add validation if needed
-    // Hash the password before saving it to the database
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new user
-    const newUser = new User({
-      username,
-      password: hashedPassword,
-      role: "student",
-    });
-    await newUser.save();
-
-    // Create a corresponding student
-    const newStudent = new Student({
-      userId: newUser._id,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      gradeLevel: req.body.gradeLevel,
-    });
-    await newStudent.save();
-
-    // Generate a JWT token for the newly created user
-    const token = jwt.sign(
-      { sub: newUser._id, username: newUser.username, role: newUser.role },
-      "tisthesecret",
-      { expiresIn: "1h" }
-    );
-
-    res.status(201).json({ user: newUser, student: newStudent, token });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Error creating user", error: error.message }); // Return a proper error response
-  }
-};
 
 // Login user and return JWT token
 exports.loginUser = async (req, res) => {
