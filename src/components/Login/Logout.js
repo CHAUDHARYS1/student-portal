@@ -1,5 +1,6 @@
 // Logout.js Component
 // LogoutButton.js
+import "./Login.css";
 import React, { useContext } from "react";
 import AuthContext from "../../authContext";
 
@@ -17,12 +18,7 @@ const LogoutButton = () => {
   };
 
   return (
-      <Button icon={<LogoutOutlined />} onClick={handleClick}  style={{
-        width: 150,
-        height: 50,
-        borderRadius: 0,
-        float: "right",
-      }} >Logout</Button>
+      <Button icon={<LogoutOutlined />} onClick={handleClick} id="logout-btn" >Logout</Button>
   );
 };
 

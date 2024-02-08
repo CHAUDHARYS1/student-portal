@@ -53,7 +53,7 @@ const App = () => {
 
             <Layout>
               {isLoggedIn && (
-                <Header style={{background: 'none', padding:'0px', lineHeight: '0', height: '50px' }}>
+                <Header id="header">
                   <Button
                     icon={
                       isSiderCollapsed ? (
@@ -63,11 +63,7 @@ const App = () => {
                       )
                     }
                     onClick={() => setIsSiderCollapsed(!isSiderCollapsed)}
-                    style={{
-                      width: 64,
-                      height: 50,
-                      borderRadius: 0,
-                    }}
+                    id="menu-trigger"
                   />
                     <Logout />
                 </Header>

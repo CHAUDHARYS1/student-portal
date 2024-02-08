@@ -286,3 +286,13 @@ Quinary: #191919
     padding: 10px 0;
     border-bottom: 1px solid #f0f2f5;
 }
+
+#header {
+  background: rgb(230, 232, 230);
+  height: 40px;
+}
+#menu-trigger{
+  width: 40px;
+  height: 40px;
+  margin-left: -30px
+}

@@ -5,7 +5,7 @@ import {Layout, Col, Row } from "antd";
 const { Content } = Layout;
 const LoginPage = () => {
   return (
-    <Content className="content">
+    <Content>
       <Row>
         <Col xs={12} sm={12} md={12} lg={16} style={{ background: 'white', height: '100vh' }}>
       
