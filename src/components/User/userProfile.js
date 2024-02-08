@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 
-import { Input, Button, Layout, Typography, Descriptions, Select } from "antd";
+import {
+  Input,
+  Button,
+  Layout,
+  Typography,
+  Descriptions,
+  Select,
+  Row,
+  Col,
+  Tooltip,
+} from "antd";
+import { CloseOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
-const { Title } = Typography;
+const { Text, Title } = Typography;
 const { Option } = Select;
 
 const UserProfile = () => {
@@ -16,12 +27,12 @@ const UserProfile = () => {
       try {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId"); // replace this with how you get the logged-in user's ID
-  
+
         if (!userId) {
           console.error("User ID is undefined");
           return;
         }
-  
+
         const response = await fetch(
           `http://localhost:5000/api/users/${userId}`,
           {
@@ -30,11 +41,11 @@ const UserProfile = () => {
             },
           }
         );
-  
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-  
+
         const data = await response.json();
         setUser(data);
         setFormData(data);
@@ -42,52 +53,47 @@ const UserProfile = () => {
         console.error("Error fetching user:", error);
       }
     };
-  
+
     fetchUser();
   }, []);
 
   const saveChanges = async () => {
     const token = localStorage.getItem("token");
-  
+
     if (user && user._id) {
-      console.log('formData before fetch:', formData);
-  
+      console.log("formData before fetch:", formData);
+
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${user._id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
-        });
-  
+        const response = await fetch(
+          `http://localhost:5000/api/users/${user._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-  
+
         const data = await response.json();
-        console.log('Data after fetch:', data);
+        console.log("Data after fetch:", data);
         setUser(data);
       } catch (error) {
-        console.error('Fetch error:', error);
+        console.error("Fetch error:", error);
       }
     } else {
-      console.error('User ID is undefined');
+      console.error("User ID is undefined");
     }
   };
 
   const generateUserItems = () => {
     if (isEditMode) {
       return [
-        {
-          label: "Username",
-          children: user.username,
-        },
-        {
-          label: "Role",
-          children:user.role,
-        },
         {
           label: "Email",
           children: (
@@ -99,7 +105,7 @@ const UserProfile = () => {
             />
           ),
         },
-       
+
         {
           label: "First Name",
           children: (
@@ -194,9 +200,7 @@ const UserProfile = () => {
           children: (
             <Select
               defaultValue={user.gender}
-              onChange={(value) =>
-                setFormData({ ...formData, gender: value })
-              }
+              onChange={(value) => setFormData({ ...formData, gender: value })}
             >
               <Option value="male">Male</Option>
               <Option value="female">Female</Option>
@@ -208,18 +212,10 @@ const UserProfile = () => {
     } else {
       return [
         {
-          label: "Username",
-          children: user.username,
-        },
-        {
-          label: "Role",
-          children: user.role,
-        },
-        {
           label: "Email",
           children: user.email,
         },
-       
+
         {
           label: "First Name",
           children: user.firstName || "No data",
@@ -246,7 +242,10 @@ const UserProfile = () => {
         },
         {
           label: "Phone Number",
-          children: (user.phoneNumber || "No data").replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3"),
+          children: (user.phoneNumber || "No data").replace(
+            /(\d{3})(\d{3})(\d{4})/,
+            "($1) $2-$3"
+          ),
         },
         {
           label: "Date of Birth",
@@ -259,49 +258,92 @@ const UserProfile = () => {
         },
         {
           label: "Gender",
-          children: (user.gender || "No data").charAt(0).toUpperCase() + (user.gender || "No data").slice(1),
+          children:
+            (user.gender || "No data").charAt(0).toUpperCase() +
+            (user.gender || "No data").slice(1),
         },
       ];
     }
   };
   const dynamicUserItems = generateUserItems();
 
+  const fixedUserItems = [
+    {
+      label: "Username",
+      children: user.username,
+    },
+    {
+      label: "Role",
+      children: user.role,
+    },
+  ];
+
   return (
     <Content className="content">
       <Title level={4}>Profile</Title>
-      <Descriptions
-        size="default"
-        className=""
-        title="User Info"
-        layout=""
-        bordered
-        extra={
-          isEditMode ? (
-            <Button
-              className="btn-primary"
-              onClick={() => {
-                saveChanges();
-                setIsEditMode(false);
-              }}
-            >
-              Save
-            </Button>
-          ) : (
-            <Button className="btn-primary" onClick={() => setIsEditMode(true)}>
-              Edit
-            </Button>
-          )
-        }
-        column={{
-          xs: 1,
-          sm: 1,
-          md: 2,
-          lg: 3,
-          xl: 3,
-          xxl: 4,
-        }}
-        items={dynamicUserItems}
-      />
+      <Text type="secondary">
+        Below, you can find additional information about your profile. Please add or update your information as needed.
+      </Text>
+      <Row gutter={20} className="mt-2">
+        <Col span={4}>
+          <Descriptions
+            title="Basic info"
+            bordered
+            column={1}
+            items={fixedUserItems}
+            layout="vertical"
+            extra={
+              <Tooltip title="You do not have access to edit this.">
+                <Button disabled>Edit</Button>
+              </Tooltip>
+            }
+          />
+        </Col>
+        <Col span={20}>
+          <Descriptions
+            title="Personal info"
+            bordered
+            extra={
+              isEditMode ? (
+                <>
+                    <Button
+                      className="btn-secondary mr-1"
+                      onClick={() => setIsEditMode(false)}
+                      icon={<CloseOutlined />}
+                    />
+                  <Tooltip title="Save">
+                    <Button
+                      className="btn-primary"
+                      onClick={() => {
+                        saveChanges();
+                        setIsEditMode(false);
+                      }}
+                      icon={<SaveOutlined />}
+                    />
+                  </Tooltip>
+                </>
+              ) : (
+                <Tooltip title="Edit">
+                  <Button
+                    className="btn-primary"
+                    onClick={() => setIsEditMode(true)}
+                    icon={<EditOutlined />}
+                  />
+                </Tooltip>
+              )
+            }
+            column={{
+              xs: 1,
+              sm: 1,
+              md: 2,
+              lg: 3,
+              xl: 3,
+              xxl: 4,
+            }}
+            items={dynamicUserItems}
+          />
+        </Col>
+      </Row>
     </Content>
   );
 };
