@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
+  Navigate,
 } from "react-router-dom";
 
 import SideBar from "./components/Sider/Sider";
@@ -40,6 +41,7 @@ const App = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     setIsLoggedIn(false);
   };
 
@@ -83,7 +85,16 @@ const App = () => {
                 <Route path="/calendar" element={<ProtectedRoute><SchoolCalendar /></ProtectedRoute>} />
                 <Route path="/upcoming" element={<ProtectedRoute><Upcoming /></ProtectedRoute>} />
                 <Route path="/userprofile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
-                <Route path="/home" element={<HomePage />} />
+                <Route
+                  path="/"
+                  element={
+                    isLoggedIn ? (
+                      <Navigate to="/dashboard" replace />
+                    ) : (
+                      <HomePage />
+                    )
+                  }
+                />
                 {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
                 {/* route to home page if endpoint is not found */}
                 <Route path="/" element={<HomePage />} />
