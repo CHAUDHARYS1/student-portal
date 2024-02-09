@@ -77,12 +77,12 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/logout-success" element={<LogOutSuccessPage />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route exact path="/courses" element={<CoursesList />} />
-                <Route path="/courses/:id" element={<CourseDetails />} />
+                <Route exact path="/courses" element={<ProtectedRoute><CoursesList /></ProtectedRoute>} />
+                <Route path="/courses/:id" element={<ProtectedRoute><CourseDetails /></ProtectedRoute>} />
                 <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                <Route path="/calendar" element={<SchoolCalendar />} />
-                <Route path="/upcoming" element={<Upcoming />} />
-                <Route path="/userprofile" element={<UserProfile />} />
+                <Route path="/calendar" element={<ProtectedRoute><SchoolCalendar /></ProtectedRoute>} />
+                <Route path="/upcoming" element={<ProtectedRoute><Upcoming /></ProtectedRoute>} />
+                <Route path="/userprofile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
                 <Route path="/home" element={<HomePage />} />
                 {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
                 {/* route to home page if endpoint is not found */}
