@@ -1,19 +1,25 @@
-import React from 'react';
-import { Route, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { message } from "antd";
 
-const ProtectedRoute = ({ children, ...rest }) => {
-    const token = localStorage.getItem('token');
-    const navigate = useNavigate();
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  const [redirectToHome, setRedirectToHome] = useState(false);
 
+  useEffect(() => {
     if (!token) {
-        navigate('/');
+      message.error(
+        "You do not have access to this page. Redirecting to home page..."
+      );
+      setRedirectToHome(true);
     }
+  }, [token]);
 
-    return (
-        <Route {...rest}>
-            {children}
-        </Route>
-    );
+  if (redirectToHome) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

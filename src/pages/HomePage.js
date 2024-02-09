@@ -1,31 +1,35 @@
 // HomePage.js
-import React from 'react';
-import { Typography, Layout } from 'antd';
-const {Content} = Layout;
-const { Title, Text } = Typography;
+import React from "react";
+import { Layout, Row, Col, Button } from "antd";
+import { useNavigate } from "react-router-dom";
+const { Content } = Layout;
+
 const HomePage = () => {
+  const navigate = useNavigate(); // Move the useNavigate hook inside the HomePage component
+
   return (
-    <Content className="content">
-      <div>
-        <Title>Welcome to Our Learning Platform</Title>
-        <Text type="secondary">Empowering students, teachers, and parents in the learning journey.</Text>
-      </div>
-      <div>
-        <Title level={2}>Latest News</Title>
-        <ul>
-          <li>News 1</li>
-          <li>News 2</li>
-          <li>News 3</li>
-        </ul>
-      </div>
-      <div>
-        <Title level={2}>Upcoming Events</Title>
-        <ul>
-          <li>Event 1</li>
-          <li>Event 2</li>
-          <li>Event 3</li>
-        </ul>
-      </div>
+    <Content className="content bg-white">
+      <div className="text-center">
+            <img src="/logo.png" alt="logo" width={190} className="mt-2" />
+        </div>
+      <Row justify="center" style={{ justifyContent: "center" }}>
+        
+        <Col>
+          <Button onClick={() => navigate("/login")} className="btn-primary mt-1  border-radius-0">
+            Login
+          </Button>
+        </Col>
+
+        <span className="ml-2 mr-2 mt-2">
+          <strong>or</strong>
+        </span>
+
+        <Col>
+          <Button onClick={() => navigate("/signup")} className="btn-secondary  mt-1 border-radius-0">
+            Signup
+          </Button>
+        </Col>
+      </Row>
     </Content>
   );
 };

@@ -6,20 +6,17 @@ Quaternary: #CED0CE
 Quinary: #191919
 
 */
-
-
-
 .content {
   padding-right: 15px;
-  background: #E6E8E6;
+  background: #e6e8e6;
   border-radius: 0px;
-  width: 100%!important; /* Set width to viewport width */
+  width: 100% !important; /* Set width to viewport width */
   min-height: 100vh; /* Set height to viewport height */
   padding-left: 20px;
   overflow-x: hidden; /* Hide horizontal overflow */
 }
 .btn-primary {
-  background: #F15025;
+  background: #f15025;
   color: white;
   border: 0px;
 }
@@ -28,23 +25,30 @@ Quinary: #191919
   color: rgb(35, 35, 35) !important;
   border: 0px;
 }
+.btn-secondary:hover {
+  background: #191919;
+  color: white;
+}
 .bg-white {
   background: white;
 }
 .bg-primary {
-  background: #F15025;
+  background: #f15025;
 }
 .bg-secondary {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .bg-tertiary {
-  background: #E6E8E6;
+  background: #e6e8e6;
 }
 .bg-quaternary {
-  background: #CED0CE;
+  background: #ced0ce;
 }
 .bg-quinary {
   background: #191919;
+}
+.color-white {
+  color: white;
 }
 
 /* Create btn shadow with animation */
@@ -278,21 +282,30 @@ Quinary: #191919
 }
 
 .upcoming-features-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .upcoming-features-ul li {
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f2f5;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f2f5;
 }
 
 #header {
   background: rgb(230, 232, 230);
   height: 40px;
 }
-#menu-trigger{
+#menu-trigger {
   width: 40px;
   height: 40px;
-  margin-left: -30px
+  margin-left: -30px;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
 }
