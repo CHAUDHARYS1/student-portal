@@ -10,8 +10,10 @@ import {
   Row,
   Col,
   Tooltip,
+  Divider,
 } from "antd";
 import { CloseOutlined, EditOutlined, SaveOutlined } from "@ant-design/icons";
+import ForgetPassword from "./forgotPassword";
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -98,6 +100,7 @@ const UserProfile = () => {
           label: "Email",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -110,6 +113,7 @@ const UserProfile = () => {
           label: "First Name",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.firstName}
               onChange={(e) =>
                 setFormData({ ...formData, firstName: e.target.value })
@@ -121,6 +125,7 @@ const UserProfile = () => {
           label: "Last Name",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.lastName}
               onChange={(e) =>
                 setFormData({ ...formData, lastName: e.target.value })
@@ -132,6 +137,7 @@ const UserProfile = () => {
           label: "Address",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.address}
               onChange={(e) =>
                 setFormData({ ...formData, address: e.target.value })
@@ -143,6 +149,7 @@ const UserProfile = () => {
           label: "Apt/Suite/Unit",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.aptSuiteUnit}
               onChange={(e) =>
                 setFormData({ ...formData, aptSuiteUnit: e.target.value })
@@ -154,6 +161,7 @@ const UserProfile = () => {
           label: "City",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.city}
               onChange={(e) =>
                 setFormData({ ...formData, city: e.target.value })
@@ -165,6 +173,7 @@ const UserProfile = () => {
           label: "State",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.state}
               onChange={(e) =>
                 setFormData({ ...formData, state: e.target.value })
@@ -176,6 +185,7 @@ const UserProfile = () => {
           label: "Phone Number",
           children: (
             <Input
+            className="p-1"
               defaultValue={user.phoneNumber}
               onChange={(e) =>
                 setFormData({ ...formData, phoneNumber: e.target.value })
@@ -187,6 +197,7 @@ const UserProfile = () => {
           label: "Date of Birth",
           children: (
             <input
+            className="p-1"
               type="date"
               value={formData.dateOfBirth}
               onChange={(e) =>
@@ -199,6 +210,7 @@ const UserProfile = () => {
           label: "Gender",
           children: (
             <Select
+            style={{width:"130px", height:"40px"}}
               defaultValue={user.gender}
               onChange={(value) => setFormData({ ...formData, gender: value })}
             >
@@ -282,7 +294,8 @@ const UserProfile = () => {
     <Content className="content">
       <Title level={4}>Profile</Title>
       <Text type="secondary">
-        Below, you can find additional information about your profile. Please add or update your information as needed.
+        Below, you can find additional information about your profile. Please
+        add or update your information as needed.
       </Text>
       <Row gutter={20} className="mt-2">
         <Col span={4}>
@@ -306,11 +319,11 @@ const UserProfile = () => {
             extra={
               isEditMode ? (
                 <>
-                    <Button
-                      className="btn-secondary mr-1"
-                      onClick={() => setIsEditMode(false)}
-                      icon={<CloseOutlined />}
-                    />
+                  <Button
+                    className="btn-secondary mr-1"
+                    onClick={() => setIsEditMode(false)}
+                    icon={<CloseOutlined />}
+                  />
                   <Tooltip title="Save">
                     <Button
                       className="btn-primary"
@@ -342,6 +355,9 @@ const UserProfile = () => {
             }}
             items={dynamicUserItems}
           />
+          <Divider />
+
+          <ForgetPassword />
         </Col>
       </Row>
     </Content>

@@ -24,6 +24,7 @@ import FloatingGroup from "./components/FloatButton/FloatButton";
 import UserProfile from "./components/User/userProfile";
 import UserActivityMonitor from "./components/User/userActivityTracker";
 import Logout from "./components/Login/Logout";
+import AppFooter from "./components/Footer/Footer";
 
 const { Header } = Layout;
 const App = () => {
@@ -89,6 +90,7 @@ const App = () => {
               </Routes>
               {isLoggedIn && <FloatingGroup />}
               {isLoggedIn && <UserActivityMonitor />}
+              <AppFooter />
             </Layout>
           </Router>
         </AuthContext.Provider>
