@@ -19,6 +19,9 @@ const ForgetPassword = () => {
     setLoading(true);
 
     try {
+
+      const userId = localStorage.getItem("userId"); // get userId from local storage
+
       // Verify the current password
       const verifyResponse = await fetch(
         "http://localhost:5000/api/users/verify-password",
@@ -28,7 +31,7 @@ const ForgetPassword = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`, // assuming the token is stored in local storage
           },
-          body: JSON.stringify({ password: currentPassword }),
+          body: JSON.stringify({ userId, password: currentPassword }),
         }
       );
 
@@ -52,7 +55,7 @@ const ForgetPassword = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`, // assuming the token is stored in local storage
           },
-          body: JSON.stringify({ currentPassword, newPassword }),
+          body: JSON.stringify({ userId,currentPassword, newPassword }),
         }
       );
 
@@ -60,7 +63,15 @@ const ForgetPassword = () => {
         throw new Error(`HTTP error! status: ${changeResponse.status}`);
       }
 
-      message.success("Password changed successfully.");
+      message.success("Password changed successfully. Redirecting to login page.");
+
+      // remove token and userId from local storage and redirect to login page after 5 seconds 
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
+
     } catch (error) {
       message.error("An error occurred while changing the password.");
     } finally {
