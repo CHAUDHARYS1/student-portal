@@ -26,4 +26,12 @@ router.get('/protected', passport.authenticate('jwt', { session: false }), (req,
     res.json({ message: 'You have access to this protected route!', user: req.user });
 });
 
+// verify password route before changing password
+router.post('/verify-password', userController.verifyPassword);
+
+// change password route after verifying current password
+router.post('/change-password', userController.changePassword);
+
+
+
 module.exports = router;

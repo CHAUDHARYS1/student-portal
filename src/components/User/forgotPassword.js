@@ -8,6 +8,7 @@ const ForgetPassword = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (newPassword !== confirmPassword) {
@@ -15,8 +16,35 @@ const ForgetPassword = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
-      const response = await fetch(
+      // Verify the current password
+      const verifyResponse = await fetch(
+        "http://localhost:5000/api/users/verify-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // assuming the token is stored in local storage
+          },
+          body: JSON.stringify({ password: currentPassword }),
+        }
+      );
+
+      if (!verifyResponse.ok) {
+        throw new Error(`HTTP error! status: ${verifyResponse.status}`);
+      }
+
+      const verifyData = await verifyResponse.json();
+
+      if (verifyData.message !== 'Password verified') {
+        message.error('Current password is incorrect');
+        return;
+      }
+
+      // Change the password
+      const changeResponse = await fetch(
         "http://localhost:5000/api/users/change-password",
         {
           method: "POST",
@@ -28,13 +56,15 @@ const ForgetPassword = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!changeResponse.ok) {
+        throw new Error(`HTTP error! status: ${changeResponse.status}`);
       }
 
       message.success("Password changed successfully.");
     } catch (error) {
       message.error("An error occurred while changing the password.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -93,7 +123,7 @@ const ForgetPassword = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button className="btn-primary" htmlType="submit">
+          <Button className="btn-primary" htmlType="submit" loading={loading}>
             Change Password
           </Button>
         </Form.Item>

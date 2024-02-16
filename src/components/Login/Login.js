@@ -62,6 +62,7 @@ const Login = () => {
           onFinish={handleLogin}
           layout="vertical"
           id="loginForm"
+          autoComplete="off"
         >
           <Form.Item
             name="username"

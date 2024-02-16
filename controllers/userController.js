@@ -164,7 +164,7 @@ exports.createUser = async (req, res) => {
         email: newUser.email,
         role: newUser.role,
       },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET, 
       { expiresIn: "1h" }
     );
 
@@ -183,3 +183,64 @@ exports.createUser = async (req, res) => {
   }
 };
 
+
+
+// verify password for the user
+exports.verifyPassword = async (req, res) => {
+  const { userId, password } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const isValid = await user.verifyPassword(password);
+    if (isValid) {
+      res.status(200).json({ message: 'Password verified' });
+    } else {
+      res.status(401).json({ message: 'Incorrect password' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred' });
+  }
+};
+
+
+// change password for the user after verifying the current password
+exports.changePassword = async (req, res) => {
+  try {
+    const { userId, currentPassword, newPassword } = req.body;
+
+    // Validate input
+    if (!userId || !currentPassword || !newPassword) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Check password complexity
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(newPassword)) {
+      return res.status(400).json({ message: 'Password must be at least 8 characters long and contain at least one number and one special character' });
+    }
+
+    // Find the user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Verify the current password
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Incorrect current password' });
+    }
+
+    // Change the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred' });
+  }
+};

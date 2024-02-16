@@ -1,6 +1,7 @@
 // MongoDB data models
 // using mongoose here
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -60,6 +61,11 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
 });
+
+userSchema.methods.verifyPassword = async function (password) {
+  const match = await bcrypt.compare(password, this.password);
+  return match;
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
