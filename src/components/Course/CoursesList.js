@@ -12,12 +12,14 @@ import {
   Select,
   InputNumber,
   Radio,
+  Typography
 } from "antd";
 import CourseCard from "./CourseCard";
 import { PlusCircleFilled } from "@ant-design/icons";
 
 const { Content } = Layout;
 const { Option } = Select;
+const { Text } = Typography;
 
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
@@ -108,11 +110,12 @@ const CoursesList = () => {
       </div>
 
       <Modal
-        title="Add Course"
+        title="Quick Add Course"
         open={visible}
         onCancel={handleCancel}
         footer={null}
       >
+        <Text type="secondary">Add a course using quick add form below. More info about the course can be added later.</Text>
         <Form
           onFinish={handleOk}
           onFinishFailed={(errorInfo) => {
@@ -120,13 +123,15 @@ const CoursesList = () => {
           }}
           layout="vertical"
         >
+
           <Form.Item
             label="Abbreviation"
             name="abbreviation"
             rules={[
-              { required: true, message: "Please input the abbreviation!" },
+              { required: true, message: "Please add course abbreviation!" },
               { max: 6, message: "Abbreviation cannot exceed 6 characters!" },
             ]}
+            className="mt-2"
           >
             <Input
               name="abbreviation"
@@ -148,7 +153,7 @@ const CoursesList = () => {
             label="Course Length"
             name="courseLength"
             rules={[
-              { required: true, message: "Please input the course length!" },
+              { required: true, message: "Please add course length in weeks!" },
             ]}
           >
             <Input
@@ -161,7 +166,7 @@ const CoursesList = () => {
             label="Course Title"
             name="courseTitle"
             rules={[
-              { required: true, message: "Please input the course title!" },
+              { required: true, message: "Please add course title!" },
               { max: 24, message: "Course title cannot exceed 24 characters!" },
             ]}
           >
@@ -177,7 +182,7 @@ const CoursesList = () => {
             rules={[
               {
                 required: true,
-                message: "Please input the course description!",
+                message: "Please add course description!",
               },
               {
                 min: 150,
