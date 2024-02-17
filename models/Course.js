@@ -50,11 +50,9 @@ const courseSchema = new mongoose.Schema({
   schedule: {
     start: {
       type: Date,
-      required: true,
     },
     end: {
       type: Date,
-      required: true,
     },
   },
   resources: {

@@ -20,7 +20,7 @@ import LogOutSuccessPage from "./pages/LogoutSuccessPage";
 import ProtectedRoute from './ProtectedRoute';
 import SchoolCalendar from "./pages/CalenderPage";
 import Upcoming from "./pages/UpcomingPage";
-import FloatingGroup from "./components/FloatButton/FloatButton";
+// import FloatingGroup from "./components/FloatButton/FloatButton";
 import UserProfile from "./components/User/userProfile";
 import UserActivityMonitor from "./components/User/userActivityTracker";
 import Logout from "./components/Login/Logout";
@@ -99,7 +99,7 @@ const App = () => {
                 {/* route to home page if endpoint is not found */}
                 <Route path="/" element={<HomePage />} />
               </Routes>
-              {isLoggedIn && <FloatingGroup />}
+              {/* {isLoggedIn && <FloatingGroup />} */}
               {isLoggedIn && <UserActivityMonitor />}
               <AppFooter />
             </Layout>
