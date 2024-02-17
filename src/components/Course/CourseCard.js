@@ -12,6 +12,7 @@ import {
   Select,
   Switch,
   Tooltip,
+  Typography,
 } from "antd";
 import { Link } from "react-router-dom";
 import {
@@ -22,6 +23,7 @@ import {
 
 const { Meta } = Card;
 const { Option } = Select;
+const { Text } = Typography;
 
 const CourseCard = ({ course }) => {
   const [loading, setLoading] = useState(false);
@@ -157,7 +159,7 @@ const CourseCard = ({ course }) => {
           loading ? (
             <Skeleton.Input style={{ width: 100 }} active />
           ) : (
-            course.abbreviation
+            course.abbreviation.toUpperCase()
           )
         }
         style={{ width: 300 }}
@@ -219,7 +221,9 @@ const CourseCard = ({ course }) => {
               ) : (
                 <>
                   {`${course.description.substring(0, 100) + "..."}`} <br />
-                  <br /> Course Difficulty:{" "}
+                  <br />
+                  {/* Add course difficulity text  */}
+                  <Text type="secondary">Difficulty: </Text>
                   <Tag bordered={false} color={tagColor}>
                     {`${course.level
                       .charAt(0)

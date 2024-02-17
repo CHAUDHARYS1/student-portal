@@ -380,7 +380,7 @@ const CourseDescription = ({ course }) => {
     <>
       <Row justify="space-between" align="middle">
         <Col>
-          <h2>{editedCourse.abbreviation}</h2>
+          <h2>{editedCourse.abbreviation.toUpperCase()}</h2>
           <Text type="secondary">
             Below, you can find additional information about this course.
           </Text>
