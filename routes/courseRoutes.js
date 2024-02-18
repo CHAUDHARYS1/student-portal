@@ -20,4 +20,7 @@ router.delete('/:id', courseController.deleteCourseById);
 // Route to assign a teacher to a course
 router.post('/:id/assign-teacher', courseController.assignTeacherToCourse);
 
+// Route to assign a student to a course
+router.post('/:id/assign-student', courseController.assignStudentToCourse);
+
 module.exports = router;

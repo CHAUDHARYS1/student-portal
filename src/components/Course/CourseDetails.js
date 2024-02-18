@@ -6,6 +6,7 @@ import StudentRosterList from "./StudentRosterList";
 import CourseDescription from "./CourseDescription";
 import CourseScheduleAndResources from "./CourseScheduleAndResources";
 import AssignTeacher from "./AssignTeacher";
+import AssignStudent from "./AssignStudent";
 import { Row, Col, Spin, Typography, Layout, Breadcrumb, } from "antd";
 
 const { Content } = Layout;
@@ -86,6 +87,15 @@ const CourseDetails = ( ) => {
               </Col>
             <Col span={6}>
               <StudentRosterList course={course} />
+
+              {/* Add AssignStudent component below  */}
+              <AssignStudent
+                courseId={course._id}
+                onStudentAssigned={(student) => {
+                  console.log('Assigned student:', student);
+                  // Add your own code to handle the assigned student
+                }}
+              />
             </Col>
             <Col span={12}>
               <CourseScheduleAndResources course={course} />

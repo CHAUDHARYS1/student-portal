@@ -1,8 +1,9 @@
 // AssignTeacher.js
 import React, { useState, useEffect } from "react";
-import { Form, Select, Button, message } from "antd";
+import { Form, Select, Button, message, Typography } from "antd";
 
 const { Option } = Select;
+const { Text } = Typography;
 
 const AssignTeacher = ({ courseId, onTeacherAssigned }) => {
   const [teachers, setTeachers] = useState([]);
@@ -64,38 +65,43 @@ const AssignTeacher = ({ courseId, onTeacherAssigned }) => {
       setTimeout(() => {
         window.location.reload();
       }, 500);
-      
     } catch (error) {
       console.error("Error assigning teacher:", error);
       message.error("Failed to assign teacher");
     }
   };
 
-const handleTeacherChange = (value) => {
-    console.log('Selected value:', value); // Log the selected value
+  const handleTeacherChange = (value) => {
+    console.log("Selected value:", value); // Log the selected value
     setSelectedTeacher(value);
-};
+  };
 
   return (
-    <Form onFinish={handleSubmit}>
-      <Form.Item
-        name="teacher"
-        rules={[{ required: true, message: "Please select a teacher" }]}
-      >
-        <Select onChange={handleTeacherChange}>
-          {teachers.map((teacher) => (
-            <Option key={teacher._id} value={teacher._id}>
-              {teacher.firstName + " " + teacher.lastName}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Assign Teacher
-        </Button>
-      </Form.Item>
-    </Form>
+    <>
+      <div className="mt-2 pb-1 pl-1">
+        <Text type="secondary">Assign Teacher to this course:</Text>
+      </div>
+
+      <Form onFinish={handleSubmit}>
+        <Form.Item
+          name="teacher"
+          rules={[{ required: true, message: "Please select a teacher" }]}
+        >
+          <Select onChange={handleTeacherChange}>
+            {teachers.map((teacher) => (
+              <Option key={teacher._id} value={teacher._id}>
+                {teacher.firstName + " " + teacher.lastName}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item>
+          <Button className="btn-primary" htmlType="submit">
+            Assign Teacher
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 

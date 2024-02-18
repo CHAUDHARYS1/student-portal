@@ -76,7 +76,7 @@ const deleteCourseById = async (req, res) => {
   }
 };
 
-// Controller to assign a teacher to a course
+// Controller to assign a teacher(s) to a course
 const assignTeacherToCourse = async (req, res) => {
   console.log('Course ID:', req.params.id); // Log the course ID
   console.log('Teacher ID:', req.body.teacherId); // Log the teacher ID
@@ -117,6 +117,47 @@ const assignTeacherToCourse = async (req, res) => {
   }
 }
 
+// assign Student(s) to course
+const assignStudentToCourse = async (req, res) => {
+  console.log('Course ID:', req.params.id); // Log the course ID
+  console.log('Student ID:', req.body.studentId); // Log the student ID
+
+  try {
+    const courseId = req.params.id;
+    const studentId = req.body.studentId;
+
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    if (course.assignedStudents.map(student => student.toString()).includes(studentId)) {
+      return res.status(400).json({ error: 'Student already assigned to course' });
+    }
+
+    // Check if studentId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(studentId)) {
+      return res.status(400).json({ error: 'Invalid studentId' });
+    }
+
+    const updatedCourse = await Course.findByIdAndUpdate(
+      courseId,
+      { $push: { assignedStudents: studentId } },
+      { new: true }
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    res.status(200).json(updatedCourse);
+  } catch (error) {
+    console.error('Error assigning student to course:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 module.exports = {
   createCourse,
   getAllCourses,
@@ -124,4 +165,7 @@ module.exports = {
   updateCourseById,
   deleteCourseById,
   assignTeacherToCourse,
+  assignStudentToCourse
 };
+
+
