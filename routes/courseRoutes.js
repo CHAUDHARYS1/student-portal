@@ -17,4 +17,7 @@ router.put('/:id', courseController.updateCourseById);
 // Route to delete a course by ID
 router.delete('/:id', courseController.deleteCourseById);
 
+// Route to assign a teacher to a course
+router.post('/:id/assign-teacher', courseController.assignTeacherToCourse);
+
 module.exports = router;

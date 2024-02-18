@@ -5,12 +5,13 @@ import TeacherRosterList from "./TeacherRosterList";
 import StudentRosterList from "./StudentRosterList";
 import CourseDescription from "./CourseDescription";
 import CourseScheduleAndResources from "./CourseScheduleAndResources";
+import AssignTeacher from "./AssignTeacher";
 import { Row, Col, Spin, Typography, Layout, Breadcrumb, } from "antd";
 
 const { Content } = Layout;
 const { Text } = Typography;
 
-const CourseDetails = () => {
+const CourseDetails = ( ) => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
 
@@ -46,6 +47,7 @@ const CourseDetails = () => {
   if (!course) {
     return <Spin />;
   }
+  
 
   return (
     <Content className="content">
@@ -72,7 +74,16 @@ const CourseDetails = () => {
           >
             <Col span={6}>
               <TeacherRosterList course={course} />
-            </Col>
+
+              {/* Add AssignTeacher component below  */}
+              <AssignTeacher
+                courseId={course._id}
+                onTeacherAssigned={(teacher) => {
+                  console.log('Assigned teacher:', teacher);
+                  // Add your own code to handle the assigned teacher
+                }}
+              />
+              </Col>
             <Col span={6}>
               <StudentRosterList course={course} />
             </Col>
