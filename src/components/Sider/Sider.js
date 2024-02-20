@@ -7,7 +7,6 @@ import AuthContext from "../../authContext";
 import {
   ApartmentOutlined,
   UnorderedListOutlined,
-  CalendarOutlined,
   ClockCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons"; // Import the icons
@@ -31,11 +30,7 @@ const SideBar = ({ collapsed }) => {
         key: "dashboard",
         icon: <UnorderedListOutlined />,
       },
-      {
-        label: <Link to="/calendar">Calendar</Link>,
-        key: "calendar",
-        icon: <CalendarOutlined />,
-      },
+    
       {
         label: <Link to="/upcoming">Upcoming Features</Link>,
         key: "upcoming",
