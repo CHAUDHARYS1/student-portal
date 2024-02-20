@@ -158,6 +158,64 @@ const assignStudentToCourse = async (req, res) => {
   }
 }
 
+
+
+// remove teacher from course
+const removeTeacherFromCourse = async (req, res) => {
+  try {
+    const { id: courseId } = req.params;
+    const { teacherId } = req.body;
+
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    // Find the course by ID and remove the teacher from the assignedTeachers array
+    const updatedCourse = await Course.findByIdAndUpdate(courseId, {
+      $pull: { assignedTeachers: teacherId }
+    }, { new: true }); // { new: true } option returns the updated document
+
+    if (!updatedCourse) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    res.status(200).json(updatedCourse);
+  } catch (error) {
+    console.error('Error removing teacher:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// remove student from course
+const removeStudentFromCourse = async (req, res) => {
+  try {
+    const { id:courseId } = req.params;
+    const { studentId } = req.body;
+
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    // Find the course by ID and remove the student from the assignedStudents array
+    const updatedCourse = await Course.findByIdAndUpdate(courseId, {
+      $pull: { assignedStudents: studentId }
+    }, { new: true }); // { new: true } option returns the updated document
+
+    if (!updatedCourse) {
+      return res.status(404).json({ error: 'Course not found' });
+    }
+
+    res.status(200).json(updatedCourse);
+  } catch (error) {
+    console.error('Error removing student:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 module.exports = {
   createCourse,
   getAllCourses,
@@ -165,7 +223,9 @@ module.exports = {
   updateCourseById,
   deleteCourseById,
   assignTeacherToCourse,
-  assignStudentToCourse
+  assignStudentToCourse,
+  removeTeacherFromCourse,
+  removeStudentFromCourse
 };
 
 

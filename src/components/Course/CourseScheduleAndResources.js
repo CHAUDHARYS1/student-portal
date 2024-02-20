@@ -34,7 +34,7 @@ const CourseScheduleAndResources = ({ course }) => {
 
     return (
         <>
-            <Descriptions title="Schedule">
+            <Descriptions title="Schedule" bordered>
                 <Descriptions.Item label="Start" style={{ fontWeight: "bold" }}>
                     {start}
                 </Descriptions.Item>
@@ -42,7 +42,7 @@ const CourseScheduleAndResources = ({ course }) => {
                     {end}
                 </Descriptions.Item>
             </Descriptions>
-            <Descriptions title="Resources">
+            <Descriptions title="Resources" bordered className="mt-2">
                 <Descriptions.Item label="Textbooks">
                     {textbooks}
                 </Descriptions.Item>

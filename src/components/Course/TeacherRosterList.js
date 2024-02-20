@@ -1,35 +1,71 @@
-import React from "react";
-import { List, Typography, Empty } from "antd";
+import React, { useState, useEffect } from "react";
+import { List, Typography, Empty, Divider } from "antd";
+import RemoveTeacherButton from "./RemoveTeacher";
+import { PhoneFilled } from "@ant-design/icons";
 
 const { Text } = Typography;
 
 const TeacherRosterList = ({ course }) => {
-    console.log("course", course);
-    if (!course || !course.assignedTeachers || course.assignedTeachers.length === 0) {
-        return <Empty className="mt-2" description={
-            <span>
-               No teachers assigned to this course.
-            </span>
-        } />; // return null or some placeholder component when there's no data
-    }
+  const [teachers, setTeachers] = useState([]);
 
-    return (
-        <List
-            className="bg-white"
-            header={<div><b>Assigned Instructor(s)</b></div>}
-            bordered
-            dataSource={course.assignedTeachers}
-            renderItem={teacherDetails => (
-                <List.Item>
-                    {teacherDetails.firstName} {teacherDetails.lastName}
-                    <br />
-                    <Text type="secondary">{teacherDetails.email}</Text>
-                    <br />
-                    <Text type="secondary">{String(teacherDetails.phone).replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}</Text>
-                </List.Item>
-            )}
-        />
+  useEffect(() => {
+    setTeachers(course.assignedTeachers);
+  }, [course]);
+
+  const handleRemoveTeacher = (removeTeacherId) => {
+    setTeachers((prevTeachers) =>
+      prevTeachers.filter((teacher) => teacher._id !== removeTeacherId)
     );
+  };
+
+  if (!teachers || teachers.length === 0) {
+    return (
+      <Empty
+        className="mt-2"
+        description={<span>No teachers assigned to this course.</span>}
+      />
+    );
+  }
+
+  return (
+    <List
+      className="bg-white"
+      header={
+        <div>
+          <b>Assigned Instructor(s)</b>
+        </div>
+      }
+      itemLayout="horizontal"
+      bordered
+      dataSource={teachers}
+      renderItem={(teacherDetails) => (
+        <List.Item
+          actions={[
+            <RemoveTeacherButton
+              courseId={course._id}
+              teacherId={teacherDetails._id}
+              onRemove={handleRemoveTeacher}
+            />,
+          ]}
+        >
+          <List.Item.Meta
+            title={teacherDetails.firstName + " " + teacherDetails.lastName}
+            description={teacherDetails.email}
+          />
+
+            <PhoneFilled />
+            <Divider type="vertical" />
+          <Text type="secondary">
+            {String(teacherDetails.phone).replace(
+              /(\d{3})(\d{3})(\d{4})/,
+              "($1) $2-$3"
+            )}
+          </Text>
+          <br />
+        </List.Item>
+      )}
+    />
+  );
 };
 
 export default TeacherRosterList;

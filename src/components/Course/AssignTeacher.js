@@ -78,7 +78,7 @@ const AssignTeacher = ({ courseId, onTeacherAssigned }) => {
 
   return (
     <>
-      <div className="mt-2 pb-1 pl-1">
+      <div className="mt-2 pb-1">
         <Text type="secondary">Assign Teacher to this course:</Text>
       </div>
 
@@ -95,7 +95,7 @@ const AssignTeacher = ({ courseId, onTeacherAssigned }) => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item>
+        <Form.Item  style={{ marginTop: "-10px"}}>
           <Button className="btn-primary" htmlType="submit">
             Assign Teacher
           </Button>

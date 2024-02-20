@@ -73,7 +73,7 @@ const CourseDetails = ( ) => {
             gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
             style={{ marginTop: "20px" }}
           >
-            <Col span={6}>
+            <Col span={8}>
               <TeacherRosterList course={course} />
 
               {/* Add AssignTeacher component below  */}
@@ -85,7 +85,7 @@ const CourseDetails = ( ) => {
                 }}
               />
               </Col>
-            <Col span={6}>
+            <Col span={8}>
               <StudentRosterList course={course} />
 
               {/* Add AssignStudent component below  */}
@@ -97,7 +97,7 @@ const CourseDetails = ( ) => {
                 }}
               />
             </Col>
-            <Col span={12}>
+            <Col span={8}>
               <CourseScheduleAndResources course={course} />
             </Col>
           </Row>
