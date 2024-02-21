@@ -14,7 +14,7 @@ const onChange = (key) => {
 }
 
 
-const Dashboard = () => {
+const Roster = () => {
 
   const items = [
     {
@@ -39,4 +39,4 @@ const Dashboard = () => {
   );
 }
 
-export default Dashboard;
+export default Roster;

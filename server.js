@@ -44,6 +44,7 @@ const teacherRoutes = require("./routes/teacherRoutes");
 const gradeRoutes = require("./routes/gradeRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const courseRoutes = require("./routes/courseRoutes");
+const statsRoutes = require("./routes/statsRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/students", validateToken, studentRoutes);
@@ -51,6 +52,8 @@ app.use("/api/teachers", validateToken, teacherRoutes);
 app.use("/api/grades", validateToken, gradeRoutes);
 app.use("/api/attendances", validateToken, attendanceRoutes);
 app.use("/api/courses", validateToken, courseRoutes);
+app.use("/api/stats", validateToken, statsRoutes);
+
 
 mongoose
   .connect(process.env.MONGO_URI)

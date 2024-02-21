@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import SideBar from "./components/Sider/Sider";
-import Dashboard from "./pages/DashboardPage";
+import Roster from "./pages/RosterPage";
 import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage";
 import AuthContext from "./authContext";
@@ -23,6 +23,8 @@ import UserActivityMonitor from "./components/User/userActivityTracker";
 import Logout from "./components/Login/Logout";
 import AppFooter from "./components/Footer/Footer";
 import HomePage from "./pages/HomePage";
+import Stats from "./pages/StatsPage";
+
 
 const { Header } = Layout;
 const App = () => {
@@ -78,19 +80,19 @@ const App = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route exact path="/courses" element={<ProtectedRoute><CoursesList /></ProtectedRoute>} />
                 <Route path="/courses/:id" element={<ProtectedRoute><CourseDetails /></ProtectedRoute>} />
-                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/roster" element={<ProtectedRoute><Roster /></ProtectedRoute>} />
                 <Route path="/userprofile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+                <Route path="/statistic" element={<ProtectedRoute><Stats /></ProtectedRoute>} />    
                 <Route
                   path="/"
                   element={
                     isLoggedIn ? (
-                      <Navigate to="/dashboard" replace />
+                      <Navigate to="/roster" replace />
                     ) : (
                       <HomePage />
                     )
                   }
                 />
-                {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
                 {/* route to home page if endpoint is not found */}
                 <Route path="/" element={<HomePage />} />
               </Routes>

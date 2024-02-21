@@ -136,9 +136,10 @@ const Signup = () => {
             style={{ height: "40px" }}
             onChange={(value) => setRole(value)}
           >
-            <Option value="teacher">Teacher</Option>
-            <Option value="student">Student</Option>
-            <Option value="admin">Administrator</Option>
+                        <Option value="admin">Administrator</Option>
+
+            <Option value="teacher" disabled>Teacher</Option>
+            <Option value="student" disabled>Student</Option>
           </Select>
         </Form.Item>
 

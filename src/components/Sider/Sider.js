@@ -6,6 +6,7 @@ import { Layout, Menu } from "antd";
 import AuthContext from "../../authContext";
 import {
   ApartmentOutlined,
+  HomeOutlined,
   UnorderedListOutlined,
   UserOutlined,
 } from "@ant-design/icons"; // Import the icons
@@ -20,8 +21,13 @@ const SideBar = ({ collapsed }) => {
   if (isLoggedIn) {
     items.push(
       {
-        label: <Link to="/dashboard">Dashboard</Link>,
-        key: "dashboard",
+        label: <Link to="/statistic">Home</Link>,
+        key: "statistic",
+        icon: <HomeOutlined />,
+      },
+      {
+        label: <Link to="/roster">Roster</Link>,
+        key: "roster",
         icon: <UnorderedListOutlined />,
       },
       {
