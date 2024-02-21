@@ -2,7 +2,7 @@
 import "./Signup.css";
 
 import React, { useState } from "react";
-import { Form, Input, Button, Select, message } from "antd";
+import { Form, Input, Button, Select, message, Divider } from "antd";
 import { Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +42,7 @@ const Signup = () => {
 
       if (response.ok) {
         // Registration successful, navigate to login page
-        const data = await response.json();
+        // const data = await response.json();
 
         message.success("Registration successful. Redirecting to login...");
         
@@ -98,37 +98,6 @@ const Signup = () => {
           />
         </Form.Item>
 
-        {/* <Form.Item
-          name="firstName"
-          label="First Name"
-          rules={[{ required: true, message: "Please input your first name!" }]}
-          hasFeedback
-          validateDebounce={1000}
-        >
-          <Input
-            placeholder="Enter your first name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="bg-white input-active border-radius-0 border-active"
-            bordered={false}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="lastName"
-          label="Last Name"
-          rules={[{ required: true, message: "Please input your last name!" }]}
-          hasFeedback
-          validateDebounce={1000}
-        >
-          <Input
-            placeholder="Enter your last name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            className="bg-white input-active border-radius-0 border-active"
-            bordered={false}
-          />
-        </Form.Item> */}
 
         <Form.Item
           name="email"
@@ -183,6 +152,7 @@ const Signup = () => {
           </Button>
         </Form.Item>
       </Form>
+      <Divider />
     </div>
   );
 };

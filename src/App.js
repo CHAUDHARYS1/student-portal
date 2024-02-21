@@ -18,7 +18,6 @@ import CoursesList from "./components/Course/CoursesList";
 import CourseDetails from "./components/Course/CourseDetails";
 import LogOutSuccessPage from "./pages/LogoutSuccessPage";
 import ProtectedRoute from './ProtectedRoute';
-import Upcoming from "./pages/UpcomingPage";
 import UserProfile from "./components/User/userProfile";
 import UserActivityMonitor from "./components/User/userActivityTracker";
 import Logout from "./components/Login/Logout";
@@ -80,7 +79,6 @@ const App = () => {
                 <Route exact path="/courses" element={<ProtectedRoute><CoursesList /></ProtectedRoute>} />
                 <Route path="/courses/:id" element={<ProtectedRoute><CourseDetails /></ProtectedRoute>} />
                 <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                <Route path="/upcoming" element={<ProtectedRoute><Upcoming /></ProtectedRoute>} />
                 <Route path="/userprofile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
                 <Route
                   path="/"
@@ -98,8 +96,11 @@ const App = () => {
               </Routes>
               {/* {isLoggedIn && <FloatingGroup />} */}
               {isLoggedIn && <UserActivityMonitor />}
+
               <AppFooter />
+              
             </Layout>
+
           </Router>
         </AuthContext.Provider>
       </Layout>

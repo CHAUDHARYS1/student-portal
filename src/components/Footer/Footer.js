@@ -9,8 +9,8 @@ const AppFooter = () => {
   return (
     <Footer id="footer" style={{ textAlign: "center" }}>
       Portal ©2024 Created by{" "}
-      <Tooltip title="https://github.com">
-        <Link href="https://github.com" target="_blank" style={{color:"white", textDecoration:"underline"}}>
+      <Tooltip title="Github">
+        <Link href="https://github.com/CHAUDHARYS1" target="_blank" style={{color:"white", textDecoration:"underline"}}>
           Shital Chaudhary
         </Link>
       </Tooltip>

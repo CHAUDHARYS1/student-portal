@@ -7,7 +7,6 @@ import AuthContext from "../../authContext";
 import {
   ApartmentOutlined,
   UnorderedListOutlined,
-  ClockCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons"; // Import the icons
 
@@ -21,21 +20,16 @@ const SideBar = ({ collapsed }) => {
   if (isLoggedIn) {
     items.push(
       {
-        label: <Link to="/courses">Courses</Link>,
-        key: "courses",
-        icon: <ApartmentOutlined />,
-      },
-      {
         label: <Link to="/dashboard">Dashboard</Link>,
         key: "dashboard",
         icon: <UnorderedListOutlined />,
       },
-    
       {
-        label: <Link to="/upcoming">Upcoming Features</Link>,
-        key: "upcoming",
-        icon: <ClockCircleOutlined />,
-      }, 
+        label: <Link to="/courses">Courses</Link>,
+        key: "courses",
+        icon: <ApartmentOutlined />,
+      },
+
       {
         label: <Link to="/userprofile">User Profile</Link>,
         key: "userprofile",
@@ -62,8 +56,6 @@ const SideBar = ({ collapsed }) => {
           items={items}
           className="main-menu"
         />
-
-       
       </Sider>
     </>
   );

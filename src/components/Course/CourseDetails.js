@@ -85,7 +85,7 @@ const CourseDetails = ( ) => {
                 }}
               />
               </Col>
-            <Col span={8}>
+            <Col span={6}>
               <StudentRosterList course={course} />
 
               {/* Add AssignStudent component below  */}
@@ -97,7 +97,7 @@ const CourseDetails = ( ) => {
                 }}
               />
             </Col>
-            <Col span={8}>
+            <Col span={10}>
               <CourseScheduleAndResources course={course} />
             </Col>
           </Row>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
 
@@ -6,8 +6,9 @@ const UserActivityMonitor = () => {
   const navigate = useNavigate();
   const timeoutId = useRef();
 
-  function setTokenTimeout() {
-    // If a timeout has already been set, clear it
+
+  const setTokenTimeout = useCallback(() => {
+  // If a timeout has already been set, clear it
     if (timeoutId.current) {
       clearTimeout(timeoutId.current);
     }
@@ -31,7 +32,8 @@ const UserActivityMonitor = () => {
             clearInterval(countdownIntervalId);
             clearTimeout(autoLogoutTimeOutId);
             localStorage.removeItem("token");
-            navigate("/login");
+            navigate("/logout-success");
+            window.location.reload(); 
           },
           onCancel() {
             clearInterval(countdownIntervalId);
@@ -55,12 +57,13 @@ const UserActivityMonitor = () => {
             open: false,
           });
           localStorage.removeItem("token");
-          navigate("/login");
+          navigate("/logout-success");
+          window.location.reload(); 
         }, 2 * 60 * 1000); // 2 minutes in milliseconds
       }
     }, 15 * 60 * 1000); // 15 minutes in milliseconds
-  }
-
+  }, [navigate]);
+  
   // Throttle function
   function throttle(func, delay) {
     let lastFunc;
@@ -89,13 +92,13 @@ const UserActivityMonitor = () => {
 
     // Reset the timeout whenever the user moves the mouse
     const throttledSetTokenTimeout = throttle(setTokenTimeout, 1000);
-    window.addEventListener("mousemove", setTokenTimeout);
+    window.addEventListener("mousemove", throttledSetTokenTimeout);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      window.removeEventListener("mousemove", setTokenTimeout);
+      window.removeEventListener("mousemove", throttledSetTokenTimeout);
     };
-  }, [navigate]); // Empty array means this effect runs only on mount and unmount
+  }, [setTokenTimeout]); // Empty array means this effect runs only on mount and unmount
 
   return null;
 };
