@@ -1,7 +1,12 @@
-import { CloseOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
 
-const RemoveStudentButton = ({ courseId, studentId, onRemove }) => {
+const RemoveStudentButton = ({
+  courseId,
+  studentId,
+  onRemove,
+  showRemoveButton,
+}) => {
   const removeStudent = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -37,8 +42,12 @@ const RemoveStudentButton = ({ courseId, studentId, onRemove }) => {
       okText="Yes"
       cancelText="No"
     >
-              <Button className="btn-secondary" size="small"><CloseOutlined></CloseOutlined></Button>
-
+      <Button
+        className={`btn-primary border-0 ${showRemoveButton ? "shake" : ""}`}
+        size="small"
+      >
+        <DeleteOutlined></DeleteOutlined>
+      </Button>
     </Popconfirm>
   );
 };

@@ -312,3 +312,19 @@ Quinary: #191919
 .text-right {
   text-align: right;
 }
+.bg-transparent {
+  background: transparent;
+} 
+
+
+@keyframes shake {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  25% { transform: translate(-2px, 0px) rotate(-3deg); }
+  50% { transform: translate(0px, 0px) rotate(0deg); }
+  75% { transform: translate(2px, 0px) rotate(3deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+
+.shake {
+  animation: shake 0.2s linear infinite;
+}
