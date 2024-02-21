@@ -45,8 +45,8 @@ const RemoveStudentButton = ({
       <Button
         className={`btn-primary border-0 ${showRemoveButton ? "shake" : ""}`}
         size="small"
+        icon={<DeleteOutlined />}
       >
-        <DeleteOutlined></DeleteOutlined>
       </Button>
     </Popconfirm>
   );

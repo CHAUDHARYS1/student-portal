@@ -7,14 +7,17 @@ import CourseDescription from "./CourseDescription";
 import CourseScheduleAndResources from "./CourseScheduleAndResources";
 import AssignTeacher from "./AssignTeacher";
 import AssignStudent from "./AssignStudent";
-import { Row, Col, Spin, Typography, Layout, Breadcrumb, } from "antd";
+import { Row, Col, Spin, Typography, Layout, Breadcrumb, Button } from "antd";
+import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
 const { Text } = Typography;
 
-const CourseDetails = ( ) => {
+const CourseDetails = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
+  const [showAssignTeacher, setShowAssignTeacher] = useState(false);
+  const [showAssignStudent, setShowAssignStudent] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -25,11 +28,14 @@ const CourseDetails = ( ) => {
     const fetchCourseDetails = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:5000/api/courses/${id}`,{
-          headers: {
-            "Authorization": `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `http://localhost:5000/api/courses/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -48,7 +54,6 @@ const CourseDetails = ( ) => {
   if (!course) {
     return <Spin />;
   }
-  
 
   return (
     <Content className="content">
@@ -62,7 +67,7 @@ const CourseDetails = ( ) => {
         <div style={{ padding: "20px" }}>
           <CourseDescription course={course} />
         </div>
-        
+
         <div style={{ padding: "20px" }}>
           <h2>ROSTER</h2>
           <Text type="secondary">
@@ -75,27 +80,43 @@ const CourseDetails = ( ) => {
           >
             <Col span={8}>
               <TeacherRosterList course={course} />
-
-              {/* Add AssignTeacher component below  */}
-              <AssignTeacher
-                courseId={course._id}
-                onTeacherAssigned={(teacher) => {
-                  console.log('Assigned teacher:', teacher);
-                  // Add your own code to handle the assigned teacher
-                }}
-              />
-              </Col>
+              <Button
+                className="btn-secondary mt-1"
+                icon={showAssignTeacher ? <CloseOutlined /> : <PlusOutlined />}
+                size="small"
+                onClick={() => setShowAssignTeacher(!showAssignTeacher)}
+              >
+                {showAssignTeacher ? "Cancel" : "Assign Instructor"}
+              </Button>
+              {showAssignTeacher && (
+                <AssignTeacher
+                  courseId={course._id}
+                  onTeacherAssigned={(teacher) => {
+                    console.log("Assigned Instructor:", teacher);
+                    // Add your own code to handle the assigned teacher
+                  }}
+                />
+              )}
+            </Col>
             <Col span={6}>
               <StudentRosterList course={course} />
-
-              {/* Add AssignStudent component below  */}
-              <AssignStudent
-                courseId={course._id}
-                onStudentAssigned={(student) => {
-                  console.log('Assigned student:', student);
-                  // Add your own code to handle the assigned student
-                }}
-              />
+              <Button
+                className="btn-secondary mt-1"
+                icon={showAssignStudent ? <CloseOutlined /> : <PlusOutlined />}
+                size="small"
+                onClick={() => setShowAssignStudent(!showAssignStudent)}
+              >
+                {showAssignTeacher ? "Cancel" : "Assign Student"}
+              </Button>
+              {showAssignStudent && (
+                <AssignStudent
+                  courseId={course._id}
+                  onStudentAssigned={(student) => {
+                    console.log("Assigned student:", student);
+                    // Add your own code to handle the assigned student
+                  }}
+                />
+              )}
             </Col>
             <Col span={10}>
               <CourseScheduleAndResources course={course} />
@@ -108,4 +129,3 @@ const CourseDetails = ( ) => {
 };
 
 export default CourseDetails;
-            

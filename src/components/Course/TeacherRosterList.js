@@ -38,7 +38,7 @@ const TeacherRosterList = ({ course }) => {
             <Button
               onClick={() => setShowRemoveButton(!showRemoveButton)}
               size="small"
-              className="bg-transparent mr-1"
+              className="bg-transparent"
               style={{ float: "right" }}
             >
               {showRemoveButton ? <CloseOutlined /> : <EditOutlined />}
