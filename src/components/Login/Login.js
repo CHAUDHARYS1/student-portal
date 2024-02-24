@@ -43,7 +43,7 @@ const Login = () => {
       localStorage.setItem("userId", data.userId);
       message.success(data.message || "Login successful. Redirecting...");
       // Redirect the user to the home/dashboarrd page
-      navigate("/dashboard");
+      navigate("/statistic");
     } else {
       const data = await response.json();
       console.log("Login failed:", data);

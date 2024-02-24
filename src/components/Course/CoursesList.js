@@ -4,7 +4,6 @@ import {
   Row,
   Col,
   Layout,
-  Breadcrumb,
   Button,
   Modal,
   Form,
@@ -19,7 +18,7 @@ import { PlusCircleFilled } from "@ant-design/icons";
 
 const { Content } = Layout;
 const { Option } = Select;
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 const CoursesList = () => {
   const [courses, setCourses] = useState([]);
@@ -87,8 +86,9 @@ const CoursesList = () => {
 
   return (
     <Content className="content">
+       <Title level={4}>Courses</Title>
+        <Text type="secondary">List of all courses</Text>
       <div className="mt-2">
-        <Breadcrumb items={[{ title: "Courses" }]} />
         <Row gutter={[20, 20]} className="mt-2">
           {courses.map((course) => (
             <Col key={course._id}>

@@ -59,6 +59,7 @@ const CourseDetails = () => {
     <Content className="content">
       <div className="mt-2">
         <Breadcrumb
+            separator=">"
           items={[
             { title: <a href="/courses">Courses</a> },
             { title: course.courseName },
