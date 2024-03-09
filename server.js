@@ -18,7 +18,7 @@ const validateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token) return res.status(401).json({ error: 'Unauthorized' });
+  if (!token) return res.status(401).json({ error: "Unauthorized" });
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
     req.user = user;
@@ -54,7 +54,6 @@ app.use("/api/attendances", validateToken, attendanceRoutes);
 app.use("/api/courses", validateToken, courseRoutes);
 app.use("/api/stats", validateToken, statsRoutes);
 
-
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -66,12 +65,13 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-// Serve the React app
-// app.use(express.static(path.join(__dirname, 'build')));
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-// });
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
 
 app.get("/api/user", (req, res) => {
   res.json(userData);
@@ -80,12 +80,12 @@ app.get("/api/user", (req, res) => {
 app.use((req, res, next) => {
   const oldSend = res.send;
 
-  res.send = function(data) {
+  res.send = function (data) {
     console.log(`Response status: ${res.statusCode}`);
     console.log(`Response body: ${data}`);
     res.send = oldSend;
     res.send(data);
-  }
+  };
 
   next();
 });
