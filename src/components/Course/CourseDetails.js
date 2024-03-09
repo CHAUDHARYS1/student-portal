@@ -29,7 +29,7 @@ const CourseDetails = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:5000/api/courses/${id}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/courses/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

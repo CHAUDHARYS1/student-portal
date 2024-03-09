@@ -49,7 +49,7 @@ const CourseCard = ({ course }) => {
       const token = localStorage.getItem("token");
       // Make the actual API call to delete the course
       const response = await fetch(
-        `http://localhost:5000/api/courses/${course._id}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/courses/${course._id}`,
         {
           method: "DELETE",
           headers: {
@@ -106,7 +106,7 @@ const CourseCard = ({ course }) => {
 
       // Make the actual API call to update the course details
       const response = await fetch(
-        `http://localhost:5000/api/courses/${course._id}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/courses/${course._id}`,
         {
           method: "PUT",
           body: JSON.stringify(values),

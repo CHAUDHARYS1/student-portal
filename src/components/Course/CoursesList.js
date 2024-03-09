@@ -37,7 +37,7 @@ const CoursesList = () => {
     const fetchCourses = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/courses", {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/courses`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -59,7 +59,7 @@ const CoursesList = () => {
 
   const handleOk = async () => {
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:5000/api/courses", {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/courses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

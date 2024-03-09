@@ -44,7 +44,7 @@ const TeacherTable = () => {
     const fetchTeachers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/teachers", {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/teachers`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -89,7 +89,7 @@ const TeacherTable = () => {
       const token = localStorage.getItem("token");
       // Send a request to update the teacher data
       const response = await fetch(
-        `http://localhost:5000/api/teachers/${editedTeacher.key}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/teachers/${editedTeacher.key}`,
         {
           method: "PUT",
           headers: {
@@ -146,7 +146,7 @@ const TeacherTable = () => {
       }
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/teachers/${teacher.key}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/teachers/${teacher.key}`,
         {
           method: "DELETE",
           headers: {
@@ -302,7 +302,7 @@ const TeacherTable = () => {
       const formValues = formRef.current?.getFieldsValue();
       const token = localStorage.getItem("token");
       // Send a request to create a new Teacher
-      const response = await fetch("http://localhost:5000/api/teachers", {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/teachers`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

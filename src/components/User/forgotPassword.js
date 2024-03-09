@@ -24,7 +24,7 @@ const ForgetPassword = () => {
 
       // Verify the current password
       const verifyResponse = await fetch(
-        "http://localhost:5000/api/users/verify-password",
+        `${process.env.REACT_APP_SERVER_URL}/api/users/verify-password`,
         {
           method: "POST",
           headers: {
@@ -48,7 +48,7 @@ const ForgetPassword = () => {
 
       // Change the password
       const changeResponse = await fetch(
-        "http://localhost:5000/api/users/change-password",
+        `${process.env.REACT_APP_SERVER_URL}/api/users/change-password`,
         {
           method: "POST",
           headers: {

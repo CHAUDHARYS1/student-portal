@@ -34,7 +34,7 @@ const StudentTable = () => {
     const fetchStudents = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/students", {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/students`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -75,7 +75,7 @@ const StudentTable = () => {
       const token = localStorage.getItem("token");
       // Send a request to update the student data
       const response = await fetch(
-        `http://localhost:5000/api/students/${editedStudent.key}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/students/${editedStudent.key}`,
         {
           method: "PUT",
           headers: {
@@ -129,7 +129,7 @@ const StudentTable = () => {
       }
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/students/${student.key}`,
+        `${process.env.REACT_APP_SERVER_URL}/api/students/${student.key}`,
         {
           method: "DELETE",
           headers: {
@@ -250,7 +250,7 @@ const StudentTable = () => {
 
       const token = localStorage.getItem("token");
       // Send a request to create a new student
-      const response = await fetch("http://localhost:5000/api/students", {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

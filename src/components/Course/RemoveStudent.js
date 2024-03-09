@@ -11,7 +11,7 @@ const RemoveStudentButton = ({
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/courses/${courseId}/remove-student`,
+        `${process.env.REACT_APP_SERVER_URL}/courses/${courseId}/remove-student`,
         {
           method: "DELETE",
           headers: {

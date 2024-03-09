@@ -36,7 +36,7 @@ const UserProfile = () => {
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/users/${userId}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/users/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ const UserProfile = () => {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/users/${user._id}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/users/${user._id}`,
           {
             method: "PUT",
             headers: {

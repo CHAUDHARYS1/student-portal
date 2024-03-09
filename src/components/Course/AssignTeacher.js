@@ -14,7 +14,7 @@ const AssignTeacher = ({ courseId, onTeacherAssigned }) => {
     const fetchTeachers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`http://localhost:5000/api/teachers`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/teachers`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -41,7 +41,7 @@ const AssignTeacher = ({ courseId, onTeacherAssigned }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/courses/${courseId}/assign-teacher`,
+        `${process.env.REACT_APP_SERVER_URL}/api/courses/${courseId}/assign-teacher`,
         {
           method: "POST",
           headers: {
