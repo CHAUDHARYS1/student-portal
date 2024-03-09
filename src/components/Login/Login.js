@@ -20,7 +20,7 @@ const Login = () => {
     setLoading(true);
     console.log("Login form values:", values);
 
-    const response = await fetch("http://localhost:5000/api/users/login", {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
