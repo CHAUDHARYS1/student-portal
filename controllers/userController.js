@@ -241,6 +241,7 @@ exports.changePassword = async (req, res) => {
 
     res.json({ message: 'Password changed successfully' });
   } catch (error) {
+    
     res.status(500).json({ message: 'An error occurred' });
   }
 };

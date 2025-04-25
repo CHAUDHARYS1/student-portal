@@ -49,6 +49,10 @@ cd client
 npm start
 
 # Using concurrently, you can use one command to run react client and express server.
+
+#Insert the following line in package.json
+# "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+
 npm start
 ```
 

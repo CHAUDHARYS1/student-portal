@@ -339,7 +339,7 @@ const CourseDescription = ({ course }) => {
       setTimeout(async () => {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:5000/api/courses/${course._id}`,
+          `${process.env.REACT_APP_SERVER_URL}/api/courses/${course._id}`,
           {
             // And this line
             method: "PUT",
